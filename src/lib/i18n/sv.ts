@@ -135,6 +135,14 @@ export const t = {
 	profile: {
 		title: 'Profil',
 		medications: 'Läkemedel',
+		appearanceHeading: 'Utseende',
+		theme: 'Tema',
+		themeOptions: {
+			light: 'Ljust',
+			dark: 'Mörkt',
+			system: 'System'
+		},
+		themeSystemDescription: 'Följer telefonens inställning',
 		dataHeading: 'Data',
 		accountHeading: 'Konto',
 		resetAll: 'Återställ alla statusar',
@@ -154,7 +162,8 @@ export const t = {
 		deleteFailed: 'Kunde inte ta bort. Försök igen.',
 		updateFailed: 'Kunde inte uppdatera status.',
 		resetFailed: 'Kunde inte återställa. Försök igen.',
-		logoutFailed: 'Kunde inte logga ut. Försök igen.'
+		logoutFailed: 'Kunde inte logga ut. Försök igen.',
+		settingsFailed: 'Kunde inte spara inställningen. Försök igen.'
 	}
 } as const;
 

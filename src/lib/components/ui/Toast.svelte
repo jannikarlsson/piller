@@ -56,6 +56,6 @@
 	}
 
 	.toast__action:active {
-		background: var(--color-pressed-on-dark);
+		background: var(--color-toast-pressed);
 	}
 </style>

@@ -45,7 +45,7 @@
 	}
 
 	.card--accent {
-		border: 1.5px solid var(--color-accent);
+		border: 1.5px solid var(--color-list-border);
 	}
 
 	.card--list {

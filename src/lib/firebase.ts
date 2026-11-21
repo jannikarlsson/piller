@@ -299,3 +299,35 @@ export function nextTileState(current: TileState): TileState {
 	if (current === 'available') return 'out';
 	return 'neutral';
 }
+
+// ─── User settings ────────────────────────────────────────────────────────────
+
+export type ThemeSetting = 'system' | 'light' | 'dark';
+
+export interface UserSettings {
+	/** `system` follows the phone's light/dark setting. */
+	theme: ThemeSetting;
+}
+
+/** Used for anything not saved yet, so new settings need no migration. */
+export const DEFAULT_SETTINGS: UserSettings = {
+	theme: 'system'
+};
+
+function settingsRef(userId: string) {
+	return doc(db, 'users', userId, 'settings', 'preferences');
+}
+
+export function subscribeSettings(
+	userId: string,
+	callback: (settings: UserSettings) => void
+): () => void {
+	return onSnapshot(settingsRef(userId), (snap) => {
+		callback({ ...DEFAULT_SETTINGS, ...(snap.data() as Partial<UserSettings> | undefined) });
+	});
+}
+
+/** Save only the changed settings; other saved settings are kept. */
+export async function saveSettings(userId: string, changes: Partial<UserSettings>): Promise<void> {
+	await setDoc(settingsRef(userId), { ...changes, updatedAt: serverTimestamp() }, { merge: true });
+}

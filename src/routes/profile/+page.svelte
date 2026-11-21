@@ -2,8 +2,9 @@
 	import { t } from '$lib/i18n/sv';
 	import { userStore } from '$lib/stores/auth';
 	import { medicationsStore } from '$lib/stores/medications';
-	import { showToast } from '$lib/stores/toast';
-	import { resetAllStates, signOutUser } from '$lib/firebase';
+	import { showToast, withErrorToast } from '$lib/stores/toast';
+	import { settingsStore, updateSettings } from '$lib/stores/settings';
+	import { resetAllStates, signOutUser, type ThemeSetting } from '$lib/firebase';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
@@ -11,22 +12,39 @@
 	import ListItem from '$lib/components/ui/ListItem.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
 	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
+	import ChoiceDialog from '$lib/components/dialogs/ChoiceDialog.svelte';
 
 	const user = $derived($userStore);
 
-	/** Which confirmation drawer is open, if any. */
-	let confirming = $state<'resetAll' | 'logout' | null>(null);
+	/** Which drawer is open, if any. */
+	let openDrawer = $state<'theme' | 'resetAll' | 'logout' | null>(null);
+
+	const themeOptions = [
+		{ value: 'light' as const, label: t.profile.themeOptions.light },
+		{ value: 'dark' as const, label: t.profile.themeOptions.dark },
+		{
+			value: 'system' as const,
+			label: t.profile.themeOptions.system,
+			description: t.profile.themeSystemDescription
+		}
+	];
+
+	/** The new theme applies immediately; the drawer closes so the user sees it. */
+	function handleTheme(theme: ThemeSetting) {
+		openDrawer = null;
+		withErrorToast(() => updateSettings({ theme }), t.errors.settingsFailed);
+	}
 
 	async function handleResetAll() {
 		if (!user) return;
 		await resetAllStates(user.uid);
-		confirming = null;
+		openDrawer = null;
 		showToast(t.profile.resetAllSuccess);
 	}
 
 	async function handleLogout() {
 		await signOutUser();
-		confirming = null;
+		openDrawer = null;
 	}
 </script>
 
@@ -53,39 +71,58 @@
 		/>
 	</Card>
 
+	<Section title={t.profile.appearanceHeading}>
+		<Card list>
+			<ListItem
+				label={t.profile.theme}
+				value={t.profile.themeOptions[$settingsStore.theme]}
+				onclick={() => (openDrawer = 'theme')}
+			/>
+		</Card>
+	</Section>
+
 	<Section title={t.profile.dataHeading}>
 		<Card list>
-			<ListItem label={t.profile.resetAll} onclick={() => (confirming = 'resetAll')} />
+			<ListItem label={t.profile.resetAll} onclick={() => (openDrawer = 'resetAll')} />
 		</Card>
 	</Section>
 
 	<Section title={t.profile.accountHeading}>
 		<Card list>
-			<ListItem label={t.profile.logout} tone="danger" onclick={() => (confirming = 'logout')} />
+			<ListItem label={t.profile.logout} tone="danger" onclick={() => (openDrawer = 'logout')} />
 		</Card>
 	</Section>
 </Page>
 
-{#if confirming === 'resetAll'}
-	<BottomSheet title={t.profile.resetAllTitle} onclose={() => (confirming = null)}>
+{#if openDrawer === 'theme'}
+	<BottomSheet title={t.profile.theme} onclose={() => (openDrawer = null)}>
+		<ChoiceDialog
+			legend={t.profile.theme}
+			options={themeOptions}
+			selected={$settingsStore.theme}
+			onselect={handleTheme}
+		/>
+	</BottomSheet>
+{:else if openDrawer === 'resetAll'}
+	<BottomSheet title={t.profile.resetAllTitle} onclose={() => (openDrawer = null)}>
 		<ConfirmDialog
 			message={t.profile.resetAllConfirm}
 			confirmLabel={t.profile.resetAllConfirmButton}
 			tone="danger"
 			errorMessage={t.errors.resetFailed}
 			onconfirm={handleResetAll}
-			oncancel={() => (confirming = null)}
+			oncancel={() => (openDrawer = null)}
 		/>
 	</BottomSheet>
-{:else if confirming === 'logout'}
-	<BottomSheet title={t.profile.logoutTitle} onclose={() => (confirming = null)}>
+{:else if openDrawer === 'logout'}
+	<BottomSheet title={t.profile.logoutTitle} onclose={() => (openDrawer = null)}>
 		<ConfirmDialog
 			message={t.profile.logoutConfirm}
 			confirmLabel={t.profile.logoutConfirmButton}
 			tone="danger"
 			errorMessage={t.errors.logoutFailed}
 			onconfirm={handleLogout}
-			oncancel={() => (confirming = null)}
+			oncancel={() => (openDrawer = null)}
 		/>
 	</BottomSheet>
 {/if}

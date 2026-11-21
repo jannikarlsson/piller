@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import { initAuth, userStore, authStateStore } from '$lib/stores/auth';
 	import { startMedicationsSync, stopMedicationsSync } from '$lib/stores/medications';
+	import { settingsStore, startSettingsSync, stopSettingsSync } from '$lib/stores/settings';
 	import BottomNav from '$lib/components/layout/BottomNav.svelte';
 	import Toast from '$lib/components/ui/Toast.svelte';
 	import { toastMessage } from '$lib/stores/toast';
@@ -31,9 +32,34 @@
 		const user = $userStore;
 		if (user) {
 			startMedicationsSync(user.uid);
+			startSettingsSync(user.uid);
 		} else {
 			stopMedicationsSync();
+			stopSettingsSync();
 		}
+	});
+
+	// Follow the phone's light/dark setting, live, for the "system" theme
+	let systemPrefersDark = $state(false);
+	onMount(() => {
+		const query = window.matchMedia('(prefers-color-scheme: dark)');
+		systemPrefersDark = query.matches;
+		const onChange = (e: MediaQueryListEvent) => (systemPrefersDark = e.matches);
+		query.addEventListener('change', onChange);
+		return () => query.removeEventListener('change', onChange);
+	});
+
+	const theme = $derived(
+		$settingsStore.theme === 'system' ? (systemPrefersDark ? 'dark' : 'light') : $settingsStore.theme
+	);
+
+	// Apply the theme to the page, and match the phone's status bar to the background
+	$effect(() => {
+		document.documentElement.dataset.theme = theme;
+		const background = getComputedStyle(document.documentElement)
+			.getPropertyValue('--color-bg')
+			.trim();
+		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', background);
 	});
 
 	const showNav = $derived(
@@ -57,7 +83,9 @@
 </div>
 
 <style>
+	/* Light theme (default). Dark values below override only the colours. */
 	:global(:root) {
+		color-scheme: light;
 		--color-bg: #eef5f1;
 		--color-surface: #ffffff;
 		--color-text: #15181c;
@@ -74,8 +102,10 @@
 		--color-accent: #1d6b57;
 		--color-accent-hover: #14503f;
 		--color-accent-ring: rgba(29, 107, 87, 0.15);
-		/* Pressed state for buttons on a dark background (the toast) */
-		--color-pressed-on-dark: rgba(255, 255, 255, 0.12);
+		/* Pressed state for the button on the toast (which is dark in light mode) */
+		--color-toast-pressed: rgba(255, 255, 255, 0.12);
+		/* Border around the main lists */
+		--color-list-border: var(--color-accent);
 		--color-accent-soft: #e3eee9;
 		--color-accent-tint: #cfe3da;
 		/* Text and icons on accent, danger and dark backgrounds */
@@ -142,6 +172,45 @@
 
 		/* Motion */
 		--transition-fast: 0.12s ease;
+	}
+
+	/*
+	 * Dark theme: neutral charcoal with a muted sage accent. Green only marks what is
+	 * active or chosen, so the main lists get a neutral border here.
+	 */
+	:global(:root[data-theme='dark']) {
+		color-scheme: dark;
+		--color-bg: #141516;
+		--color-surface: #1c1e20;
+		--color-text: #ececea;
+		--color-text-secondary: #c9cac7;
+		--color-text-muted: #a3a6a3;
+		--color-text-subtle: #8c8f8c;
+		--color-placeholder: #7a7d7a;
+		--color-border: #3a3e42;
+		--color-border-light: #2a2d30;
+		--color-divider: #26292c;
+		--color-handle: #3a3e42;
+		--color-checkbox: #6f7370;
+
+		--color-accent: #7fa796;
+		--color-accent-hover: #93b5a6;
+		--color-accent-ring: rgba(127, 167, 150, 0.3);
+		--color-toast-pressed: rgba(0, 0, 0, 0.08);
+		--color-list-border: var(--color-border-light);
+		--color-accent-soft: #232b27;
+		--color-accent-tint: #2f3d36;
+		--color-on-accent: #111312;
+
+		--color-ok: #8dbfa6;
+		--color-ok-bg: #1e2a24;
+		--color-ok-border: #3a5446;
+		--color-danger: #e49a9a;
+		--color-danger-bg: #2e2021;
+		--color-danger-border: #5e3a3b;
+
+		--shadow-raised: 0 2px 8px rgba(0, 0, 0, 0.5);
+		--backdrop: rgba(0, 0, 0, 0.6);
 	}
 
 	:global(*, *::before, *::after) {
