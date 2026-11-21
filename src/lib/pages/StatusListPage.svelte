@@ -60,7 +60,7 @@
 	}
 </script>
 
-<Page title={text.title} subtitle={text.subtitle} {loading}>
+<Page title={text.title} {loading}>
 	{#snippet actions()}
 		{#if medications.length > 0}
 			<Button

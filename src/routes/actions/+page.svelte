@@ -68,7 +68,7 @@
 	}
 </script>
 
-<Page title={t.actions.title} subtitle={t.actions.subtitle} {loading}>
+<Page title={t.actions.title} {loading}>
 	{#if allGood}
 		<EmptyState
 			icon="check"

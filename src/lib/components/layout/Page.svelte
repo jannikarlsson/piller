@@ -9,7 +9,6 @@
 
 	interface Props {
 		title: string;
-		subtitle?: string;
 		actions?: Snippet;
 		back?: { href: string; label: string };
 		loading?: boolean;
@@ -19,7 +18,6 @@
 
 	let {
 		title,
-		subtitle,
 		actions,
 		back,
 		loading = false,
@@ -29,7 +27,7 @@
 </script>
 
 <div class="page" class:page--floating-button={floatingButton}>
-	<PageHeader {title} {subtitle} {actions} {back} />
+	<PageHeader {title} {actions} {back} />
 	<div class="page__body">
 		{#if loading}
 			<p class="page__loading">{t.common.loading}</p>

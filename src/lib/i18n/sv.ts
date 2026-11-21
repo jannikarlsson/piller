@@ -33,22 +33,19 @@ export const sv = {
 	},
 
 	inventory: {
-		title: 'Skåpet',
-		subtitle: 'Vad finns hemma?',
+		title: 'I mitt medicinskåp',
 		resetButton: 'Återställ',
 		resetLabel: 'Återställ statusar i skåpet'
 	},
 
 	prescription: {
-		title: 'Recept',
-		subtitle: 'Aktiva recept',
+		title: 'Mina recept',
 		resetButton: 'Återställ',
 		resetLabel: 'Återställ receptstatusar'
 	},
 
 	picking: {
-		title: 'Plocka',
-		subtitle: 'Fyll dosetten',
+		title: 'Fyll dosetten',
 		progress: (done: number, total: number) => `${done} av ${total} plockade`,
 		emptyNoneInOrganizer: 'Inga läkemedel ingår i dosetten. Du kan ändra det under Läkemedel.',
 		emptyNoneInOrganizerAction: 'Gå till Läkemedel',
@@ -58,8 +55,7 @@ export const sv = {
 	},
 
 	actions: {
-		title: 'Att göra',
-		subtitle: 'Vad behöver fixas?',
+		title: 'Vad behöver fixas?',
 		buyHeading: 'Köp',
 		prescriptionHeading: 'Skaffa recept',
 		allGood: 'Allt är i ordning',
@@ -102,7 +98,6 @@ export const sv = {
 
 	medications: {
 		title: 'Läkemedel',
-		subtitle: 'Hantera din lista',
 		editTitle: 'Redigera läkemedel',
 		addTitle: 'Nytt läkemedel',
 		nameLabel: 'Namn',

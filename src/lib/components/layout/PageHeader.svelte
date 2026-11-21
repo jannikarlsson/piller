@@ -5,11 +5,10 @@
 
 	interface Props {
 		title: string;
-		subtitle?: string;
 		actions?: Snippet;
 		back?: { href: string; label: string };
 	}
-	let { title, subtitle, actions, back }: Props = $props();
+	let { title, actions, back }: Props = $props();
 </script>
 
 {#if back}
@@ -23,9 +22,6 @@
 <header class="page-header" class:page-header--sub={back}>
 	<div class="page-header__text">
 		<h1 class="page-header__title">{title}</h1>
-		{#if subtitle}
-			<p class="page-header__subtitle">{subtitle}</p>
-		{/if}
 	</div>
 	{#if actions}
 		<div class="page-header__actions">{@render actions()}</div>
@@ -54,11 +50,5 @@
 		font-weight: 600;
 		line-height: var(--leading-tight);
 		letter-spacing: -0.01em;
-	}
-
-	.page-header__subtitle {
-		margin-top: var(--space-1);
-		font-size: var(--text-md);
-		color: var(--color-text-muted);
 	}
 </style>

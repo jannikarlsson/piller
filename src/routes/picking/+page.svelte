@@ -25,7 +25,7 @@
 	}
 </script>
 
-<Page title={t.picking.title} subtitle={t.picking.subtitle} {loading}>
+<Page title={t.picking.title} {loading}>
 	{#snippet actions()}
 		{#if medications.length > 0}
 			<Button

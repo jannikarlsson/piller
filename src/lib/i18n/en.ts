@@ -35,22 +35,19 @@ export const en: Translations = {
 	},
 
 	inventory: {
-		title: 'Cabinet',
-		subtitle: 'What do you have at home?',
+		title: 'In my medicine cabinet',
 		resetButton: 'Reset',
 		resetLabel: 'Reset cabinet statuses'
 	},
 
 	prescription: {
-		title: 'Prescriptions',
-		subtitle: 'Active prescriptions',
+		title: 'My prescriptions',
 		resetButton: 'Reset',
 		resetLabel: 'Reset prescription statuses'
 	},
 
 	picking: {
-		title: 'Pill organizer',
-		subtitle: 'Fill your pill organizer',
+		title: 'Fill the pill organizer',
 		progress: (done: number, total: number) => `${done} of ${total} picked`,
 		emptyNoneInOrganizer:
 			'No medications are part of your pill organizer. You can change that under Medications.',
@@ -61,8 +58,7 @@ export const en: Translations = {
 	},
 
 	actions: {
-		title: 'To do',
-		subtitle: 'What needs sorting out?',
+		title: 'What needs sorting out?',
 		buyHeading: 'Buy',
 		prescriptionHeading: 'Get a prescription',
 		allGood: 'All good',
@@ -105,7 +101,6 @@ export const en: Translations = {
 
 	medications: {
 		title: 'Medications',
-		subtitle: 'Manage your list',
 		editTitle: 'Edit medication',
 		addTitle: 'New medication',
 		nameLabel: 'Name',

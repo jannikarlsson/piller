@@ -52,7 +52,6 @@
 
 <Page
 	title={t.medications.title}
-	subtitle={t.medications.subtitle}
 	back={{ href: '/profile', label: t.nav.profile }}
 	{loading}
 	floatingButton
