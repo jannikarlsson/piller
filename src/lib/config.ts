@@ -1,19 +1,21 @@
-// ─── Firebase configuration ───────────────────────────────────────────────────
-// Replace these values with your own Firebase project config.
-// See SETUP.md for instructions on how to get these values.
-export const firebaseConfig = {
-  apiKey: "AIzaSyCp1UzNDfzcLspBR3eNl_CwxGedVvhjjPA",
-  authDomain: "piller-a4f31.firebaseapp.com",
-  projectId: "piller-a4f31",
-  storageBucket: "piller-a4f31.firebasestorage.app",
-  messagingSenderId: "600030411845",
-  appId: "1:600030411845:web:eec12d154142a0b530772c"
-};
+import {
+	PUBLIC_FIREBASE_API_KEY,
+	PUBLIC_FIREBASE_AUTH_DOMAIN,
+	PUBLIC_FIREBASE_PROJECT_ID,
+	PUBLIC_FIREBASE_STORAGE_BUCKET,
+	PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+	PUBLIC_FIREBASE_APP_ID
+} from '$env/static/public';
 
-// ─── Allowed email addresses ──────────────────────────────────────────────────
-// Only these email addresses are allowed to sign in.
-// Add your own email address(es) here.
-export const ALLOWED_EMAILS: string[] = [
-	'jannikarlsson@gmail.com',
-	'jensjesper@gmail.com'
-];
+/*
+ * Firebase web config, read from .env (see .env.example and SETUP.md). These values are built
+ * into the app and aren't secret: access is controlled by sign-in and firestore.rules.
+ */
+export const firebaseConfig = {
+	apiKey: PUBLIC_FIREBASE_API_KEY,
+	authDomain: PUBLIC_FIREBASE_AUTH_DOMAIN,
+	projectId: PUBLIC_FIREBASE_PROJECT_ID,
+	storageBucket: PUBLIC_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+	appId: PUBLIC_FIREBASE_APP_ID
+};

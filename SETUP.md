@@ -49,27 +49,18 @@ Follow these steps in order. Steps marked **YOU** require manual action in a bro
 4. Register the app with nickname `piller-web`
 5. Copy the `firebaseConfig` object shown
 
-**YOU:** Open `src/lib/config.ts` and replace the placeholder values:
+**YOU:** Copy `.env.example` to `.env` in the project folder and fill in the values from that object:
 
-```ts
-export const firebaseConfig = {
-  apiKey: "AIza...",               // ← paste your values here
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123...:web:abc..."
-};
+```
+PUBLIC_FIREBASE_API_KEY=AIza...
+PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
+PUBLIC_FIREBASE_APP_ID=1:123...:web:abc...
 ```
 
-Also add your email address to the allowlist:
-
-```ts
-export const ALLOWED_EMAILS: string[] = [
-  'jannikarlsson@gmail.com',  // ← your email
-  // add more if needed
-];
-```
+`.env` is not committed. These values aren't secret (they're built into the app), but keeping them out of the repository means anyone can clone it and use their own Firebase project.
 
 ---
 
@@ -92,27 +83,37 @@ firebase login
 
 ---
 
-## 7. Deploy Firestore security rules
+## 7. Allow yourself to sign in
+
+Only people listed in the `allowedUsers` collection can use the app. Add yourself **before** deploying the rules in the next step, or you'll be locked out.
+
+**YOU:** In the Firebase console → **Firestore Database** → **Start collection**:
+
+1. Collection ID: `allowedUsers`
+2. Document ID: your email address in lowercase, e.g. `you@example.com`
+3. Add any field (e.g. `name` = your name) and save
+
+Add one document like this for each person who should have access.
+
+---
+
+## 8. Deploy Firestore security rules
 
 ```bash
 firebase deploy --only firestore:rules
 ```
 
-This locks down the database so users can only access their own data.
+This locks down the database: only people in `allowedUsers` can use it, and each person can only reach their own data.
 
 ---
 
-## 8. Add your icon
+## 9. Icons
 
-**YOU:** Create two PNG files from your icon design:
-- `static/icon-192.png` — 192×192 pixels
-- `static/icon-512.png` — 512×512 pixels
-
-There is a placeholder SVG at `static/icon-placeholder.svg` you can use as a reference for sizing. Until you add real icons, the PWA install prompt will use a default icon.
+The app icon is in `static/`: `icon.svg`, `192.png` and `512.png` (used when installing the app) and `apple-touch-icon.png` (iPhone home screen). Replace them to use your own.
 
 ---
 
-## 9. Test locally
+## 10. Test locally
 
 ```bash
 npm run dev
@@ -122,7 +123,7 @@ Open http://localhost:5173 in your browser. Try logging in with your Google acco
 
 ---
 
-## 10. Build and deploy
+## 11. Build and deploy
 
 ```bash
 npm run build
@@ -149,11 +150,11 @@ This builds the app and deploys it to Firebase Hosting. If you change `firestore
 
 ## Adding more users
 
-Open `src/lib/config.ts` and add email addresses to `ALLOWED_EMAILS`, then redeploy.
+Add a document to the `allowedUsers` collection in the Firebase console, with the person's email address in lowercase as the document ID. It works straight away, with no redeploy. To remove someone, delete their document.
 
 ---
 
 ## Resetting pill states
 
-In the app: go to **Läkemedel** (💊 tab) → tap ⚙️ → **Återställ allt**.
+In the app: go to **Profil** → **Återställ alla statusar**.
 This resets all inventory and prescription states back to neutral, keeping the medication list intact.
