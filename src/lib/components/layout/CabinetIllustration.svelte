@@ -6,7 +6,7 @@
 	class="cabinet"
 	role="img"
 	aria-label={t.login.illustrationLabel}
-	viewBox="0 -18 390 600"
+	viewBox="67 62 256 442"
 	fill="none"
 	stroke="var(--color-accent)"
 	stroke-width="1.75"

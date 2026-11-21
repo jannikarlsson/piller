@@ -72,12 +72,12 @@
 		document.documentElement.lang = getLanguage();
 	});
 
-	// Also matches the phone's status bar to the page background
+	// Also matches the phone's status bar to the background: green on the start screen
+	// (login and start-up), the normal page colour inside the app
 	$effect(() => {
 		document.documentElement.dataset.theme = theme;
-		const background = getComputedStyle(document.documentElement)
-			.getPropertyValue('--color-bg')
-			.trim();
+		const token = showNav ? '--color-bg' : '--color-accent-soft';
+		const background = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
 		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', background);
 	});
 

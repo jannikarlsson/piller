@@ -37,18 +37,21 @@
 		background: var(--color-accent-soft);
 	}
 
+	/* The text sits at the bottom; the illustration fills the space above it */
 	.start__art {
 		flex: 1 1 auto;
-		min-height: 280px;
-		max-height: 600px;
+		min-height: 0;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding-top: env(safe-area-inset-top, 0px);
+		padding: calc(var(--space-8) + env(safe-area-inset-top, 0px)) var(--space-6) 0;
 	}
 
+	/* As tall as the space allows, up to a limit; narrow screens limit it by width instead */
 	.start__art :global(svg) {
-		max-width: 390px;
+		height: 100%;
+		max-height: 560px;
+		max-width: 100%;
 	}
 
 	/* Fades in only if checking sign-in takes a while, so a quick start shows no flash */
