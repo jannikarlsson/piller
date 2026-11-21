@@ -51,7 +51,9 @@
 	);
 	const allGood = $derived(sections.length === 0);
 
-	// Whether a ticked item had been added by hand, so unticking can restore that
+	// Whether a ticked item had been added by hand, so unticking can restore that.
+	// Only read when unticking, never shown, so it doesn't need to be reactive.
+	// eslint-disable-next-line svelte/prefer-svelte-reactivity
 	const addedByHand = new Map<string, boolean>();
 
 	async function handleToggle(kind: StatusKind, med: Medication, checked: boolean) {

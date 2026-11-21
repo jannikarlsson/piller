@@ -1,0 +1,9 @@
+# Generated or installed
+build/
+.svelte-kit/
+node_modules/
+.firebase/
+package-lock.json
+
+# Static files are served as they are
+static/

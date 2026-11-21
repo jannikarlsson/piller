@@ -22,6 +22,8 @@ Settings are saved per user in Firestore and also kept in the browser, so the th
 npm install
 npm run dev      # start the dev server
 npm run check    # type-check
+npm run lint     # check formatting (Prettier) and code (ESLint)
+npm run format   # format all files with Prettier
 ```
 
 ## Deploy

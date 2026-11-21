@@ -8,7 +8,6 @@
 	import { statusOf, type Medication, type StatusKind } from '$lib/models';
 	import Button from '$lib/components/ui/Button.svelte';
 	import ButtonRow from '$lib/components/ui/ButtonRow.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
 	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
 	import RadioGroup from '$lib/components/inputs/RadioGroup.svelte';
 
