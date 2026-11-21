@@ -131,8 +131,6 @@
 		--color-accent-ring: rgba(29, 107, 87, 0.15);
 		/* Pressed state for the button on the toast (which is dark in light mode) */
 		--color-toast-pressed: rgba(255, 255, 255, 0.12);
-		/* Border around the main lists */
-		--color-list-border: var(--color-accent);
 		--color-accent-soft: #e3eee9;
 		--color-accent-tint: #cfe3da;
 		/* Text and icons on accent, danger and dark backgrounds */
@@ -199,8 +197,8 @@
 	}
 
 	/*
-	 * Dark theme: neutral charcoal with a muted sage accent. Green only marks what is
-	 * active or chosen, so the main lists get a neutral border here.
+	 * Dark theme: neutral charcoal with a muted sage accent. As in the light theme,
+	 * green only marks what is active or chosen.
 	 */
 	:global(:root[data-theme='dark']) {
 		color-scheme: dark;
@@ -221,7 +219,6 @@
 		--color-accent-hover: #93b5a6;
 		--color-accent-ring: rgba(127, 167, 150, 0.3);
 		--color-toast-pressed: rgba(0, 0, 0, 0.08);
-		--color-list-border: var(--color-border-light);
 		--color-accent-soft: #232b27;
 		--color-accent-tint: #2f3d36;
 		--color-on-accent: #111312;

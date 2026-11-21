@@ -84,7 +84,7 @@
 		<div class="sections">
 			{#each sections as section (section.kind)}
 				<Section title={t.actions[section.heading]} count={section.remaining}>
-					<Card variant="accent" list as="ul">
+					<Card list as="ul">
 						{#each section.items as med (med.id)}
 							{@const ticked = isDone(section.kind, med)}
 							<li>

@@ -71,7 +71,7 @@
 				{/if}
 			</p>
 
-			<Card variant="accent" list as="ul">
+			<Card list as="ul">
 				{#each medications as med (med.id)}
 					<li>
 						<Checkbox checked={med.picked} onchange={(picked) => toggle(med.id, picked)}>

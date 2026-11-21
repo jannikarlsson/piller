@@ -70,7 +70,7 @@
 	{#if medications.length === 0}
 		<EmptyState icon="pill" message={t.medications.empty} />
 	{:else}
-		<Card variant="accent" list as="ul">
+		<Card list as="ul">
 			{#each medications as med (med.id)}
 				<li class="med-row">
 					<MedicationInfo medication={med} />
