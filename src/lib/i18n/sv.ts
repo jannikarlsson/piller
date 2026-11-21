@@ -69,25 +69,35 @@ export const t = {
 		allGoodSub: 'Ingenting behöver köpas eller förnyas just nu.'
 	},
 
+	// Text that differs between the cabinet and prescriptions is grouped by status kind
 	todoPrompt: {
-		buyTitle: 'Lägg på inköpslistan?',
-		prescriptionTitle: 'Påminn om recept?',
-		buyText: (name: string) =>
-			`${name} är slut. Vill du lägga till den under Köp i Att göra?`,
-		prescriptionText: (name: string) =>
-			`${name} saknar recept. Vill du lägga till den under Skaffa recept i Att göra?`,
+		title: {
+			inventory: 'Lägg på inköpslistan?',
+			prescription: 'Påminn om recept?'
+		},
+		text: {
+			inventory: (name: string) => `${name} är slut. Vill du lägga till den under Köp i Att göra?`,
+			prescription: (name: string) =>
+				`${name} saknar recept. Vill du lägga till den under Skaffa recept i Att göra?`
+		},
 		confirm: 'Lägg till',
 		decline: 'Nej tack'
 	},
 
 	reset: {
-		inventoryTitle: 'Återställ skåpet',
-		prescriptionTitle: 'Återställ recept',
-		inventoryIntro: 'Välj vilka statusar i skåpet som ska bli okända igen. Recepten påverkas inte.',
-		prescriptionIntro: 'Välj vilka receptstatusar som ska bli okända igen. Skåpet påverkas inte.',
+		title: {
+			inventory: 'Återställ skåpet',
+			prescription: 'Återställ recept'
+		},
+		intro: {
+			inventory: 'Välj vilka statusar i skåpet som ska bli okända igen. Recepten påverkas inte.',
+			prescription: 'Välj vilka receptstatusar som ska bli okända igen. Skåpet påverkas inte.'
+		},
 		scopeLegend: 'Vad ska återställas?',
-		optionOutInventory: 'Bara de som är slut',
-		optionOutPrescription: 'Bara de utan recept',
+		optionOut: {
+			inventory: 'Bara de som är slut',
+			prescription: 'Bara de utan recept'
+		},
 		optionAll: 'Alla statusar',
 		count: (n: number) => `${n} läkemedel`,
 		confirm: 'Återställ'
@@ -118,10 +128,8 @@ export const t = {
 	},
 
 	tileStates: {
-		inventoryAvailable: 'Hemma',
-		inventoryOut: 'Slut',
-		prescriptionAvailable: 'Aktivt',
-		prescriptionOut: 'Inget recept'
+		inventory: { available: 'Hemma', out: 'Slut' },
+		prescription: { available: 'Aktivt', out: 'Inget recept' }
 	},
 
 	settings: {

@@ -5,25 +5,24 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { t } from '$lib/i18n/sv';
-	import type { Medication } from '$lib/firebase';
+	import { statusOf, type Medication, type StatusKind } from '$lib/firebase';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
 
 	interface Props {
-		mode: 'inventory' | 'prescription';
+		kind: StatusKind;
 		medications: Medication[];
 		onconfirm: (onlyOut: boolean) => Promise<void>;
 		oncancel: () => void;
 	}
 
-	let { mode, medications, onconfirm, oncancel }: Props = $props();
+	let { kind, medications, onconfirm, oncancel }: Props = $props();
 
 	type Scope = 'out' | 'all';
 
-	const field = $derived(mode === 'inventory' ? 'inventoryState' : 'prescriptionState');
-	const outCount = $derived(medications.filter((m) => m[field] === 'out').length);
-	const setCount = $derived(medications.filter((m) => m[field] !== 'neutral').length);
+	const outCount = $derived(medications.filter((m) => statusOf(m, kind) === 'out').length);
+	const setCount = $derived(medications.filter((m) => statusOf(m, kind) !== 'neutral').length);
 
 	// Default to "only out" when there is something to clear there, otherwise "all".
 	let scope = $state<Scope>(untrack(() => (outCount > 0 ? 'out' : 'all')));
@@ -35,7 +34,7 @@
 	const options = $derived([
 		{
 			value: 'out' as const,
-			label: mode === 'inventory' ? t.reset.optionOutInventory : t.reset.optionOutPrescription,
+			label: t.reset.optionOut[kind],
 			count: outCount
 		},
 		{ value: 'all' as const, label: t.reset.optionAll, count: setCount }
@@ -57,7 +56,7 @@
 
 <form class="reset-form" onsubmit={handleSubmit}>
 	<p class="intro text-body">
-		{mode === 'inventory' ? t.reset.inventoryIntro : t.reset.prescriptionIntro}
+		{t.reset.intro[kind]}
 	</p>
 
 	<fieldset class="options">

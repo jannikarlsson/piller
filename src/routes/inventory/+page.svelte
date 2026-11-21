@@ -8,6 +8,8 @@
 		nextTileState,
 		resetStates,
 		setAddedToTodo,
+		statusOf,
+		remindsAutomatically,
 		type Medication
 	} from '$lib/firebase';
 	import MedicationTile from '$lib/components/ui/MedicationTile.svelte';
@@ -22,7 +24,7 @@
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
-	const hasStatuses = $derived(medications.some((m) => m.inventoryState !== 'neutral'));
+	const hasStatuses = $derived(medications.some((m) => statusOf(m, 'inventory') !== 'neutral'));
 	let showReset = $state(false);
 	/** Medication just marked out that is not added to the to-do list automatically. */
 	let todoPromptFor = $state<Medication | null>(null);
@@ -32,24 +34,24 @@
 		if (!user) return;
 		const med = medications.find((m) => m.id === id);
 		if (!med) return;
-		const next = nextTileState(med.inventoryState);
-		const saved = await withErrorToast(() => updateTileState(user.uid, id, 'inventoryState', next));
+		const next = nextTileState(statusOf(med, 'inventory'));
+		const saved = await withErrorToast(() => updateTileState(user.uid, id, 'inventory', next));
 		if (!saved) return;
 		// Without the automatic reminder, offer to add it to the to-do list by hand
-		if (next === 'out' && !med.remindToBuy) todoPromptFor = med;
+		if (next === 'out' && !remindsAutomatically(med, 'inventory')) todoPromptFor = med;
 	}
 
 	async function handleReset(onlyOut: boolean) {
 		const user = $userStore;
 		if (!user) return;
-		await resetStates(user.uid, 'inventoryState', onlyOut);
+		await resetStates(user.uid, 'inventory', onlyOut);
 		showReset = false;
 	}
 
 	async function handleAddToTodo(med: Medication) {
 		const user = $userStore;
 		if (!user) return;
-		await setAddedToTodo(user.uid, med.id, 'inventoryState', true);
+		await setAddedToTodo(user.uid, med.id, 'inventory', true);
 		todoPromptFor = null;
 	}
 </script>
@@ -80,7 +82,7 @@
 	{:else}
 		<Card variant="accent" list>
 			{#each medications as med (med.id)}
-				<MedicationTile medication={med} mode="inventory" ontap={handleTap} />
+				<MedicationTile medication={med} kind="inventory" ontap={handleTap} />
 			{/each}
 		</Card>
 	{/if}
@@ -88,9 +90,9 @@
 
 {#if todoPromptFor}
 	{@const med = todoPromptFor}
-	<BottomSheet title={t.todoPrompt.buyTitle} onclose={() => (todoPromptFor = null)}>
+	<BottomSheet title={t.todoPrompt.title.inventory} onclose={() => (todoPromptFor = null)}>
 		<ConfirmDialog
-			message={t.todoPrompt.buyText(med.name)}
+			message={t.todoPrompt.text.inventory(med.name)}
 			confirmLabel={t.todoPrompt.confirm}
 			cancelLabel={t.todoPrompt.decline}
 			errorMessage={t.errors.updateFailed}
@@ -101,9 +103,9 @@
 {/if}
 
 {#if showReset}
-	<BottomSheet title={t.reset.inventoryTitle} onclose={() => (showReset = false)}>
+	<BottomSheet title={t.reset.title.inventory} onclose={() => (showReset = false)}>
 		<ResetDialog
-			mode="inventory"
+			kind="inventory"
 			{medications}
 			onconfirm={handleReset}
 			oncancel={() => (showReset = false)}
