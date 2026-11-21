@@ -1,67 +1,82 @@
-# Piller
+<p align="center">
+  <img src="static/icon.svg" alt="Piller app icon: a medicine cabinet with shelves of bottles" width="96">
+</p>
 
-A small home-medicine-cabinet app, installable on a phone as a PWA. Built with SvelteKit and Firebase, in Swedish and English.
+<h1 align="center">Piller</h1>
 
-## What it does
+<p align="center">
+  <strong>A home medicine cabinet for your phone.</strong><br>
+  See what's at home, what has run out, which prescriptions are active, and what to buy or renew next.
+</p>
 
-- **Cabinet** – mark each medication as at home or out.
-- **Prescriptions** – mark whether there is an active prescription.
-- **Pill organizer** – a checklist for filling the pill organizer.
-- **To do** – what needs to be bought or renewed, built from the statuses above. Ticking an item resets its status.
-- **Profile** – settings and account:
-  - **Medications** – add, edit and remove medications, and choose per medication whether it gets automatic reminders and is part of the pill organizer.
-  - **Appearance** – theme (system, light, dark) and language (system, Swedish, English).
-  - **Features** – switch off Prescriptions or Pill organizer if you don't use them.
-  - Reset all statuses, and sign out.
+<p align="center">
+  <img src="docs/screenshots/login.png" alt="The sign-in screen with an illustrated medicine cabinet" width="190">
+  <img src="docs/screenshots/cabinet.png" alt="The cabinet list, with medications marked At home or Out" width="190">
+  <img src="docs/screenshots/prescriptions.png" alt="The prescriptions list, with medications marked Active or None" width="190">
+  <img src="docs/screenshots/pill-organizer.png" alt="The pill organizer checklist with two of five medications picked" width="190">
+</p>
+<p align="center">
+  <img src="docs/screenshots/todo.png" alt="The to-do list, with things to buy and prescriptions to get" width="190">
+  <img src="docs/screenshots/profile.png" alt="The profile page with appearance, feature and reset settings" width="190">
+  <img src="docs/screenshots/edit-medication.png" alt="The form for editing a medication" width="190">
+  <img src="docs/screenshots/cabinet-dark.png" alt="The cabinet list in dark mode" width="190">
+</p>
 
-Settings are saved per user in Firestore and also kept in the browser, so the theme and language apply before the page renders.
+<p align="center"><sub>Screenshots show the English interface with made-up sample data. The app is also available in Swedish.</sub></p>
 
-The app can be installed on a phone and opens without a connection. A service worker (set up with `@vite-pwa/sveltekit` in `vite.config.ts`) keeps the app's files, and Firestore keeps the last known lists. Changes made offline are sent when the connection is back. After a new deploy, the app updates itself on the next visit and reloads once.
+## The idea
 
-## Development
+Most homes have a cabinet full of medicines and no idea what is in it until someone needs it. Is there any paracetamol left? Is the prescription still valid? Did anyone fill the pill organizer this week?
+
+Piller answers those questions with one tap per medication. Each medicine has two statuses, one for the cabinet and one for its prescription. Everything you need to buy or renew then collects itself in one list.
+
+## What you can do
+
+**Keep track of the cabinet.** Tap a medication to cycle through unknown, at home and out. The list shows the name, strength, other names and a short note such as "one every morning, on an empty stomach". Medications are always sorted A to Z, with Swedish rules (å, ä and ö come after z).
+
+**Keep track of prescriptions.** Prescriptions have their own status, separate from the cabinet: active, or none. A medication can be at home and still need a new prescription.
+
+**A to-do list that builds itself.** Medications that have run out land under _Buy_, and those without a prescription under _Get a prescription_. Ticking an item resets its status, since a refill takes time to arrive. The item stays on the page, struck through, until you leave it, so a mis-tap is easy to see.
+
+**Choose what reminds you.** For each medication you decide whether running out puts it on the list automatically. For those that don't, Piller asks when you mark one as out whether to add it by hand, and you can switch that question off.
+
+**Fill the pill organizer.** The medications that go in it appear as a checklist with a count, such as "2 of 5 picked". One tap on Reset clears it for next week.
+
+**Make it yours.**
+
+- Light, dark or follow the phone. The dark theme has its own colours and isn't just the light one inverted.
+- Swedish or English, or follow the phone.
+- Switch off the parts you don't use: prescriptions, or the pill organizer.
+- Decide what the Reset button does: ask every time, reset everything, or only what has run out.
+
+**Works without a connection.** Piller installs on a phone's home screen like an app and opens offline with the last known lists. Changes made offline are sent when the connection comes back.
+
+**Private by design.** You sign in with Google, and only people on an access list can use the app. Each person's medications and settings are stored separately, and the database's security rules enforce that.
+
+## Design and quality
+
+- **Not generic.** A calm mint palette, IBM Plex Sans, and thin dividers instead of heavy boxes. All colours, sizes and spacing come from a small set of design tokens, so light and dark mode share one structure.
+- **Accessible.** Built for keyboard and screen readers: visible focus rings, labelled controls, a main landmark and a page title on every screen, drawers that keep focus inside while they are open, and text contrast checked against WCAG 2.2. Animations respect the "reduce motion" setting.
+- **Careful engineering.** Strict TypeScript, unit tests for the rules that decide what goes on the to-do list, ESLint and Prettier on every commit, and a GitHub Actions pipeline that checks, builds and deploys every push to `main`.
+
+## Built with
+
+|                |                                                                                         |
+| -------------- | --------------------------------------------------------------------------------------- |
+| **App**        | [SvelteKit](https://svelte.dev/docs/kit) 3, Svelte 5 (runes), TypeScript                |
+| **Backend**    | [Firebase](https://firebase.google.com): Google sign-in, Firestore, Hosting             |
+| **Offline**    | A service worker made with `@vite-pwa/sveltekit` (Workbox), and Firestore's local cache |
+| **Quality**    | Vitest, ESLint, Prettier, Husky and lint-staged                                         |
+| **Deployment** | GitHub Actions, publishing to Firebase Hosting                                          |
+
+There is no server of its own. The app talks to Firebase directly, and Firestore security rules decide who can read and write what.
+
+## Run your own copy
+
+You need a free Firebase project and a few minutes. [SETUP.md](SETUP.md) has everything, step by step: creating the project, signing in, running the app locally, deploying it, and how the code is organised.
 
 ```sh
 npm install
-npm run dev      # start the dev server
-npm run check    # type-check
-npm test         # run the unit tests (Vitest)
-npm run lint     # check formatting (Prettier) and code (ESLint)
-npm run format   # format all files with Prettier
+cp .env.example .env   # then fill in your Firebase settings
+npm run dev
 ```
-
-A Git hook (Husky and lint-staged) formats and lints the files in each commit, and stops the commit if ESLint finds an error. It's set up by `npm install`. In an emergency, `git commit --no-verify` skips it, but CI runs the same checks on everything.
-
-The service worker is only registered in production builds. `npm run preview` can't test it, because it doesn't serve `index.html` the way Firebase Hosting does (the worker fails to install). To try offline mode, serve the `build/` folder from a server that behaves like Firebase Hosting, or deploy.
-
-## Deploy
-
-```sh
-npm run deploy        # build and deploy to Firebase Hosting
-npm run deploy:rules  # deploy firestore.rules
-```
-
-Run `deploy:rules` whenever `firestore.rules` changes, for example when a new Firestore collection is added. Without it, saving to that collection fails.
-
-Pushes to `main` can also deploy the app automatically, after the checks pass (GitHub Actions, `.github/workflows/ci.yml`). That's optional and needs a one-time setup, described in [SETUP.md](SETUP.md#automatic-deploys-optional). Pull requests only run the checks.
-
-First-time setup (Firebase project, sign-in, allowed users) is described in [SETUP.md](SETUP.md).
-
-## Where things live
-
-- `src/routes/` – one folder per page. Components used by only one page can sit next to it.
-- `src/lib/pages/` – page content shared by several routes (Cabinet and Prescriptions use the same page).
-- `src/lib/components/`
-  - `ui/` – generic building blocks (button, card, drawer, list rows, icons, …). Nothing here knows about medications.
-  - `inputs/` – controls that hold a value the user changes: checkbox, switch, radio group, text field
-  - `medication/` – pieces that show a medication (its name and details, the tappable status row)
-  - `dialogs/` – content shown inside a drawer (confirm, reset, the medication form). The page does the saving.
-  - `layout/` – page frame, page header and bottom menu
-- `src/lib/models/` – the types (medication, settings) and the rules about them, e.g. when a medication belongs on the to-do list. No Firebase here, so any component can use it.
-- `src/lib/navigation.ts` – the bottom menu's links, which feature each belongs to, and the start page
-- `src/lib/firebase/` – sign-in and all Firestore reads and writes, split into `auth`, `medications`, `statuses` and `settings`. Import everything from `#lib/firebase/index.ts`.
-- `src/lib/stores/` – shared state: user, medications, settings, toast messages
-- `src/lib/i18n/` – UI text. `sv.ts` defines the texts, `en.ts` must have the same shape.
-- `src/lib/styles/`
-  - `theme.css` – colours, shadow and backdrop for light and dark mode
-  - `tokens.css` – text sizes, spacing, radii, sizes and stacking order
-  - `base.css` – reset, base styles and the global `.text-*` classes
