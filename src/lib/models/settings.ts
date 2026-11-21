@@ -14,6 +14,8 @@ export interface UserSettings {
 	showPrescriptions: boolean;
 	showPillOrganizer: boolean;
 	resetMode: ResetMode;
+	/** Offer to add a medication to To do when it's marked out but has no automatic reminder. */
+	askToAddToTodo: boolean;
 }
 
 /** Used for anything not saved yet, so new settings need no migration. */
@@ -22,7 +24,8 @@ export const DEFAULT_SETTINGS: UserSettings = {
 	language: 'system',
 	showPrescriptions: true,
 	showPillOrganizer: true,
-	resetMode: 'ask'
+	resetMode: 'ask',
+	askToAddToTodo: true
 };
 
 export type Feature = 'prescriptions' | 'pillOrganizer';

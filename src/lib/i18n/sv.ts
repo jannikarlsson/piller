@@ -145,6 +145,9 @@ export const sv = {
 		featurePrescriptionsDescription: 'Håll koll på vilka läkemedel som har recept',
 		featurePillOrganizer: 'Dosett',
 		featurePillOrganizerDescription: 'Checklista för att fylla dosetten',
+		askToAddToTodo: 'Fråga om Att göra',
+		askToAddToTodoDescription:
+			'Fråga om läkemedlet ska läggas till i Att göra när något utan automatisk påminnelse tar slut',
 		dataHeading: 'Data',
 		resetMode: 'Återställning',
 		resetModeLegend: 'Vad ska återställ-knappen göra?',

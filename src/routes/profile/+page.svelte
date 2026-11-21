@@ -155,6 +155,12 @@
 				checked={$settingsStore.showPillOrganizer}
 				onchange={handlePillOrganizerSwitch}
 			/>
+			<SwitchItem
+				label={t.profile.askToAddToTodo}
+				description={t.profile.askToAddToTodoDescription}
+				checked={$settingsStore.askToAddToTodo}
+				onchange={(on) => setSetting({ askToAddToTodo: on })}
+			/>
 		</Card>
 	</Section>
 

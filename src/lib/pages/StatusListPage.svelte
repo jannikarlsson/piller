@@ -52,8 +52,10 @@
 		const next = nextStatus(statusOf(med, kind));
 		const saved = await withErrorToast(() => updateStatus(id, kind, next));
 		if (!saved) return;
-		// Without the automatic reminder, offer to add it to the to-do list by hand
-		if (next === 'out' && !remindsAutomatically(med, kind)) todoPromptFor = med;
+		// Without the automatic reminder, offer to add it to the to-do list by hand (unless switched off)
+		if (next === 'out' && !remindsAutomatically(med, kind) && $settingsStore.askToAddToTodo) {
+			todoPromptFor = med;
+		}
 	}
 
 	async function handleReset(onlyOut: boolean) {

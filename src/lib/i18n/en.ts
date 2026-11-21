@@ -147,6 +147,9 @@ export const en: Translations = {
 		featurePrescriptionsDescription: 'Keep track of which medications have a prescription',
 		featurePillOrganizer: 'Pill organizer',
 		featurePillOrganizerDescription: 'Checklist for filling your pill organizer',
+		askToAddToTodo: 'Ask about To do',
+		askToAddToTodoDescription:
+			'Ask whether to add it to To do when something without an automatic reminder runs out',
 		dataHeading: 'Data',
 		resetMode: 'Resetting',
 		resetModeLegend: 'What should the reset button do?',
