@@ -16,6 +16,7 @@
 	import Page from '$lib/components/layout/Page.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
+	import MedicationInfo from '$lib/components/ui/MedicationInfo.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
@@ -114,15 +115,7 @@
 		<Card variant="accent" list as="ul">
 			{#each medications as med (med.id)}
 				<li class="med-row">
-					<span class="med-row__info">
-						<span class="text-name">{med.name}</span>
-						{#if med.concentration}
-							<span class="text-meta">{med.concentration}</span>
-						{/if}
-						{#if med.alternativeNames.length > 0}
-							<span class="med-row__alt text-caption">{med.alternativeNames.join(', ')}</span>
-						{/if}
-					</span>
+					<MedicationInfo medication={med} />
 					<Button
 						variant="quiet"
 						size="icon"
@@ -222,19 +215,6 @@
 		min-height: var(--row-height-tall);
 		/* Less on the right: the edit button's own tap area supplies the rest */
 		padding: var(--row-padding-y) var(--space-1) var(--row-padding-y) var(--row-padding-x);
-	}
-
-	.med-row__info {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-1);
-		min-width: 0;
-	}
-
-	.med-row__alt {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
 	}
 
 	.add-btn {

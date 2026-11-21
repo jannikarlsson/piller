@@ -73,5 +73,4 @@
 		/* Lets the close icon line up with the content edge */
 		margin-right: calc(-1 * var(--space-3));
 	}
-
 </style>

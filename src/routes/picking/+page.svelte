@@ -9,6 +9,7 @@
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
+	import MedicationInfo from '$lib/components/ui/MedicationInfo.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 
 	const medications = $derived($medicationsStore.filter((m) => m.inPillOrganizer));
@@ -74,12 +75,7 @@
 				{#each medications as med (med.id)}
 					<li>
 						<Checkbox checked={med.picked} onchange={(picked) => toggle(med.id, picked)}>
-							<span class="item" class:item--done={med.picked}>
-								<span class="item__name text-name">{med.name}</span>
-								{#if med.concentration}
-									<span class="text-meta">{med.concentration}</span>
-								{/if}
-							</span>
+							<MedicationInfo medication={med} layout="inline" done={med.picked} />
 						</Checkbox>
 					</li>
 				{/each}
@@ -104,17 +100,5 @@
 
 	.progress--done {
 		color: var(--color-ok);
-	}
-
-	.item {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		column-gap: var(--space-2);
-	}
-
-	.item--done .item__name {
-		color: var(--color-text-subtle);
-		text-decoration: line-through;
 	}
 </style>
