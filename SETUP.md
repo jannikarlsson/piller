@@ -149,6 +149,30 @@ This builds the app and deploys it to Firebase Hosting. If you change `firestore
 
 ---
 
+## Automatic deploys (optional)
+
+The workflow in `.github/workflows/ci.yml` can publish the app to Firebase Hosting every time something is pushed to `main`, after the lint, type check, tests and build have passed. It needs a one-time setup, and until it's done the deploy step fails (the checks still run). Firestore rules are never deployed automatically.
+
+**YOU:** In this folder, with the GitHub CLI (`gh`) logged in:
+
+1. **Let GitHub deploy to your Firebase project.** Run:
+
+   ```bash
+   firebase init hosting:github
+   ```
+
+   It creates a limited service account for deploying and saves its key in the repository's secrets, under a name like `FIREBASE_SERVICE_ACCOUNT_PILLER_A4F31` (the command prints the name; if it differs, change it in `ci.yml`). Answer **No** when it offers to set up its own build script or workflows, as `ci.yml` already does that.
+
+2. **Save your Firebase settings as repository variables**, so the build in GitHub uses the same values as your `.env`:
+
+   ```bash
+   gh variable set --env-file .env
+   ```
+
+After that, a push to `main` runs the checks and then deploys. You can also run the workflow by hand from the **Actions** tab. To stop automatic deploys, delete the `deploy` job from `ci.yml`.
+
+---
+
 ## Adding more users
 
 Add a document to the `allowedUsers` collection in the Firebase console, with the person's email address in lowercase as the document ID. It works straight away, with no redeploy. To remove someone, delete their document.

@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Lets you run it by hand from the Actions tab, e.g. to deploy again without a new commit
+  workflow_dispatch:
+
+# A new push cancels the older run of the same branch, except on main: a deploy that is
+# already running is allowed to finish, and the next run waits its turn.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # The app reads its Firebase settings from .env, which isn't in Git (see .env.example).
+      # The tests and the build only check that the values exist, and never connect to Firebase,
+      # so placeholders are enough here.
+      PUBLIC_FIREBASE_API_KEY: ci-placeholder
+      PUBLIC_FIREBASE_AUTH_DOMAIN: ci-placeholder.example.com
+      PUBLIC_FIREBASE_PROJECT_ID: ci-placeholder
+      PUBLIC_FIREBASE_STORAGE_BUCKET: ci-placeholder.example.com
+      PUBLIC_FIREBASE_MESSAGING_SENDER_ID: '0'
+      PUBLIC_FIREBASE_APP_ID: ci-placeholder
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Formatting and lint
+        run: npm run lint
+      - name: Type check
+        run: npm run check
+      - name: Unit tests
+        run: npm test
+      - name: Build
+        run: npm run build
+
+  # Publishes the app to Firebase Hosting, only from main and only when the checks above passed.
+  # Needs the one-time setup described in SETUP.md ("Automatic deploys").
+  # Firestore rules are not deployed here: change them with `npm run deploy:rules`.
+  deploy:
+    needs: checks
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: production
+    env:
+      # The real settings, saved as repository variables (they aren't secret, but not in Git either)
+      PUBLIC_FIREBASE_API_KEY: ${{ vars.PUBLIC_FIREBASE_API_KEY }}
+      PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ vars.PUBLIC_FIREBASE_AUTH_DOMAIN }}
+      PUBLIC_FIREBASE_PROJECT_ID: ${{ vars.PUBLIC_FIREBASE_PROJECT_ID }}
+      PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ vars.PUBLIC_FIREBASE_STORAGE_BUCKET }}
+      PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ vars.PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}
+      PUBLIC_FIREBASE_APP_ID: ${{ vars.PUBLIC_FIREBASE_APP_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          # The project comes from .firebaserc, and the folder to publish from firebase.json
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PILLER_A4F31 }}
+          channelId: live

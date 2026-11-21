@@ -40,6 +40,8 @@ npm run deploy:rules  # deploy firestore.rules
 
 Run `deploy:rules` whenever `firestore.rules` changes, for example when a new Firestore collection is added. Without it, saving to that collection fails.
 
+Pushes to `main` can also deploy the app automatically, after the checks pass (GitHub Actions, `.github/workflows/ci.yml`). That's optional and needs a one-time setup, described in [SETUP.md](SETUP.md#automatic-deploys-optional). Pull requests only run the checks.
+
 First-time setup (Firebase project, sign-in, allowed users) is described in [SETUP.md](SETUP.md).
 
 ## Where things live
