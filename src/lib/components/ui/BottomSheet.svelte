@@ -1,5 +1,10 @@
+<!--
+	A drawer that slides up from the bottom, as a modal <dialog>. The browser puts it above
+	everything, makes the rest of the page unreachable for keyboard and screen readers while
+	it's open, and returns focus to whatever opened it when it closes.
+-->
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { t } from '$lib/i18n';
@@ -22,43 +27,84 @@
 	const slideOut = { y: '100%', duration: reduceMotion ? 0 : 180, opacity: 1 };
 	const backdrop = { duration: reduceMotion ? 0 : 200 };
 
-	function handleKeydown(e: KeyboardEvent) {
-		if (e.key === 'Escape') onclose();
+	let dialog: HTMLDialogElement;
+	let panel: HTMLDivElement;
+
+	onMount(() => {
+		dialog.showModal();
+		// Start on the drawer itself (it announces the title), not on the first button,
+		// and without opening the keyboard on phones for drawers with text fields
+		panel.focus();
+	});
+
+	// Escape (or the phone's back gesture): let the parent close it, so the slide-out plays.
+	// If the browser insists on closing it right away, it still sends this event first.
+	function handleCancel(e: Event) {
+		e.preventDefault();
+		onclose();
+	}
+
+	// After the slide-out: close the dialog, which hands focus back to the opener
+	function handleOutroEnd() {
+		if (dialog.open) dialog.close();
 	}
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
-
-<div
-	class="sheet-backdrop"
-	onclick={onclose}
-	role="presentation"
-	transition:fade|global={backdrop}
-></div>
-<div
-	class="sheet"
-	role="dialog"
-	aria-modal="true"
+<dialog
+	bind:this={dialog}
+	class="sheet-dialog"
 	aria-labelledby={titleId}
-	in:fly|global={slideIn}
-	out:fly|global={slideOut}
+	oncancel={handleCancel}
 >
-	<div class="sheet__handle" aria-hidden="true"></div>
-	<div class="sheet__header">
-		<h2 class="text-title" id={titleId}>{title}</h2>
-		<Button variant="quiet" size="icon" ariaLabel={t.common.close} onclick={onclose}>
-			<Icon name="close" />
-		</Button>
+	<div
+		class="sheet-backdrop"
+		onclick={onclose}
+		role="presentation"
+		transition:fade|global={backdrop}
+	></div>
+	<div
+		bind:this={panel}
+		class="sheet"
+		tabindex="-1"
+		in:fly|global={slideIn}
+		out:fly|global={slideOut}
+		onoutroend={handleOutroEnd}
+	>
+		<div class="sheet__handle" aria-hidden="true"></div>
+		<div class="sheet__header">
+			<h2 class="text-title" id={titleId}>{title}</h2>
+			<Button variant="quiet" size="icon" ariaLabel={t.common.close} onclick={onclose}>
+				<Icon name="close" />
+			</Button>
+		</div>
+		{@render children()}
 	</div>
-	{@render children()}
-</div>
+</dialog>
 
 <style>
+	/* A transparent full-screen frame; our own backdrop and panel inside it do the animating */
+	.sheet-dialog {
+		position: fixed;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		max-width: none;
+		max-height: none;
+		margin: 0;
+		padding: 0;
+		border: none;
+		background: transparent;
+		overflow: hidden;
+	}
+
+	.sheet-dialog::backdrop {
+		background: transparent;
+	}
+
 	.sheet-backdrop {
 		position: fixed;
 		inset: 0;
 		background: var(--backdrop);
-		z-index: var(--z-backdrop);
 	}
 
 	.sheet {
@@ -66,7 +112,6 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		z-index: var(--z-sheet);
 		max-height: 90dvh;
 		overflow-y: auto;
 		background: var(--color-surface);
@@ -75,6 +120,11 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-5);
+	}
+
+	/* Focused on open so screen readers start at the title; no outline needed for that */
+	.sheet:focus {
+		outline: none;
 	}
 
 	.sheet__handle {

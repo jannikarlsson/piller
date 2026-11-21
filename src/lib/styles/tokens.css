@@ -42,8 +42,6 @@
 	/* Stacking order, back to front */
 	--z-floating: 50;
 	--z-nav: 100;
-	--z-backdrop: 200;
-	--z-sheet: 201;
 	--z-toast: 300;
 
 	--transition-fast: 0.12s ease;
