@@ -6,9 +6,7 @@
 	import Icon, { type IconName } from '$lib/components/ui/Icon.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
 
-	// `icon: null` shows the user's photo instead (the Profil tab).
-	// Labels are looked up when shown, so they follow the current language.
-	// Tabs with a `feature` are hidden when the user has turned that feature off.
+	// `icon: null` shows the user's photo. Labels are keys, looked up when shown so they follow the language.
 	type Link = { href: string; label: keyof typeof t.nav; icon: IconName | null; feature?: Feature };
 	const links: Link[] = [
 		{ href: '/inventory', label: 'inventory', icon: 'cabinet' },
@@ -25,7 +23,6 @@
 
 <nav class="bottom-nav" aria-label={t.common.mainMenu}>
 	{#each visibleLinks as link (link.href)}
-		<!-- Sub-pages (e.g. /profile/medications) keep their parent tab highlighted -->
 		{@const active =
 			$page.url.pathname === link.href || $page.url.pathname.startsWith(`${link.href}/`)}
 		<a
@@ -84,7 +81,6 @@
 		font-weight: 600;
 	}
 
-	/* The photo gets a ring in the active colour instead of changing colour */
 	.nav-item__avatar {
 		display: flex;
 		border-radius: 50%;

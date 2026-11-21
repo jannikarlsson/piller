@@ -20,7 +20,6 @@
 		name: IconName;
 		/** sm 16px (inside tags and checkboxes), md 20px (in buttons), lg 24px (menu), xl 32px (empty states) */
 		size?: 'sm' | 'md' | 'lg' | 'xl';
-		/** `bold` for small marks like ticks and crosses that need to stay legible */
 		weight?: 'regular' | 'bold';
 	}
 

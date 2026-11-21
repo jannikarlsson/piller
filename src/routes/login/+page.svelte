@@ -5,7 +5,7 @@
 	import CabinetIllustration from './CabinetIllustration.svelte';
 
 	let loading = $state(false);
-	// Which error happened; the message is looked up when shown so it follows the language
+	// A key, not the message, so the message follows the language
 	let error = $state<'errorNotAllowed' | 'errorGeneral' | null>(null);
 
 	async function handleLogin() {

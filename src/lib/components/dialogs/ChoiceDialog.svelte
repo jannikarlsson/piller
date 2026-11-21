@@ -12,7 +12,6 @@
 	}
 
 	interface Props {
-		/** Read by screen readers as the name of the group. */
 		legend: string;
 		options: Option[];
 		selected: T;
@@ -62,7 +61,6 @@
 		transition: background-color var(--transition-fast);
 	}
 
-	/* The chosen option is highlighted within the list */
 	.choice:has(input:checked) {
 		background: var(--color-accent-soft);
 	}

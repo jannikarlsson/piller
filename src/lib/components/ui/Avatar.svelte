@@ -1,10 +1,8 @@
-<!-- The signed-in user's photo, or a person icon when there is none (or it fails to load). -->
 <script lang="ts">
 	import Icon from './Icon.svelte';
 
 	interface Props {
 		photoUrl?: string | null;
-		/** sm fits the bottom menu, lg the profile header */
 		size?: 'sm' | 'lg';
 	}
 

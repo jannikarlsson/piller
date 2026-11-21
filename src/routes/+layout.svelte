@@ -47,7 +47,6 @@
 		}
 	});
 
-	// Follow the phone's light/dark setting, live, for the "system" theme
 	let systemPrefersDark = $state(false);
 	onMount(() => {
 		const query = window.matchMedia('(prefers-color-scheme: dark)');
@@ -77,12 +76,11 @@
 		setLanguage(resolveLanguage($settingsStore.language));
 	});
 
-	// Tell browsers and screen readers which language the page is in
 	$effect(() => {
 		document.documentElement.lang = getLanguage();
 	});
 
-	// Apply the theme to the page, and match the phone's status bar to the background
+	// Also matches the phone's status bar to the page background
 	$effect(() => {
 		document.documentElement.dataset.theme = theme;
 		const background = getComputedStyle(document.documentElement)
@@ -152,7 +150,6 @@
 		--radius-card: 12px; /* cards, panels */
 		--radius-lg: 16px; /* top corners of the drawer */
 		--shadow-raised: 0 2px 8px rgba(21, 24, 28, 0.12);
-		/* Soft glow around a focused input */
 		--focus-ring: 0 0 0 3px var(--color-accent-ring);
 		--backdrop: rgba(21, 24, 28, 0.4);
 		--nav-height: 76px;
@@ -181,7 +178,6 @@
 		--space-8: 32px;
 		--space-10: 40px;
 
-		/* Sizes */
 		--size-tap: 44px; /* minimum touch target */
 		--size-control: 48px; /* inputs and standard buttons */
 		--size-floating-button: 48px;
@@ -199,7 +195,6 @@
 		--z-sheet: 201;
 		--z-toast: 300;
 
-		/* Motion */
 		--transition-fast: 0.12s ease;
 	}
 
@@ -276,7 +271,6 @@
 		outline-offset: 2px;
 	}
 
-	/* Respect the phone's "reduce motion" setting */
 	@media (prefers-reduced-motion: reduce) {
 		:global(*, *::before, *::after) {
 			transition-duration: 0.01ms !important;

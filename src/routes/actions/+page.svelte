@@ -32,7 +32,6 @@
 	const isDone = (kind: StatusKind, med: Medication) =>
 		done.includes(`${kind}:${med.id}`) && statusOf(med, kind) !== 'out';
 
-	// One section per status kind: "Köp" for the cabinet, "Skaffa recept" for prescriptions
 	const SECTIONS = [
 		{ kind: 'inventory', heading: 'buyHeading' },
 		{ kind: 'prescription', heading: 'prescriptionHeading' }
@@ -56,7 +55,6 @@
 	// Whether a ticked item had been added by hand, so unticking can restore that
 	const addedByHand = new Map<string, boolean>();
 
-	/** Tick: reset the status to neutral. Untick: set it back to out. */
 	async function handleToggle(kind: StatusKind, med: Medication, checked: boolean) {
 		const user = $userStore;
 		if (!user) return;

@@ -10,13 +10,9 @@
 	interface Props {
 		title: string;
 		subtitle?: string;
-		/** Buttons on the right of the header. */
 		actions?: Snippet;
-		/** For sub-pages: a link back to the parent page. */
 		back?: { href: string; label: string };
-		/** Show the loading text instead of the content. */
 		loading?: boolean;
-		/** Leave extra room at the bottom for a floating button. */
 		floatingButton?: boolean;
 		children: Snippet;
 	}

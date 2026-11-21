@@ -1,4 +1,3 @@
-<!-- Shown instead of a list when there is nothing to show, optionally with a link to act on it. -->
 <script lang="ts">
 	import Icon, { type IconName } from './Icon.svelte';
 	import Button from './Button.svelte';

@@ -7,7 +7,6 @@
 		title: string;
 		subtitle?: string;
 		actions?: Snippet;
-		/** For sub-pages: a link back to the parent page, shown above the title. */
 		back?: { href: string; label: string };
 	}
 	let { title, subtitle, actions, back }: Props = $props();
@@ -42,7 +41,6 @@
 		padding: calc(var(--space-8) + env(safe-area-inset-top, 0px)) var(--space-3) var(--space-5) var(--space-5);
 	}
 
-	/* Sub-pages: the back link takes the space above the title */
 	.page-header__back {
 		padding: calc(var(--space-3) + env(safe-area-inset-top, 0px)) var(--space-3) 0;
 	}

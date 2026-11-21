@@ -1,7 +1,3 @@
-<!--
-	A row with an on/off switch, for use inside a `<Card list>` (e.g. turning features on or off).
-	The whole row is tappable. Screen readers announce it as a switch.
--->
 <script lang="ts">
 	interface Props {
 		label: string;

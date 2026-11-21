@@ -62,8 +62,6 @@ export async function updateSettings(changes: Partial<UserSettings>) {
 	await saveSettings(userId, changes);
 }
 
-// ─── Optional features ────────────────────────────────────────────────────────
-
 export type Feature = 'prescriptions' | 'pillOrganizer';
 
 /** The page that belongs to each optional feature (hidden from the menu when it's off). */

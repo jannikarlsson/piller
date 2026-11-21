@@ -12,7 +12,6 @@
 		message: string;
 		confirmLabel: string;
 		cancelLabel?: string;
-		/** `danger` makes the confirm button red, for destructive actions. */
 		tone?: 'primary' | 'danger';
 		errorMessage?: string;
 		onconfirm: () => Promise<void>;

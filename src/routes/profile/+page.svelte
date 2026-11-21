@@ -22,7 +22,6 @@
 
 	const user = $derived($userStore);
 
-	/** Which drawer is open, if any. */
 	let openDrawer = $state<'theme' | 'language' | 'resetAll' | 'logout' | null>(null);
 
 	const themeOptions = $derived([
@@ -60,7 +59,6 @@
 		withErrorToast(() => updateSettings(changes), t.errors.settingsFailed);
 	}
 
-	/** The new theme applies immediately; the drawer closes so the user sees it. */
 	function handleTheme(theme: ThemeSetting) {
 		openDrawer = null;
 		setSetting({ theme });
@@ -203,7 +201,6 @@
 		min-width: 0;
 	}
 
-	/* Long addresses are cut off rather than pushing the layout wider */
 	.who__email {
 		overflow: hidden;
 		text-overflow: ellipsis;

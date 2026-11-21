@@ -26,7 +26,6 @@
 	type Sheet = { mode: 'add' } | { mode: 'edit'; med: Medication } | null;
 	let sheet = $state<Sheet>(null);
 	let saving = $state(false);
-	/** In the edit sheet: showing the "are you sure?" view instead of the form. */
 	let confirmingDelete = $state(false);
 
 	function openSheet(next: Exclude<Sheet, null>) {

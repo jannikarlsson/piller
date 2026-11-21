@@ -63,11 +63,8 @@ export { onAuthStateChanged };
 export type TileState = 'neutral' | 'available' | 'out';
 
 export interface MedicationSettings {
-	/** Show on the buy list in "Att göra" when marked as out in the cabinet. */
 	remindToBuy: boolean;
-	/** Show on the prescription list in "Att göra" when marked as having no prescription. */
 	remindPrescription: boolean;
-	/** Include on the "Plocka" checklist for the pill organizer. */
 	inPillOrganizer: boolean;
 }
 
@@ -84,7 +81,6 @@ export interface Medication extends MedicationSettings {
 	alternativeNames: string[];
 	inventoryState: TileState;
 	prescriptionState: TileState;
-	/** Checked off on the "Plocka" checklist while filling the pill organizer. */
 	picked: boolean;
 	/** Added to the buy list by hand (for medications without the automatic buy reminder). */
 	addedToBuyList: boolean;
@@ -169,7 +165,6 @@ export async function deleteMedication(userId: string, id: string): Promise<void
 /** The two kinds of status a medication has: in the cabinet, and its prescription. */
 export type StatusKind = 'inventory' | 'prescription';
 
-/** Which Medication fields belong to each kind of status. */
 const STATUS_FIELDS = {
 	inventory: { state: 'inventoryState', addedToTodo: 'addedToBuyList', remind: 'remindToBuy' },
 	prescription: {
@@ -186,12 +181,10 @@ export function statusOf(med: Medication, kind: StatusKind): TileState {
 	return med[STATUS_FIELDS[kind].state];
 }
 
-/** Added to the to-do list by hand (for medications without the automatic reminder). */
 export function isAddedToTodo(med: Medication, kind: StatusKind): boolean {
 	return med[STATUS_FIELDS[kind].addedToTodo];
 }
 
-/** Goes to the to-do list by itself when out. */
 export function remindsAutomatically(med: Medication, kind: StatusKind): boolean {
 	return med[STATUS_FIELDS[kind].remind];
 }
@@ -222,7 +215,6 @@ export async function updateTileState(
 	await updateDoc(doc(medicationsRef(userId), id), update);
 }
 
-/** Add a medication to (or remove it from) the to-do list by hand. */
 export async function setAddedToTodo(
 	userId: string,
 	id: string,
@@ -242,7 +234,6 @@ export async function setPicked(userId: string, id: string, picked: boolean): Pr
 	});
 }
 
-/** Uncheck every medication on the "Plocka" checklist. */
 export async function resetPicked(userId: string): Promise<void> {
 	const snap = await getDocs(medicationsRef(userId));
 	const batch = writeBatch(db);

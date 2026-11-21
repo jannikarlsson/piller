@@ -119,7 +119,6 @@
 		transition: background-color var(--transition-fast);
 	}
 
-	/* The chosen option is highlighted within the list */
 	.option:has(input:checked) {
 		background: var(--color-accent-soft);
 	}

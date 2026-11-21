@@ -22,7 +22,6 @@
 		type?: 'button' | 'submit';
 		href?: string;
 		disabled?: boolean;
-		/** Accessible name, when the visible text alone is not descriptive enough. */
 		ariaLabel?: string;
 		/** For buttons that open something: shown highlighted and announced as expanded. */
 		expanded?: boolean;

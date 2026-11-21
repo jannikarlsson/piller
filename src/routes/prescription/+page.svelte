@@ -26,7 +26,6 @@
 	const loading = $derived($medicationsLoading);
 	const hasStatuses = $derived(medications.some((m) => statusOf(m, 'prescription') !== 'neutral'));
 	let showReset = $state(false);
-	/** Medication just marked out that is not added to the to-do list automatically. */
 	let todoPromptFor = $state<Medication | null>(null);
 
 	async function handleTap(id: string) {

@@ -7,7 +7,6 @@ export const toastMessage = writable<string | null>(null);
 const TOAST_MS = 4000;
 let timer: ReturnType<typeof setTimeout> | undefined;
 
-/** Show a short message; a new message replaces the current one. */
 export function showToast(message: string) {
 	clearTimeout(timer);
 	toastMessage.set(message);

@@ -1,10 +1,8 @@
-<!-- A titled group on a page, e.g. "Köp" on Att göra or "Konto" on Profil. -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
 	interface Props {
 		title: string;
-		/** Shown on the right of the title, e.g. how many items are left. */
 		count?: number;
 		children: Snippet;
 	}

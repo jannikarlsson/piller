@@ -31,7 +31,6 @@ function initialLanguage(): Language {
 
 let current = $state<Language>(initialLanguage());
 
-/** The language in use right now. */
 export function getLanguage(): Language {
 	return current;
 }

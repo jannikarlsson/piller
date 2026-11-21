@@ -52,7 +52,6 @@
 		overflow: hidden;
 	}
 
-	/* Every list has a thin divider between its rows */
 	.card--list > :global(* + *) {
 		border-top: 1px solid var(--color-divider);
 	}
