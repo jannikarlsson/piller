@@ -8,13 +8,13 @@ export default defineConfig({
 		VitePWA({
 			registerType: 'autoUpdate',
 			devOptions: { enabled: true },
-			includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'icon-placeholder.png'],
+			includeAssets: ['icon.svg', 'apple-touch-icon.png'],
 			manifest: {
 				name: 'Piller',
 				short_name: 'Piller',
 				description: 'Hantera ditt förråd',
-				theme_color: '#7C3AED',
-				background_color: '#1a0533',
+				theme_color: '#EEF5F1',
+				background_color: '#EEF5F1',
 				display: 'standalone',
 				orientation: 'portrait',
 				scope: '/',
@@ -34,7 +34,7 @@ export default defineConfig({
 						src: '512.png',
 						sizes: '512x512',
 						type: 'image/png',
-						purpose: 'any maskable'
+						purpose: 'maskable'
 					}
 				]
 			},

@@ -12,12 +12,21 @@ export const t = {
 	},
 
 	login: {
-		title: 'Välkommen till Piller!',
+		title: 'Välkommen till Piller',
 		subtitle: 'Logga in för att hantera ditt läkemedelsförråd',
 		button: 'Logga in med Google',
 		loading: 'Loggar in...',
 		errorNotAllowed: 'Den här e-postadressen är inte behörig att använda Piller.',
 		errorGeneral: 'Något gick fel. Försök igen.'
+	},
+
+	common: {
+		loading: 'Laddar…',
+		settings: 'Inställningar',
+		close: 'Stäng',
+		edit: 'Redigera',
+		add: 'Lägg till',
+		mainMenu: 'Huvudmeny'
 	},
 
 	inventory: {
@@ -29,7 +38,7 @@ export const t = {
 
 	prescription: {
 		title: 'Recept',
-		subtitle: 'Aktiva recept?',
+		subtitle: 'Aktiva recept',
 		empty: 'Inga läkemedel tillagda än.',
 		emptyAction: 'Lägg till läkemedel'
 	},
@@ -37,9 +46,9 @@ export const t = {
 	actions: {
 		title: 'Att göra',
 		subtitle: 'Vad behöver fixas?',
-		buyHeading: '🛒 Köp',
-		prescriptionHeading: '📋 Skaffa recept',
-		allGood: 'Allt är i ordning! 🎉',
+		buyHeading: 'Köp',
+		prescriptionHeading: 'Skaffa recept',
+		allGood: 'Allt är i ordning',
 		allGoodSub: 'Ingenting behöver köpas eller förnyas just nu.'
 	},
 
@@ -55,10 +64,10 @@ export const t = {
 		concentrationLabel: 'Styrka / förpackning',
 		concentrationPlaceholder: 'T.ex. 500 mg, 20 tabletter',
 		alternativeNamesLabel: 'Alternativa namn',
-		alternativeNamesPlaceholder: 'T.ex. Paracetamol, Panodil (kommaseparerat)',
+		alternativeNamesPlaceholder: 'Kommaseparerade, t.ex. Paracetamol, Panodil',
 		saveButton: 'Spara',
 		cancelButton: 'Avbryt',
-		deleteButton: 'Ta bort',
+		deleteButton: 'Ta bort läkemedel',
 		deleteConfirm: 'Är du säker på att du vill ta bort detta läkemedel?'
 	},
 

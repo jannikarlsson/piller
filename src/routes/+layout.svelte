@@ -52,6 +52,42 @@
 </div>
 
 <style>
+	:global(:root) {
+		--color-bg: #eef5f1;
+		--color-surface: #ffffff;
+		--color-text: #15181c;
+		--color-text-secondary: #3f444a;
+		--color-text-muted: #5b6168;
+		--color-text-subtle: #6b7178;
+		--color-placeholder: #8a9097;
+		--color-border: #cfd3d8;
+		--color-border-light: #e4e6e9;
+		--color-divider: #d6e6de;
+		--color-handle: #d5d8dc;
+		--color-checkbox: #aeb3b9;
+
+		--color-accent: #1d6b57;
+		--color-accent-hover: #14503f;
+		--color-accent-ring: rgba(29, 107, 87, 0.15);
+		--color-accent-soft: #e3eee9;
+		--color-accent-tint: #cfe3da;
+
+		--color-ok: #17624f;
+		--color-ok-bg: #e7f3ee;
+		--color-ok-border: #7fb49f;
+		--color-danger: #a3303a;
+		--color-danger-bg: #fbecec;
+		--color-danger-border: #de9a9f;
+
+		--radius-card: 12px;
+		--radius-control: 10px;
+		--shadow-raised: 0 2px 8px rgba(21, 24, 28, 0.12);
+		--backdrop: rgba(21, 24, 28, 0.4);
+		--nav-height: 76px;
+
+		--font-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+	}
+
 	:global(*, *::before, *::after) {
 		box-sizing: border-box;
 		margin: 0;
@@ -65,10 +101,26 @@
 	}
 
 	:global(body) {
-		background: radial-gradient(ellipse at top, #2d0a6e 0%, #1a0533 50%, #0f0220 100%);
+		background: var(--color-bg);
 		min-height: 100dvh;
-		font-family: 'Bricolage Grotesque', sans-serif;
-		color: #ede9fe;
+		font-family: var(--font-sans);
+		color: var(--color-text);
+		-webkit-font-smoothing: antialiased;
+	}
+
+	:global(button, input, select, textarea) {
+		font: inherit;
+		color: inherit;
+	}
+
+	:global(button) {
+		cursor: pointer;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	:global(:focus-visible) {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
 	}
 
 	.app-shell {

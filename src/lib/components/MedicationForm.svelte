@@ -70,11 +70,11 @@
 	</div>
 
 	<div class="form-actions">
-		<button type="button" class="btn btn--ghost" onclick={onCancel} disabled={saving}>
+		<button type="button" class="btn btn--secondary" onclick={onCancel} disabled={saving}>
 			{t.medications.cancelButton}
 		</button>
 		<button type="submit" class="btn btn--primary" disabled={saving || !name.trim()}>
-			{saving ? '...' : t.medications.saveButton}
+			{saving ? t.common.loading : t.medications.saveButton}
 		</button>
 	</div>
 </form>
@@ -83,63 +83,57 @@
 	.med-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 16px;
 	}
 
 	.form-field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.35rem;
+		gap: 6px;
 	}
 
 	.form-label {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 0.8rem;
-		font-weight: 700;
-		color: #c4b5fd;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		font-size: 14px;
+		font-weight: 500;
+		color: var(--color-text-secondary);
 	}
 
 	.form-input {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 1rem;
-		padding: 0.75rem 1rem;
-		background: rgba(255, 255, 255, 0.07);
-		border: 2px solid rgba(124, 58, 237, 0.3);
-		border-radius: 0.875rem;
-		color: #f3f0ff;
+		font-size: 16px;
+		height: 48px;
+		padding: 0 14px;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-control);
+		color: var(--color-text);
 		outline: none;
-		transition: border-color 0.15s ease;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
 	}
 
 	.form-input::placeholder {
-		color: rgba(196, 181, 253, 0.4);
+		color: var(--color-placeholder);
 	}
 
 	.form-input:focus {
-		border-color: #7c3aed;
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px var(--color-accent-ring);
 	}
 
 	.form-actions {
-		display: flex;
-		gap: 0.75rem;
-		justify-content: flex-end;
-		padding-top: 0.5rem;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
+		padding-top: 4px;
 	}
 
 	.btn {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 1rem;
-		padding: 0.6rem 1.5rem;
-		border: none;
-		border-radius: 2rem;
-		cursor: pointer;
-		transition: transform 0.1s ease, opacity 0.1s ease;
-	}
-
-	.btn:active {
-		transform: scale(0.95);
+		font-size: 16px;
+		font-weight: 500;
+		height: 48px;
+		border-radius: var(--radius-control);
+		transition: background-color 0.12s ease;
 	}
 
 	.btn:disabled {
@@ -148,13 +142,18 @@
 	}
 
 	.btn--primary {
-		background: #7C3AED;
-		color: white;
+		background: var(--color-accent);
+		color: #ffffff;
+		border: none;
 	}
 
-	.btn--ghost {
-		background: rgba(255, 255, 255, 0.08);
-		color: #c4b5fd;
-		border: 1px solid rgba(196, 181, 253, 0.3);
+	.btn--primary:not(:disabled):active {
+		background: var(--color-accent-hover);
+	}
+
+	.btn--secondary {
+		background: var(--color-surface);
+		color: var(--color-text);
+		border: 1px solid var(--color-border);
 	}
 </style>

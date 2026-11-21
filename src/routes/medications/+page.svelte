@@ -13,6 +13,8 @@
 	} from '$lib/firebase';
 	import MedicationForm from '$lib/components/MedicationForm.svelte';
 	import PageHeader from '$lib/components/PageHeader.svelte';
+	import ListCard from '$lib/components/ListCard.svelte';
+	import Icon from '$lib/components/Icon.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
@@ -78,71 +80,88 @@
 </script>
 
 <div class="page">
-	<div class="page-header-row">
-		<PageHeader title={t.medications.title} subtitle={t.medications.subtitle} />
-		<button class="settings-btn" onclick={() => (showSettings = !showSettings)} aria-label="Inställningar">
-			⚙️
-		</button>
-	</div>
+	<PageHeader title={t.medications.title} subtitle={t.medications.subtitle}>
+		{#snippet actions()}
+			<button
+				type="button"
+				class="icon-btn"
+				class:icon-btn--active={showSettings}
+				onclick={() => (showSettings = !showSettings)}
+				aria-label={t.common.settings}
+				aria-expanded={showSettings}
+			>
+				<Icon name="settings" size={22} />
+			</button>
+		{/snippet}
+	</PageHeader>
 
 	{#if showSettings}
 		<div class="settings-panel">
 			<div class="settings-section">
 				<p class="settings-label">{t.settings.resetTitle}</p>
 				<p class="settings-desc">{t.settings.resetDescription}</p>
-				<button class="danger-btn" onclick={handleReset}>{t.settings.resetButton}</button>
+				<button type="button" class="small-btn small-btn--danger" onclick={handleReset}>
+					{t.settings.resetButton}
+				</button>
 			</div>
 			<div class="settings-divider"></div>
-			<button class="logout-btn" onclick={handleLogout}>{t.settings.logoutButton}</button>
+			<button type="button" class="small-btn" onclick={handleLogout}>{t.settings.logoutButton}</button>
 		</div>
 	{/if}
 
 	{#if loading}
-		<div class="loading">💊 💊 💊</div>
-	{:else}
-		<div class="med-list">
-			{#each medications as med (med.id)}
-				<div class="med-row">
-					<div class="med-row__info">
-						<span class="med-row__name">{med.name}</span>
-						{#if med.concentration}
-							<span class="med-row__conc">{med.concentration}</span>
-						{/if}
-						{#if med.alternativeNames.length > 0}
-							<span class="med-row__alt">{med.alternativeNames.join(', ')}</span>
-						{/if}
-					</div>
-					<button
-						class="edit-btn"
-						onclick={() => (sheet = { mode: 'edit', med })}
-						aria-label="Redigera {med.name}"
-					>
-						✏️
-					</button>
-				</div>
-			{/each}
+		<p class="status-text">{t.common.loading}</p>
+	{:else if medications.length === 0}
+		<div class="empty">
+			<span class="empty__icon"><Icon name="pill" size={32} /></span>
+			<p>{t.medications.empty}</p>
 		</div>
-
-		{#if medications.length === 0}
-			<div class="empty">
-				<div class="empty__icon">💊</div>
-				<p>{t.medications.empty}</p>
-			</div>
-		{/if}
+	{:else}
+		<div class="content">
+			<ListCard as="ul">
+				{#each medications as med (med.id)}
+					<li class="med-row">
+						<span class="med-row__info">
+							<span class="med-row__name">{med.name}</span>
+							{#if med.concentration}
+								<span class="med-row__conc">{med.concentration}</span>
+							{/if}
+							{#if med.alternativeNames.length > 0}
+								<span class="med-row__alt">{med.alternativeNames.join(', ')}</span>
+							{/if}
+						</span>
+						<button
+							type="button"
+							class="icon-btn"
+							onclick={() => (sheet = { mode: 'edit', med })}
+							aria-label="{t.common.edit} {med.name}"
+						>
+							<Icon name="edit" size={20} />
+						</button>
+					</li>
+				{/each}
+			</ListCard>
+		</div>
 	{/if}
 
-	<button class="fab" onclick={() => (sheet = { mode: 'add' })} aria-label={t.medications.addButton}>
-		＋
+	<button type="button" class="add-btn" onclick={() => (sheet = { mode: 'add' })}>
+		<Icon name="plus" size={20} strokeWidth={2} />
+		{t.common.add}
 	</button>
 </div>
 
 {#if sheet}
 	<div class="sheet-backdrop" onclick={() => (sheet = null)} role="presentation"></div>
-	<div class="sheet">
-		<div class="sheet__handle"></div>
-		<h2 class="sheet__title">
-			{sheet.mode === 'add' ? t.medications.addTitle : t.medications.editTitle}
-		</h2>
+	<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+		<div class="sheet__handle" aria-hidden="true"></div>
+		<div class="sheet__header">
+			<h2 class="sheet__title" id="sheet-title">
+				{sheet.mode === 'add' ? t.medications.addTitle : t.medications.editTitle}
+			</h2>
+			<button type="button" class="icon-btn" onclick={() => (sheet = null)} aria-label={t.common.close}>
+				<Icon name="close" size={20} />
+			</button>
+		</div>
 		<MedicationForm
 			initial={sheet.mode === 'edit' ? sheet.med : {}}
 			onSave={handleSave}
@@ -150,7 +169,11 @@
 			{saving}
 		/>
 		{#if sheet.mode === 'edit'}
-			<button class="delete-btn" onclick={() => sheet?.mode === 'edit' && handleDelete(sheet.med.id)}>
+			<button
+				type="button"
+				class="delete-btn"
+				onclick={() => sheet?.mode === 'edit' && handleDelete(sheet.med.id)}
+			>
 				{t.medications.deleteButton}
 			</button>
 		{/if}
@@ -158,212 +181,179 @@
 {/if}
 
 {#if toastMessage}
-	<div class="toast">{toastMessage}</div>
+	<div class="toast" role="status">{toastMessage}</div>
 {/if}
 
 <style>
 	.page {
 		flex: 1;
 		overflow-y: auto;
-		padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px));
-		position: relative;
+		padding-bottom: calc(var(--nav-height) + 80px + env(safe-area-inset-bottom, 0px));
 	}
 
-	.page-header-row {
+	.content {
+		padding: 0 16px;
+	}
+
+	.icon-btn {
+		flex-shrink: 0;
+		width: 44px;
+		height: 44px;
 		display: flex;
-		align-items: flex-start;
-		justify-content: space-between;
-		padding-right: 1.25rem;
-	}
-
-	.settings-btn {
-		background: none;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
 		border: none;
-		font-size: 1.4rem;
-		cursor: pointer;
-		padding: 1.5rem 0 0.5rem;
-		-webkit-tap-highlight-color: transparent;
+		border-radius: var(--radius-control);
+		color: var(--color-text-muted);
 	}
 
+	.icon-btn:active,
+	.icon-btn--active {
+		background: var(--color-accent-soft);
+		color: var(--color-accent);
+	}
+
+	/* Settings */
 	.settings-panel {
-		margin: 0 1.25rem 1rem;
-		background: rgba(255, 255, 255, 0.05);
-		border: 1px solid rgba(124, 58, 237, 0.3);
-		border-radius: 1.25rem;
-		padding: 1rem;
+		margin: 0 16px 16px;
+		padding: 16px;
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: 12px;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-card);
 	}
 
 	.settings-section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.3rem;
+		gap: 4px;
 	}
 
 	.settings-label {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 1rem;
-		color: #f3f0ff;
+		font-size: 16px;
+		font-weight: 600;
 	}
 
 	.settings-desc {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 0.78rem;
-		color: rgba(196, 181, 253, 0.6);
+		margin-bottom: 8px;
+		font-size: 14px;
 		line-height: 1.4;
+		color: var(--color-text-muted);
 	}
 
 	.settings-divider {
 		height: 1px;
-		background: rgba(124, 58, 237, 0.2);
+		background: var(--color-border-light);
 	}
 
-	.danger-btn {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 0.9rem;
-		padding: 0.5rem 1.25rem;
-		background: rgba(251, 113, 133, 0.15);
-		border: 1px solid #fb7185;
-		border-radius: 2rem;
-		color: #fda4af;
-		cursor: pointer;
+	.small-btn {
 		width: fit-content;
+		height: 40px;
+		padding: 0 14px;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-control);
+		font-size: 14px;
+		font-weight: 500;
+		color: var(--color-text);
 	}
 
-	.logout-btn {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 0.9rem;
-		padding: 0.5rem 1.25rem;
-		background: transparent;
-		border: 1px solid rgba(196, 181, 253, 0.3);
-		border-radius: 2rem;
-		color: rgba(196, 181, 253, 0.6);
-		cursor: pointer;
-		width: fit-content;
+	.small-btn--danger {
+		border-color: var(--color-danger-border);
+		color: var(--color-danger);
 	}
 
-	.loading {
+	/* List */
+	.status-text {
+		padding: 48px 20px;
 		text-align: center;
-		padding: 3rem;
-		font-size: 1.5rem;
-		animation: pulse 1.5s ease-in-out infinite;
-	}
-
-	@keyframes pulse {
-		0%, 100% { opacity: 1; }
-		50% { opacity: 0.4; }
-	}
-
-	.med-list {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-		padding: 0.75rem 1.25rem;
+		color: var(--color-text-muted);
 	}
 
 	.med-row {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 0.75rem;
-		padding: 1rem 1.1rem;
-		background: #231848;
-		border-radius: 1rem;
+		gap: 12px;
+		min-height: 68px;
+		padding: 10px 6px 10px 16px;
 	}
 
 	.med-row__info {
 		display: flex;
 		flex-direction: column;
-		gap: 0.15rem;
+		gap: 2px;
 		min-width: 0;
 	}
 
 	.med-row__name {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 1.1rem;
-		font-weight: 700;
-		color: #ffffff;
+		font-size: 16px;
+		font-weight: 600;
 	}
 
 	.med-row__conc {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 0.82rem;
-		font-weight: 500;
-		color: rgba(196, 181, 253, 0.65);
+		font-size: 14px;
+		color: var(--color-text-muted);
 	}
 
 	.med-row__alt {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 0.75rem;
-		color: rgba(196, 181, 253, 0.35);
+		font-size: 13px;
+		color: var(--color-text-subtle);
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-	}
-
-	.edit-btn {
-		background: none;
-		border: none;
-		font-size: 1.1rem;
-		cursor: pointer;
-		flex-shrink: 0;
-		padding: 0.25rem;
-		-webkit-tap-highlight-color: transparent;
 	}
 
 	.empty {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 3rem 2rem;
+		gap: 12px;
+		margin: 0 16px;
+		padding: 40px 24px;
 		text-align: center;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-card);
+		color: var(--color-text-muted);
 	}
 
 	.empty__icon {
-		font-size: 3rem;
-		opacity: 0.4;
+		color: var(--color-accent);
 	}
 
-	.empty p {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		color: rgba(196, 181, 253, 0.5);
-	}
-
-	.fab {
+	.add-btn {
 		position: fixed;
-		bottom: calc(70px + env(safe-area-inset-bottom, 0px) + 1rem);
-		right: 1.25rem;
-		width: 56px;
-		height: 56px;
-		background: #7C3AED;
-		color: white;
-		border: none;
-		border-radius: 50%;
-		font-size: 1.5rem;
-		line-height: 1;
-		cursor: pointer;
-		box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+		right: 16px;
+		bottom: calc(var(--nav-height) + 20px + env(safe-area-inset-bottom, 0px));
+		height: 48px;
+		padding: 0 18px 0 14px;
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		transition: transform 0.15s ease;
+		gap: 8px;
+		background: var(--color-accent);
+		color: #ffffff;
+		border: none;
+		border-radius: var(--radius-card);
+		font-size: 15px;
+		font-weight: 500;
+		box-shadow: var(--shadow-raised);
 		z-index: 50;
 	}
 
-	.fab:active {
-		transform: scale(0.9);
+	.add-btn:active {
+		background: var(--color-accent-hover);
 	}
 
 	/* Bottom sheet */
 	.sheet-backdrop {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.5);
+		background: var(--backdrop);
 		z-index: 200;
-		backdrop-filter: blur(4px);
 	}
 
 	.sheet {
@@ -372,59 +362,62 @@
 		left: 0;
 		right: 0;
 		z-index: 201;
-		background: #150D2E;
-		border-top: 1px solid rgba(167, 139, 250, 0.2);
-		border-radius: 1.5rem 1.5rem 0 0;
-		padding: 0.75rem 1.5rem calc(2rem + env(safe-area-inset-bottom, 0px));
+		max-height: 90dvh;
+		overflow-y: auto;
+		background: var(--color-surface);
+		border-radius: 16px 16px 0 0;
+		padding: 8px 20px calc(32px + env(safe-area-inset-bottom, 0px));
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 20px;
 	}
 
 	.sheet__handle {
 		width: 36px;
 		height: 4px;
-		background: rgba(167, 139, 250, 0.25);
+		background: var(--color-handle);
 		border-radius: 2px;
-		margin: 0 auto 0.25rem;
+		margin: 0 auto;
+		flex-shrink: 0;
+	}
+
+	.sheet__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-right: -10px;
 	}
 
 	.sheet__title {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 1.4rem;
-		font-weight: 800;
-		color: #ffffff;
-		letter-spacing: -0.02em;
+		font-size: 20px;
+		font-weight: 600;
 	}
 
 	.delete-btn {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 0.9rem;
-		padding: 0.6rem;
+		align-self: center;
+		height: 44px;
+		padding: 0 16px;
 		background: transparent;
-		border: 1px solid rgba(251, 113, 133, 0.3);
-		border-radius: 2rem;
-		color: #fda4af;
-		cursor: pointer;
-		text-align: center;
+		border: none;
+		font-size: 15px;
+		font-weight: 500;
+		color: var(--color-danger);
 	}
 
 	/* Toast */
 	.toast {
 		position: fixed;
-		bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+		bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
 		left: 50%;
 		transform: translateX(-50%);
-		background: rgba(26, 5, 51, 0.95);
-		border: 1px solid rgba(124, 58, 237, 0.5);
-		color: #f3f0ff;
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 0.85rem;
-		font-weight: 700;
-		padding: 0.6rem 1.25rem;
-		border-radius: 2rem;
+		max-width: calc(100% - 32px);
+		padding: 10px 16px;
+		background: var(--color-text);
+		color: #ffffff;
+		font-size: 14px;
+		font-weight: 500;
+		border-radius: var(--radius-control);
+		box-shadow: var(--shadow-raised);
 		z-index: 300;
-		white-space: nowrap;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 	}
 </style>

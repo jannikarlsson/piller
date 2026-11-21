@@ -5,8 +5,8 @@
 	import { updateTileState, nextTileState } from '$lib/firebase';
 	import MedicationTile from '$lib/components/MedicationTile.svelte';
 	import PageHeader from '$lib/components/PageHeader.svelte';
-	import PillDecor from '$lib/components/PillDecor.svelte';
-	import { goto } from '$app/navigation';
+	import ListCard from '$lib/components/ListCard.svelte';
+	import Icon from '$lib/components/Icon.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
@@ -21,92 +21,73 @@
 </script>
 
 <div class="page">
-	<PillDecor count={5} />
-	<div class="page-inner">
-		<PageHeader title={t.inventory.title} subtitle={t.inventory.subtitle} />
+	<PageHeader title={t.inventory.title} subtitle={t.inventory.subtitle} />
 
-		{#if loading}
-			<div class="loading">💊 💊 💊</div>
-		{:else if medications.length === 0}
-			<div class="empty">
-				<div class="empty__icon">🏠</div>
-				<p>{t.inventory.empty}</p>
-				<button class="add-btn" onclick={() => goto('/medications')}>
-					{t.inventory.emptyAction}
-				</button>
-			</div>
-		{:else}
-			<div class="tile-list">
+	{#if loading}
+		<p class="status-text">{t.common.loading}</p>
+	{:else if medications.length === 0}
+		<div class="empty">
+			<span class="empty__icon"><Icon name="cabinet" size={32} /></span>
+			<p>{t.inventory.empty}</p>
+			<a class="empty__action" href="/medications">{t.inventory.emptyAction}</a>
+		</div>
+	{:else}
+		<div class="content">
+			<ListCard>
 				{#each medications as med (med.id)}
 					<MedicationTile medication={med} mode="inventory" ontap={handleTap} />
 				{/each}
-			</div>
-		{/if}
-	</div>
+			</ListCard>
+		</div>
+	{/if}
 </div>
 
 <style>
 	.page {
-		position: relative;
 		flex: 1;
-		overflow: hidden;
-	}
-
-	.page-inner {
-		position: relative;
-		z-index: 1;
-		height: 100%;
 		overflow-y: auto;
-		padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+		padding-bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
 	}
 
-	.tile-list {
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
-		padding: 1rem 1.25rem;
+	.content {
+		padding: 0 16px;
 	}
 
-	.loading {
+	.status-text {
+		padding: 48px 20px;
 		text-align: center;
-		padding: 3rem;
-		font-size: 1.5rem;
-		animation: pulse 1.5s ease-in-out infinite;
-	}
-
-	@keyframes pulse {
-		0%, 100% { opacity: 1; }
-		50% { opacity: 0.4; }
+		color: var(--color-text-muted);
 	}
 
 	.empty {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		gap: 0.75rem;
-		padding: 3rem 2rem;
+		gap: 12px;
+		margin: 0 16px;
+		padding: 40px 24px;
 		text-align: center;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-card);
+		color: var(--color-text-muted);
 	}
 
 	.empty__icon {
-		font-size: 3rem;
-		opacity: 0.5;
+		color: var(--color-accent);
 	}
 
-	.empty p {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		color: rgba(196, 181, 253, 0.6);
-	}
-
-	.add-btn {
-		font-family: 'Bricolage Grotesque', sans-serif;
-		font-size: 0.95rem;
-		padding: 0.6rem 1.5rem;
-		background: #7C3AED;
-		color: white;
-		border: none;
-		border-radius: 2rem;
-		cursor: pointer;
+	.empty__action {
+		display: inline-flex;
+		align-items: center;
+		height: 44px;
+		padding: 0 18px;
+		margin-top: 4px;
+		background: var(--color-accent);
+		color: #ffffff;
+		border-radius: var(--radius-control);
+		font-size: 15px;
+		font-weight: 500;
+		text-decoration: none;
 	}
 </style>
