@@ -81,17 +81,17 @@
 	.login-content {
 		display: flex;
 		flex-direction: column;
-		gap: 32px;
+		gap: var(--space-8);
 		width: 100%;
 		max-width: 480px;
 		margin: 0 auto;
-		padding: 28px 28px calc(40px + env(safe-area-inset-bottom, 0px));
+		padding: var(--space-6) var(--space-6) calc(var(--space-10) + env(safe-area-inset-bottom, 0px));
 	}
 
 	.intro {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--space-2);
 	}
 
 	.intro__title {
@@ -108,17 +108,17 @@
 	.login-actions {
 		display: flex;
 		flex-direction: column;
-		gap: 12px;
+		gap: var(--space-3);
 	}
 
 	.google-btn {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 12px;
+		gap: var(--space-3);
 		width: 100%;
 		height: 48px;
-		padding: 0 20px;
+		padding: 0 var(--space-5);
 		background: var(--color-surface);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-control);

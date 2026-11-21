@@ -43,9 +43,9 @@
 		position: relative;
 		display: flex;
 		align-items: center;
-		gap: 12px;
+		gap: var(--space-3);
 		min-height: 56px;
-		padding: 8px 16px;
+		padding: var(--space-2) var(--space-4);
 		cursor: pointer;
 		-webkit-tap-highlight-color: transparent;
 		transition: background-color 0.12s ease;

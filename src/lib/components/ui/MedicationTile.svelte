@@ -45,10 +45,10 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 12px;
+		gap: var(--space-3);
 		width: 100%;
 		min-height: 68px;
-		padding: 12px 16px;
+		padding: var(--space-3) var(--space-4);
 		background: transparent;
 		border: none;
 		text-align: left;
@@ -62,7 +62,7 @@
 	.tile__main {
 		display: flex;
 		flex-direction: column;
-		gap: 2px;
+		gap: var(--space-1);
 		min-width: 0;
 	}
 

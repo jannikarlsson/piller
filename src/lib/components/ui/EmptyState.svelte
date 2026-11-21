@@ -28,8 +28,8 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 12px;
-		padding: 40px 24px;
+		gap: var(--space-3);
+		padding: var(--space-10) var(--space-6);
 		text-align: center;
 		background: var(--color-surface);
 		border: 1px solid var(--color-border-light);
@@ -42,6 +42,6 @@
 	}
 
 	.empty__action {
-		margin-top: 4px;
+		margin-top: var(--space-1);
 	}
 </style>

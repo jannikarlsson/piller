@@ -136,8 +136,8 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 8px;
-		padding: 40px 24px;
+		gap: var(--space-2);
+		padding: var(--space-10) var(--space-6);
 		text-align: center;
 		background: var(--color-surface);
 		border: 1px solid var(--color-border-light);
@@ -150,7 +150,7 @@
 		justify-content: center;
 		width: 48px;
 		height: 48px;
-		margin-bottom: 4px;
+		margin-bottom: var(--space-1);
 		border-radius: 50%;
 		background: var(--color-ok-bg);
 		color: var(--color-ok);
@@ -164,20 +164,20 @@
 	.sections {
 		display: flex;
 		flex-direction: column;
-		gap: 24px;
+		gap: var(--space-6);
 	}
 
 	.section {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--space-2);
 	}
 
 	.section__heading {
 		display: flex;
 		align-items: baseline;
 		justify-content: space-between;
-		padding: 0 4px;
+		padding: 0 var(--space-1);
 	}
 
 
@@ -185,7 +185,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
-		column-gap: 8px;
+		column-gap: var(--space-2);
 	}
 
 

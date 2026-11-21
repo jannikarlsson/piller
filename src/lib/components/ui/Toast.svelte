@@ -18,17 +18,17 @@
 <style>
 	.toast {
 		position: fixed;
-		bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
-		left: 16px;
-		right: 16px;
+		bottom: calc(var(--nav-height) + var(--space-4) + env(safe-area-inset-bottom, 0px));
+		left: var(--space-4);
+		right: var(--space-4);
 		max-width: 480px;
 		margin: 0 auto;
 		min-height: 48px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 12px;
-		padding: 6px 6px 6px 16px;
+		gap: var(--space-3);
+		padding: var(--space-1) var(--space-1) var(--space-1) var(--space-4);
 		background: var(--color-text);
 		color: var(--color-on-accent);
 		font-size: var(--text-sm);
@@ -39,14 +39,14 @@
 	}
 
 	.toast__message {
-		padding: 6px 0;
+		padding: var(--space-2) 0;
 		line-height: var(--leading-normal);
 	}
 
 	.toast__action {
 		flex-shrink: 0;
 		height: 36px;
-		padding: 0 12px;
+		padding: 0 var(--space-3);
 		background: transparent;
 		border: none;
 		border-radius: 8px;

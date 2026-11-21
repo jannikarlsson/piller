@@ -26,8 +26,8 @@
 		display: flex;
 		align-items: flex-start;
 		justify-content: space-between;
-		gap: 12px;
-		padding: calc(32px + env(safe-area-inset-top, 0px)) 12px 20px 20px;
+		gap: var(--space-3);
+		padding: calc(var(--space-8) + env(safe-area-inset-top, 0px)) var(--space-3) var(--space-5) var(--space-5);
 	}
 
 	.page-header__title {
@@ -38,7 +38,7 @@
 	}
 
 	.page-header__subtitle {
-		margin-top: 4px;
+		margin-top: var(--space-1);
 		font-size: var(--text-md);
 		color: var(--color-text-muted);
 	}

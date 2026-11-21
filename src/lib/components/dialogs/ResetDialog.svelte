@@ -96,7 +96,7 @@
 	.reset-form {
 		display: flex;
 		flex-direction: column;
-		gap: 16px;
+		gap: var(--space-4);
 	}
 
 	.intro {
@@ -107,15 +107,15 @@
 		border: none;
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--space-2);
 	}
 
 	.option {
 		display: flex;
 		align-items: center;
-		gap: 12px;
+		gap: var(--space-3);
 		min-height: 56px;
-		padding: 8px 14px;
+		padding: var(--space-2) var(--space-4);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-control);
 		cursor: pointer;
@@ -147,7 +147,7 @@
 		flex: 1;
 		align-items: baseline;
 		justify-content: space-between;
-		gap: 12px;
+		gap: var(--space-3);
 	}
 
 	.option__label {
@@ -162,7 +162,7 @@
 	.actions {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 12px;
-		padding-top: 4px;
+		gap: var(--space-3);
+		padding-top: var(--space-1);
 	}
 </style>

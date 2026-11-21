@@ -38,22 +38,22 @@
 	.page {
 		flex: 1;
 		overflow-y: auto;
-		padding-bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
+		padding-bottom: calc(var(--nav-height) + var(--space-4) + env(safe-area-inset-bottom, 0px));
 	}
 
 	.page--floating-button {
-		padding-bottom: calc(var(--nav-height) + 80px + env(safe-area-inset-bottom, 0px));
+		padding-bottom: calc(var(--nav-height) + var(--size-floating-button) + var(--space-8) + env(safe-area-inset-bottom, 0px));
 	}
 
 	.page__body {
 		display: flex;
 		flex-direction: column;
-		gap: 16px;
-		padding: 0 16px;
+		gap: var(--space-4);
+		padding: 0 var(--space-4);
 	}
 
 	.page__loading {
-		padding: 32px 4px;
+		padding: var(--space-8) var(--space-1);
 		text-align: center;
 		color: var(--color-text-muted);
 	}

@@ -55,7 +55,7 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: 8px;
+		gap: var(--space-2);
 		font-weight: 500;
 		border-radius: var(--radius-control);
 		text-decoration: none;
@@ -64,13 +64,13 @@
 
 	.btn--md {
 		height: 48px;
-		padding: 0 20px;
+		padding: 0 var(--space-5);
 		font-size: var(--text-md);
 	}
 
 	.btn--sm {
 		height: 44px;
-		padding: 0 18px;
+		padding: 0 var(--space-4);
 		font-size: var(--text-md);
 	}
 
@@ -113,8 +113,7 @@
 	}
 
 	.btn--ghost {
-		padding: 0 12px;
-		gap: 6px;
+		padding: 0 var(--space-3);
 		background: transparent;
 		color: var(--color-accent);
 		border: none;

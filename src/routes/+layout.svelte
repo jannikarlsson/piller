@@ -100,6 +100,18 @@
 
 		--leading-tight: 1.2;
 		--leading-normal: 1.5;
+
+		/* Spacing on a 4px grid: --space-N = N × 4px */
+		--space-1: 4px;
+		--space-2: 8px;
+		--space-3: 12px;
+		--space-4: 16px;
+		--space-5: 20px;
+		--space-6: 24px;
+		--space-8: 32px;
+		--space-10: 40px;
+
+		--size-floating-button: 48px;
 	}
 
 	:global(*, *::before, *::after) {

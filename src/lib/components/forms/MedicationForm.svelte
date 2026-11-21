@@ -107,20 +107,20 @@
 	.med-form {
 		display: flex;
 		flex-direction: column;
-		gap: 16px;
+		gap: var(--space-4);
 	}
 
 	.form-field {
 		display: flex;
 		flex-direction: column;
-		gap: 6px;
+		gap: var(--space-2);
 	}
 
 
 	.form-input {
 		font-size: var(--text-md);
 		height: 48px;
-		padding: 0 14px;
+		padding: 0 var(--space-4);
 		background: var(--color-surface);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-control);
@@ -144,11 +144,11 @@
 		border: none;
 		display: flex;
 		flex-direction: column;
-		gap: 6px;
+		gap: var(--space-2);
 	}
 
 	.form-options legend {
-		margin-bottom: 6px;
+		margin-bottom: var(--space-2);
 	}
 
 	.form-options__list {
@@ -164,7 +164,7 @@
 	.form-actions {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 12px;
-		padding-top: 4px;
+		gap: var(--space-3);
+		padding-top: var(--space-1);
 	}
 </style>

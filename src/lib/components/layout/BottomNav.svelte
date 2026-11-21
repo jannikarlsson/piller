@@ -34,7 +34,7 @@
 		left: 0;
 		right: 0;
 		display: flex;
-		padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+		padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
 		background: var(--color-surface);
 		border-top: 1px solid var(--color-border-light);
 		z-index: 100;
@@ -47,7 +47,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 3px;
+		gap: var(--space-1);
 		text-decoration: none;
 		color: var(--color-text-subtle);
 		border-radius: var(--radius-control);

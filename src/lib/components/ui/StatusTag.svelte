@@ -61,7 +61,7 @@
 
 	.tag__label {
 		flex: 1;
-		padding: 0 8px;
+		padding: 0 var(--space-2);
 		text-align: center;
 		white-space: nowrap;
 	}

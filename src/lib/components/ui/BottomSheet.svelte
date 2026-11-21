@@ -51,10 +51,10 @@
 		overflow-y: auto;
 		background: var(--color-surface);
 		border-radius: 16px 16px 0 0;
-		padding: 8px 20px calc(32px + env(safe-area-inset-bottom, 0px));
+		padding: var(--space-2) var(--space-5) calc(var(--space-8) + env(safe-area-inset-bottom, 0px));
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: var(--space-5);
 	}
 
 	.sheet__handle {
@@ -70,7 +70,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin-right: -10px;
+		/* Lets the close icon line up with the content edge */
+		margin-right: calc(-1 * var(--space-3));
 	}
 
 </style>

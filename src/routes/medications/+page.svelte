@@ -198,10 +198,10 @@
 <style>
 	/* Settings */
 	.settings-panel {
-		padding: 16px;
+		padding: var(--space-4);
 		display: flex;
 		flex-direction: column;
-		gap: 12px;
+		gap: var(--space-3);
 		background: var(--color-surface);
 		border: 1px solid var(--color-border-light);
 		border-radius: var(--radius-card);
@@ -210,12 +210,12 @@
 	.settings-section {
 		display: flex;
 		flex-direction: column;
-		gap: 4px;
+		gap: var(--space-1);
 	}
 
 
 	.settings-desc {
-		margin-bottom: 8px;
+		margin-bottom: var(--space-2);
 		line-height: var(--leading-normal);
 	}
 
@@ -227,7 +227,7 @@
 	.small-btn {
 		width: fit-content;
 		height: 40px;
-		padding: 0 14px;
+		padding: 0 var(--space-4);
 		background: var(--color-surface);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-control);
@@ -246,15 +246,15 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 12px;
+		gap: var(--space-3);
 		min-height: 68px;
-		padding: 10px 6px 10px 16px;
+		padding: var(--space-2) var(--space-1) var(--space-2) var(--space-4);
 	}
 
 	.med-row__info {
 		display: flex;
 		flex-direction: column;
-		gap: 2px;
+		gap: var(--space-1);
 		min-width: 0;
 	}
 
@@ -268,13 +268,13 @@
 
 	.add-btn {
 		position: fixed;
-		right: 16px;
-		bottom: calc(var(--nav-height) + 20px + env(safe-area-inset-bottom, 0px));
+		right: var(--space-4);
+		bottom: calc(var(--nav-height) + var(--space-5) + env(safe-area-inset-bottom, 0px));
 		height: 48px;
-		padding: 0 18px 0 14px;
+		padding: 0 var(--space-4) 0 var(--space-3);
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: var(--space-2);
 		background: var(--color-accent);
 		color: var(--color-on-accent);
 		border: none;
@@ -292,7 +292,7 @@
 	.sheet-view {
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: var(--space-5);
 	}
 
 	.sheet-view[hidden] {
@@ -302,7 +302,7 @@
 	.delete-btn {
 		align-self: center;
 		height: 44px;
-		padding: 0 16px;
+		padding: 0 var(--space-4);
 		background: transparent;
 		border: none;
 		font-size: var(--text-md);

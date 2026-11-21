@@ -99,14 +99,14 @@
 	.checklist {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--space-2);
 	}
 
 	.progress {
 		display: flex;
 		align-items: center;
-		gap: 6px;
-		padding: 0 4px;
+		gap: var(--space-1);
+		padding: 0 var(--space-1);
 	}
 
 	.progress--done {
@@ -117,7 +117,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
-		column-gap: 8px;
+		column-gap: var(--space-2);
 	}
 
 

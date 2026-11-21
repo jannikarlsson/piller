@@ -10,7 +10,7 @@
 
 <style>
 	.error {
-		padding: 12px 14px;
+		padding: var(--space-3) var(--space-4);
 		background: var(--color-danger-bg);
 		border: 1px solid var(--color-danger-border);
 		border-radius: var(--radius-control);

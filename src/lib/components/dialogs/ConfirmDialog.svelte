@@ -65,7 +65,7 @@
 	.confirm {
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: var(--space-5);
 	}
 
 	.confirm__message {
@@ -75,6 +75,6 @@
 	.confirm__actions {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 12px;
+		gap: var(--space-3);
 	}
 </style>
