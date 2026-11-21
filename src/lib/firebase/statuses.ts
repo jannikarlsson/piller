@@ -1,5 +1,5 @@
 import { doc, getDocs, updateDoc, writeBatch, serverTimestamp } from 'firebase/firestore';
-import { db } from './app';
+import { db, save } from './app';
 import { STATUS_FIELDS, type StatusKind, type Status } from '../models';
 import { medicationsRef } from './medications';
 
@@ -18,7 +18,7 @@ export async function updateStatus(
 	const update: Record<string, unknown> = { [fields.status]: status, updatedAt: serverTimestamp() };
 	if (status !== 'out') update[fields.addedToTodo] = false;
 	else if (addedToTodo !== undefined) update[fields.addedToTodo] = addedToTodo;
-	await updateDoc(doc(medicationsRef(), id), update);
+	await save(updateDoc(doc(medicationsRef(), id), update));
 }
 
 export async function setAddedToTodo(
@@ -26,17 +26,17 @@ export async function setAddedToTodo(
 	kind: StatusKind,
 	added: boolean
 ): Promise<void> {
-	await updateDoc(doc(medicationsRef(), id), {
+	await save(updateDoc(doc(medicationsRef(), id), {
 		[STATUS_FIELDS[kind].addedToTodo]: added,
 		updatedAt: serverTimestamp()
-	});
+	}));
 }
 
 export async function setPicked(id: string, picked: boolean): Promise<void> {
-	await updateDoc(doc(medicationsRef(), id), {
+	await save(updateDoc(doc(medicationsRef(), id), {
 		picked,
 		updatedAt: serverTimestamp()
-	});
+	}));
 }
 
 export async function resetPicked(): Promise<void> {
@@ -47,7 +47,7 @@ export async function resetPicked(): Promise<void> {
 		.forEach((d) => {
 			batch.update(d.ref, { picked: false, updatedAt: serverTimestamp() });
 		});
-	await batch.commit();
+	await save(batch.commit());
 }
 
 /**
@@ -73,7 +73,7 @@ export async function resetStatuses(
 				updatedAt: serverTimestamp()
 			});
 		});
-	await batch.commit();
+	await save(batch.commit());
 }
 
 export async function resetAllStatuses(): Promise<void> {
@@ -87,5 +87,5 @@ export async function resetAllStatuses(): Promise<void> {
 		}
 		batch.update(d.ref, update);
 	});
-	await batch.commit();
+	await save(batch.commit());
 }

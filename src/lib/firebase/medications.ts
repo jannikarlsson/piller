@@ -10,7 +10,7 @@ import {
 	orderBy
 } from 'firebase/firestore';
 import { DEFAULT_MEDICATION_SETTINGS, type Medication, type MedicationInput } from '../models';
-import { db, currentUid } from './app';
+import { db, currentUid, save } from './app';
 
 export function medicationsRef(userId = currentUid()) {
 	return collection(db, 'users', userId, 'medications');
@@ -50,7 +50,7 @@ export function subscribeMedications(
 
 export async function addMedication(input: MedicationInput): Promise<void> {
 	const ref = doc(medicationsRef());
-	await setDoc(ref, {
+	await save(setDoc(ref, {
 		...input,
 		inventoryState: 'neutral',
 		prescriptionState: 'neutral',
@@ -59,16 +59,16 @@ export async function addMedication(input: MedicationInput): Promise<void> {
 		addedToPrescriptionList: false,
 		createdAt: serverTimestamp(),
 		updatedAt: serverTimestamp()
-	});
+	}));
 }
 
 export async function updateMedication(id: string, input: MedicationInput): Promise<void> {
-	await updateDoc(doc(medicationsRef(), id), {
+	await save(updateDoc(doc(medicationsRef(), id), {
 		...input,
 		updatedAt: serverTimestamp()
-	});
+	}));
 }
 
 export async function deleteMedication(id: string): Promise<void> {
-	await deleteDoc(doc(medicationsRef(), id));
+	await save(deleteDoc(doc(medicationsRef(), id)));
 }
