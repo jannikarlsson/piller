@@ -1,17 +1,20 @@
+<!--
+	Choose which cabinet or prescription statuses to reset, shown inside a BottomSheet.
+	The page does the reset in `onconfirm`; if it throws, an error is shown and the dialog stays open.
+-->
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { t } from '$lib/i18n/sv';
-	import { userStore } from '$lib/stores/auth';
-	import { resetStates, type Medication } from '$lib/firebase';
-	import BottomSheet from './BottomSheet.svelte';
+	import type { Medication } from '$lib/firebase';
 
 	interface Props {
 		mode: 'inventory' | 'prescription';
 		medications: Medication[];
-		onclose: () => void;
+		onconfirm: (onlyOut: boolean) => Promise<void>;
+		oncancel: () => void;
 	}
 
-	let { mode, medications, onclose }: Props = $props();
+	let { mode, medications, onconfirm, oncancel }: Props = $props();
 
 	type Scope = 'out' | 'all';
 
@@ -37,13 +40,10 @@
 
 	async function handleSubmit(e: SubmitEvent) {
 		e.preventDefault();
-		const user = $userStore;
-		if (!user) return;
 		submitting = true;
 		error = null;
 		try {
-			await resetStates(user.uid, field, scope === 'out');
-			onclose();
+			await onconfirm(scope === 'out');
 		} catch {
 			error = t.errors.resetFailed;
 		} finally {
@@ -52,48 +52,43 @@
 	}
 </script>
 
-<BottomSheet
-	title={mode === 'inventory' ? t.reset.inventoryTitle : t.reset.prescriptionTitle}
-	{onclose}
->
-	<form class="reset-form" onsubmit={handleSubmit}>
-		<p class="intro">
-			{mode === 'inventory' ? t.reset.inventoryIntro : t.reset.prescriptionIntro}
-		</p>
+<form class="reset-form" onsubmit={handleSubmit}>
+	<p class="intro">
+		{mode === 'inventory' ? t.reset.inventoryIntro : t.reset.prescriptionIntro}
+	</p>
 
-		<fieldset class="options">
-			<legend class="visually-hidden">{t.reset.scopeLegend}</legend>
-			{#each options as option (option.value)}
-				<label class="option" class:option--disabled={option.count === 0}>
-					<input
-						type="radio"
-						name="reset-scope"
-						value={option.value}
-						bind:group={scope}
-						disabled={option.count === 0}
-					/>
-					<span class="option__text">
-						<span class="option__label">{option.label}</span>
-						<span class="option__count">{t.reset.count(option.count)}</span>
-					</span>
-				</label>
-			{/each}
-		</fieldset>
+	<fieldset class="options">
+		<legend class="visually-hidden">{t.reset.scopeLegend}</legend>
+		{#each options as option (option.value)}
+			<label class="option" class:option--disabled={option.count === 0}>
+				<input
+					type="radio"
+					name="reset-scope"
+					value={option.value}
+					bind:group={scope}
+					disabled={option.count === 0}
+				/>
+				<span class="option__text">
+					<span class="option__label">{option.label}</span>
+					<span class="option__count">{t.reset.count(option.count)}</span>
+				</span>
+			</label>
+		{/each}
+	</fieldset>
 
-		{#if error}
-			<p class="error" role="alert">{error}</p>
-		{/if}
+	{#if error}
+		<p class="error" role="alert">{error}</p>
+	{/if}
 
-		<div class="actions">
-			<button type="button" class="btn btn--secondary" onclick={onclose} disabled={submitting}>
-				{t.reset.cancel}
-			</button>
-			<button type="submit" class="btn btn--primary" disabled={submitting || selectedCount === 0}>
-				{submitting ? t.common.loading : t.reset.confirm}
-			</button>
-		</div>
-	</form>
-</BottomSheet>
+	<div class="actions">
+		<button type="button" class="btn btn--secondary" onclick={oncancel} disabled={submitting}>
+			{t.common.cancel}
+		</button>
+		<button type="submit" class="btn btn--primary" disabled={submitting || selectedCount === 0}>
+			{submitting ? t.common.loading : t.reset.confirm}
+		</button>
+	</div>
+</form>
 
 <style>
 	.reset-form {

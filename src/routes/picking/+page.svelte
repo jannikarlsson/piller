@@ -3,10 +3,10 @@
 	import { userStore } from '$lib/stores/auth';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { setPicked, resetPicked } from '$lib/firebase';
-	import PageHeader from '$lib/components/PageHeader.svelte';
-	import ListCard from '$lib/components/ListCard.svelte';
-	import ResetButton from '$lib/components/ResetButton.svelte';
-	import Icon from '$lib/components/Icon.svelte';
+	import PageHeader from '$lib/components/ui/PageHeader.svelte';
+	import ListCard from '$lib/components/ui/ListCard.svelte';
+	import ResetButton from '$lib/components/ui/ResetButton.svelte';
+	import Icon from '$lib/components/ui/Icon.svelte';
 
 	const medications = $derived($medicationsStore.filter((m) => m.inPillOrganizer));
 	const loading = $derived($medicationsLoading);

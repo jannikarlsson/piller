@@ -11,12 +11,13 @@
 		type Medication,
 		type MedicationInput
 	} from '$lib/firebase';
-	import MedicationForm from '$lib/components/MedicationForm.svelte';
-	import PageHeader from '$lib/components/PageHeader.svelte';
-	import ListCard from '$lib/components/ListCard.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import BottomSheet from '$lib/components/BottomSheet.svelte';
-	import Toast from '$lib/components/Toast.svelte';
+	import MedicationForm from '$lib/components/forms/MedicationForm.svelte';
+	import PageHeader from '$lib/components/ui/PageHeader.svelte';
+	import ListCard from '$lib/components/ui/ListCard.svelte';
+	import Icon from '$lib/components/ui/Icon.svelte';
+	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
+	import Toast from '$lib/components/ui/Toast.svelte';
+	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
@@ -26,7 +27,6 @@
 	let saving = $state(false);
 	/** In the edit sheet: showing the "are you sure?" view instead of the form. */
 	let confirmingDelete = $state(false);
-	let deleting = $state(false);
 
 	function openSheet(next: Exclude<Sheet, null>) {
 		confirmingDelete = false;
@@ -63,18 +63,12 @@
 		}
 	}
 
+	/** Called from the confirm view; errors are shown inside the dialog. */
 	async function handleDelete(id: string) {
 		const user = $userStore;
 		if (!user) return;
-		deleting = true;
-		try {
-			await deleteMedication(user.uid, id);
-			closeSheet();
-		} catch {
-			showToast(t.errors.deleteFailed);
-		} finally {
-			deleting = false;
-		}
+		await deleteMedication(user.uid, id);
+		closeSheet();
 	}
 
 	async function handleReset() {
@@ -193,27 +187,14 @@
 
 		{#if confirmingDelete && sheet.mode === 'edit'}
 			{@const med = sheet.med}
-			<div class="sheet-view">
-				<p class="confirm-text">{t.medications.deleteConfirm(med.name)}</p>
-				<div class="confirm-actions">
-					<button
-						type="button"
-						class="btn btn--secondary"
-						onclick={() => (confirmingDelete = false)}
-						disabled={deleting}
-					>
-						{t.medications.deleteBack}
-					</button>
-					<button
-						type="button"
-						class="btn btn--danger"
-						onclick={() => handleDelete(med.id)}
-						disabled={deleting}
-					>
-						{deleting ? t.common.loading : t.medications.deleteConfirmButton}
-					</button>
-				</div>
-			</div>
+			<ConfirmDialog
+				message={t.medications.deleteConfirm(med.name)}
+				confirmLabel={t.medications.deleteConfirmButton}
+				tone="danger"
+				errorMessage={t.errors.deleteFailed}
+				onconfirm={() => handleDelete(med.id)}
+				oncancel={() => (confirmingDelete = false)}
+			/>
 		{/if}
 	</BottomSheet>
 {/if}
@@ -394,42 +375,6 @@
 
 	.sheet-view[hidden] {
 		display: none;
-	}
-
-	.confirm-text {
-		font-size: 16px;
-		line-height: 1.5;
-		color: var(--color-text-secondary);
-	}
-
-	.confirm-actions {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 12px;
-	}
-
-	.btn {
-		font-size: 16px;
-		font-weight: 500;
-		height: 48px;
-		border-radius: var(--radius-control);
-	}
-
-	.btn:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn--secondary {
-		background: var(--color-surface);
-		color: var(--color-text);
-		border: 1px solid var(--color-border);
-	}
-
-	.btn--danger {
-		background: var(--color-danger);
-		color: #ffffff;
-		border: none;
 	}
 
 	.delete-btn {

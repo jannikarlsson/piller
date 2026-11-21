@@ -23,6 +23,7 @@ export const t = {
 		loading: 'Laddar…',
 		settings: 'Inställningar',
 		close: 'Stäng',
+		cancel: 'Avbryt',
 		edit: 'Redigera',
 		add: 'Lägg till',
 		mainMenu: 'Huvudmeny'
@@ -89,8 +90,7 @@ export const t = {
 		optionOutPrescription: 'Bara de utan recept',
 		optionAll: 'Alla statusar',
 		count: (n: number) => `${n} läkemedel`,
-		confirm: 'Återställ',
-		cancel: 'Avbryt'
+		confirm: 'Återställ'
 	},
 
 	medications: {
@@ -115,8 +115,7 @@ export const t = {
 		deleteTitle: 'Ta bort läkemedel?',
 		deleteConfirm: (name: string) =>
 			`${name} tas bort från alla listor. Det går inte att ångra.`,
-		deleteConfirmButton: 'Ta bort',
-		deleteBack: 'Avbryt'
+		deleteConfirmButton: 'Ta bort'
 	},
 
 	tileStates: {

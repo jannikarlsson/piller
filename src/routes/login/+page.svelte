@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/sv';
 	import { signInWithGoogle } from '$lib/firebase';
-	import CabinetIllustration from '$lib/components/CabinetIllustration.svelte';
+	import CabinetIllustration from '$lib/components/ui/CabinetIllustration.svelte';
 
 	let loading = $state(false);
 	let error = $state<string | null>(null);

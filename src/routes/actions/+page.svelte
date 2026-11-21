@@ -3,10 +3,10 @@
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { userStore } from '$lib/stores/auth';
 	import { updateTileState, ADDED_TO_TODO_FIELD, type Medication } from '$lib/firebase';
-	import Toast from '$lib/components/Toast.svelte';
-	import PageHeader from '$lib/components/PageHeader.svelte';
-	import ListCard from '$lib/components/ListCard.svelte';
-	import Icon from '$lib/components/Icon.svelte';
+	import Toast from '$lib/components/ui/Toast.svelte';
+	import PageHeader from '$lib/components/ui/PageHeader.svelte';
+	import ListCard from '$lib/components/ui/ListCard.svelte';
+	import Icon from '$lib/components/ui/Icon.svelte';
 
 	type SectionId = 'buy' | 'rx';
 

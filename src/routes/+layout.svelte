@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 	import { initAuth, userStore, authStateStore } from '$lib/stores/auth';
 	import { startMedicationsSync, stopMedicationsSync } from '$lib/stores/medications';
-	import BottomNav from '$lib/components/BottomNav.svelte';
+	import BottomNav from '$lib/components/layout/BottomNav.svelte';
 
 	let { children } = $props();
 

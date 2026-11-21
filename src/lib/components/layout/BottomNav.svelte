@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n/sv';
-	import Icon, { type IconName } from './Icon.svelte';
+	import Icon, { type IconName } from '$lib/components/ui/Icon.svelte';
 
 	const links: { href: string; label: string; icon: IconName }[] = [
 		{ href: '/inventory', label: t.nav.inventory, icon: 'cabinet' },
