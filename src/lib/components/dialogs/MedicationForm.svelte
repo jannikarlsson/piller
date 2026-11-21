@@ -4,6 +4,7 @@
 	import { DEFAULT_MEDICATION_SETTINGS, type MedicationInput } from '$lib/models';
 	import { settingsStore } from '$lib/stores/settings';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
+	import TextField from '$lib/components/ui/TextField.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 
@@ -52,53 +53,28 @@
 </script>
 
 <form class="med-form" onsubmit={handleSubmit}>
-	<div class="form-field">
-		<label class="text-label" for="med-name">{t.medications.nameLabel}</label>
-		<input
-			id="med-name"
-			class="form-input"
-			type="text"
-			bind:value={name}
-			placeholder={t.medications.namePlaceholder}
-			required
-			autocomplete="off"
-		/>
-	</div>
-
-	<div class="form-field">
-		<label class="text-label" for="med-conc">{t.medications.concentrationLabel}</label>
-		<input
-			id="med-conc"
-			class="form-input"
-			type="text"
-			bind:value={concentration}
-			placeholder={t.medications.concentrationPlaceholder}
-			autocomplete="off"
-		/>
-	</div>
-
-	<div class="form-field">
-		<label class="text-label" for="med-alts">{t.medications.alternativeNamesLabel}</label>
-		<input
-			id="med-alts"
-			class="form-input"
-			type="text"
-			bind:value={alternativeNamesRaw}
-			placeholder={t.medications.alternativeNamesPlaceholder}
-			autocomplete="off"
-		/>
-	</div>
-
-	<div class="form-field">
-		<label class="text-label" for="med-description">{t.medications.descriptionLabel}</label>
-		<textarea
-			id="med-description"
-			class="form-input form-input--multiline"
-			rows="2"
-			bind:value={description}
-			placeholder={t.medications.descriptionPlaceholder}
-		></textarea>
-	</div>
+	<TextField
+		label={t.medications.nameLabel}
+		placeholder={t.medications.namePlaceholder}
+		bind:value={name}
+		required
+	/>
+	<TextField
+		label={t.medications.concentrationLabel}
+		placeholder={t.medications.concentrationPlaceholder}
+		bind:value={concentration}
+	/>
+	<TextField
+		label={t.medications.alternativeNamesLabel}
+		placeholder={t.medications.alternativeNamesPlaceholder}
+		bind:value={alternativeNamesRaw}
+	/>
+	<TextField
+		label={t.medications.descriptionLabel}
+		placeholder={t.medications.descriptionPlaceholder}
+		bind:value={description}
+		multiline
+	/>
 
 	<fieldset class="form-options">
 		<legend class="text-label">
@@ -133,42 +109,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-4);
-	}
-
-	.form-field {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-2);
-	}
-
-	.form-input {
-		font-size: var(--text-md);
-		height: var(--size-control);
-		padding: 0 var(--space-4);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-control);
-		color: var(--color-text);
-		outline: none;
-		transition:
-			border-color var(--transition-fast),
-			box-shadow var(--transition-fast);
-	}
-
-	.form-input--multiline {
-		height: auto;
-		padding: var(--space-3) var(--space-4);
-		line-height: var(--leading-normal);
-		resize: vertical;
-	}
-
-	.form-input::placeholder {
-		color: var(--color-placeholder);
-	}
-
-	.form-input:focus {
-		border-color: var(--color-accent);
-		box-shadow: var(--focus-ring);
 	}
 
 	.form-options {
