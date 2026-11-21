@@ -20,6 +20,7 @@
 		name: initial.name ?? '',
 		concentration: initial.concentration ?? '',
 		alts: (initial.alternativeNames ?? []).join(', '),
+		description: initial.description ?? '',
 		remindToBuy: initial.remindToBuy ?? DEFAULT_MEDICATION_SETTINGS.remindToBuy,
 		remindPrescription: initial.remindPrescription ?? DEFAULT_MEDICATION_SETTINGS.remindPrescription,
 		inPillOrganizer: initial.inPillOrganizer ?? DEFAULT_MEDICATION_SETTINGS.inPillOrganizer
@@ -27,6 +28,7 @@
 	let name = $state(_init.name);
 	let concentration = $state(_init.concentration);
 	let alternativeNamesRaw = $state(_init.alts);
+	let description = $state(_init.description);
 	let remindToBuy = $state(_init.remindToBuy);
 	let remindPrescription = $state(_init.remindPrescription);
 	let inPillOrganizer = $state(_init.inPillOrganizer);
@@ -41,6 +43,7 @@
 			name: name.trim(),
 			concentration: concentration.trim(),
 			alternativeNames: alts,
+			description: description.trim(),
 			remindToBuy,
 			remindPrescription,
 			inPillOrganizer
@@ -84,6 +87,17 @@
 			placeholder={t.medications.alternativeNamesPlaceholder}
 			autocomplete="off"
 		/>
+	</div>
+
+	<div class="form-field">
+		<label class="text-label" for="med-description">{t.medications.descriptionLabel}</label>
+		<textarea
+			id="med-description"
+			class="form-input form-input--multiline"
+			rows="2"
+			bind:value={description}
+			placeholder={t.medications.descriptionPlaceholder}
+		></textarea>
 	</div>
 
 	<fieldset class="form-options">
@@ -139,6 +153,13 @@
 		transition:
 			border-color var(--transition-fast),
 			box-shadow var(--transition-fast);
+	}
+
+	.form-input--multiline {
+		height: auto;
+		padding: var(--space-3) var(--space-4);
+		line-height: var(--leading-normal);
+		resize: vertical;
 	}
 
 	.form-input::placeholder {

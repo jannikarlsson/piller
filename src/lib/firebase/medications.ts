@@ -29,6 +29,7 @@ export function subscribeMedications(
 				name: data.name,
 				concentration: data.concentration,
 				alternativeNames: data.alternativeNames ?? [],
+				description: data.description ?? '',
 				inventoryState: data.inventoryState ?? 'neutral',
 				prescriptionState: data.prescriptionState ?? 'neutral',
 				picked: data.picked ?? false,

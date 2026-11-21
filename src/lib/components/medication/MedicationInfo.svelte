@@ -1,22 +1,31 @@
 <!--
 	A medication's name and details, as shown in list rows.
-	- stacked: name, strength and alternative names on separate lines (cabinet, prescriptions, list).
+	- stacked: name, strength, alternative names and description on separate lines (cabinet,
+	  prescriptions, list).
 	- inline: name and strength on one line, for checklists; `done` strikes the name through.
+	  `alternatives` adds the alternative names on a line below.
 -->
 <script lang="ts">
 	import type { Medication } from '$lib/models';
 
 	interface Props {
-		medication: Pick<Medication, 'name' | 'concentration' | 'alternativeNames'>;
+		medication: Pick<Medication, 'name' | 'concentration' | 'alternativeNames' | 'description'>;
 		layout?: 'stacked' | 'inline';
+		alternatives?: boolean;
 		done?: boolean;
 	}
 
-	let { medication, layout = 'stacked', done = false }: Props = $props();
+	let {
+		medication,
+		layout = 'stacked',
+		alternatives = layout === 'stacked',
+		done = false
+	}: Props = $props();
 
 	const showAlternatives = $derived(
-		layout === 'stacked' && medication.alternativeNames.length > 0
+		alternatives && medication.alternativeNames.length > 0
 	);
+	const showDescription = $derived(layout === 'stacked' && !!medication.description);
 </script>
 
 <span class="info info--{layout}" class:info--done={done}>
@@ -26,6 +35,9 @@
 	{/if}
 	{#if showAlternatives}
 		<span class="info__alternatives text-caption">{medication.alternativeNames.join(', ')}</span>
+	{/if}
+	{#if showDescription}
+		<span class="info__description text-caption">{medication.description}</span>
 	{/if}
 </span>
 
@@ -46,11 +58,26 @@
 		column-gap: var(--space-2);
 	}
 
+	.info--inline .info__alternatives {
+		flex-basis: 100%;
+		margin-top: var(--space-1);
+	}
+
 	/* Long lists of alternative names are cut off rather than making the row taller */
 	.info__alternatives {
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+
+	/* Shown in full up to two lines, then cut off */
+	.info__description {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
+		overflow: hidden;
+		white-space: pre-line;
 	}
 
 	.info--done .info__name {

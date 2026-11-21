@@ -111,6 +111,8 @@ export const sv = {
 		concentrationPlaceholder: 'T.ex. 500 mg, 20 tabletter',
 		alternativeNamesLabel: 'Alternativa namn',
 		alternativeNamesPlaceholder: 'Kommaseparerade, t.ex. Paracetamol, Panodil',
+		descriptionLabel: 'Beskrivning',
+		descriptionPlaceholder: 'T.ex. vad den används till eller hur den tas',
 		settingsLegend: 'Påminnelser och dosett',
 		settingsLegendReminders: 'Påminnelser',
 		remindToBuyLabel: 'Lägg på inköpslistan när det är slut',

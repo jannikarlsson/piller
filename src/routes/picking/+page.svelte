@@ -70,7 +70,7 @@
 				{#each medications as med (med.id)}
 					<li>
 						<Checkbox checked={med.picked} onchange={(picked) => toggle(med.id, picked)}>
-							<MedicationInfo medication={med} layout="inline" done={med.picked} />
+							<MedicationInfo medication={med} layout="inline" alternatives done={med.picked} />
 						</Checkbox>
 					</li>
 				{/each}

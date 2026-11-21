@@ -114,6 +114,8 @@ export const en: Translations = {
 		concentrationPlaceholder: 'E.g. 400 mg, 20 tablets',
 		alternativeNamesLabel: 'Other names',
 		alternativeNamesPlaceholder: 'Comma-separated, e.g. Advil, Nurofen',
+		descriptionLabel: 'Description',
+		descriptionPlaceholder: "E.g. what it's for or how to take it",
 		settingsLegend: 'Reminders and pill organizer',
 		settingsLegendReminders: 'Reminders',
 		remindToBuyLabel: 'Add to shopping list when it runs out',

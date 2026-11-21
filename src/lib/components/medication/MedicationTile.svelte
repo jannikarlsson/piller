@@ -25,7 +25,8 @@
 <style>
 	.tile {
 		display: flex;
-		align-items: center;
+		/* Tag at the top, next to the name, however many detail lines there are */
+		align-items: flex-start;
 		justify-content: space-between;
 		gap: var(--space-3);
 		width: 100%;

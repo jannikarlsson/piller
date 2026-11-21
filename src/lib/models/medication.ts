@@ -17,6 +17,8 @@ export interface Medication extends MedicationSettings {
 	name: string;
 	concentration: string;
 	alternativeNames: string[];
+	/** Free text, e.g. what it's for or how to take it. */
+	description: string;
 	inventoryState: Status;
 	prescriptionState: Status;
 	picked: boolean;
@@ -32,6 +34,7 @@ export interface MedicationInput extends MedicationSettings {
 	name: string;
 	concentration: string;
 	alternativeNames: string[];
+	description: string;
 }
 
 /** The two kinds of status a medication has: in the cabinet, and its prescription. */
