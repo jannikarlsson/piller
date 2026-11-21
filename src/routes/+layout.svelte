@@ -88,6 +88,18 @@
 		--nav-height: 76px;
 
 		--font-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+
+		/* Type scale in rem, so text follows the phone's text-size setting */
+		--text-2xs: 0.6875rem; /* 11px – bottom menu labels */
+		--text-xs: 0.8125rem; /* 13px – captions, tags */
+		--text-sm: 0.875rem; /* 14px – secondary info, labels */
+		--text-md: 1rem; /* 16px – body, names */
+		--text-lg: 1.25rem; /* 20px – drawer and box titles */
+		--text-xl: 1.75rem; /* 28px – page titles */
+		--text-2xl: 2rem; /* 32px – login title */
+
+		--leading-tight: 1.2;
+		--leading-normal: 1.5;
 	}
 
 	:global(*, *::before, *::after) {
@@ -122,6 +134,39 @@
 	:global(:focus-visible) {
 		outline: 2px solid var(--color-accent);
 		outline-offset: 2px;
+	}
+
+	/* Text roles that repeat across the app. Components add their own layout around them. */
+	:global(.text-title) {
+		font-size: var(--text-lg);
+		font-weight: 600;
+		line-height: var(--leading-tight);
+	}
+
+	:global(.text-name) {
+		font-size: var(--text-md);
+		font-weight: 600;
+	}
+
+	:global(.text-body) {
+		font-size: var(--text-md);
+		line-height: var(--leading-normal);
+	}
+
+	:global(.text-meta) {
+		font-size: var(--text-sm);
+		color: var(--color-text-muted);
+	}
+
+	:global(.text-label) {
+		font-size: var(--text-sm);
+		font-weight: 600;
+		color: var(--color-text-secondary);
+	}
+
+	:global(.text-caption) {
+		font-size: var(--text-xs);
+		color: var(--color-text-subtle);
 	}
 
 	/* Hidden visually but still read by screen readers and focusable (for inputs) */

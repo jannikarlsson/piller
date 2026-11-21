@@ -92,16 +92,16 @@
 	{#if allGood}
 		<div class="all-good">
 			<span class="all-good__icon"><Icon name="check" size={28} strokeWidth={2.25} /></span>
-			<p class="all-good__title">{t.actions.allGood}</p>
-			<p class="all-good__sub">{t.actions.allGoodSub}</p>
+			<p class="text-title">{t.actions.allGood}</p>
+			<p class="all-good__sub text-meta">{t.actions.allGoodSub}</p>
 		</div>
 	{:else}
 		<div class="sections">
 			{#each sections as section (section.id)}
 				<section class="section" aria-labelledby="heading-{section.id}">
-					<h2 class="section__heading" id="heading-{section.id}">
+					<h2 class="section__heading text-label" id="heading-{section.id}">
 						{section.heading}
-						<span class="section__count">{section.remaining}</span>
+						<span class="text-caption">{section.remaining}</span>
 					</h2>
 					<ListCard as="ul">
 						{#each section.items as med (med.id)}
@@ -112,9 +112,9 @@
 									onchange={(checked) => handleToggle(section.id, med, checked)}
 								>
 									<span class="item" class:item--done={ticked}>
-										<span class="item__name">{med.name}</span>
+										<span class="item__name text-name">{med.name}</span>
 										{#if med.concentration}
-											<span class="item__conc">{med.concentration}</span>
+											<span class="text-meta">{med.concentration}</span>
 										{/if}
 									</span>
 								</Checkbox>
@@ -156,15 +156,9 @@
 		color: var(--color-ok);
 	}
 
-	.all-good__title {
-		font-size: 18px;
-		font-weight: 600;
-	}
 
 	.all-good__sub {
-		font-size: 14px;
-		line-height: 1.5;
-		color: var(--color-text-muted);
+		line-height: var(--leading-normal);
 	}
 
 	.sections {
@@ -184,16 +178,8 @@
 		align-items: baseline;
 		justify-content: space-between;
 		padding: 0 4px;
-		font-size: 14px;
-		font-weight: 600;
-		color: var(--color-text-secondary);
 	}
 
-	.section__count {
-		font-size: 13px;
-		font-weight: 500;
-		color: var(--color-text-subtle);
-	}
 
 	.item {
 		display: flex;
@@ -202,15 +188,7 @@
 		column-gap: 8px;
 	}
 
-	.item__name {
-		font-size: 16px;
-		font-weight: 600;
-	}
 
-	.item__conc {
-		font-size: 14px;
-		color: var(--color-text-muted);
-	}
 
 	.item--done .item__name {
 		color: var(--color-text-subtle);

@@ -31,7 +31,7 @@
 		padding: 6px 6px 6px 16px;
 		background: var(--color-text);
 		color: var(--color-on-accent);
-		font-size: 14px;
+		font-size: var(--text-sm);
 		font-weight: 500;
 		border-radius: var(--radius-control);
 		box-shadow: var(--shadow-raised);
@@ -40,7 +40,7 @@
 
 	.toast__message {
 		padding: 6px 0;
-		line-height: 1.35;
+		line-height: var(--leading-normal);
 	}
 
 	.toast__action {
@@ -51,7 +51,7 @@
 		border: none;
 		border-radius: 8px;
 		color: var(--color-accent-tint);
-		font-size: 14px;
+		font-size: var(--text-sm);
 		font-weight: 600;
 	}
 

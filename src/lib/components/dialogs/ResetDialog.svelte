@@ -55,7 +55,7 @@
 </script>
 
 <form class="reset-form" onsubmit={handleSubmit}>
-	<p class="intro">
+	<p class="intro text-body">
 		{mode === 'inventory' ? t.reset.inventoryIntro : t.reset.prescriptionIntro}
 	</p>
 
@@ -72,7 +72,7 @@
 				/>
 				<span class="option__text">
 					<span class="option__label">{option.label}</span>
-					<span class="option__count">{t.reset.count(option.count)}</span>
+					<span class="option__count text-meta">{t.reset.count(option.count)}</span>
 				</span>
 			</label>
 		{/each}
@@ -100,8 +100,6 @@
 	}
 
 	.intro {
-		font-size: 15px;
-		line-height: 1.5;
 		color: var(--color-text-muted);
 	}
 
@@ -153,13 +151,11 @@
 	}
 
 	.option__label {
-		font-size: 16px;
+		font-size: var(--text-md);
 		font-weight: 500;
 	}
 
 	.option__count {
-		font-size: 14px;
-		color: var(--color-text-muted);
 		white-space: nowrap;
 	}
 

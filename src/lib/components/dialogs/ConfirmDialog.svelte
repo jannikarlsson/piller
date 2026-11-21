@@ -47,7 +47,7 @@
 </script>
 
 <div class="confirm">
-	<p class="confirm__message">{message}</p>
+	<p class="confirm__message text-body">{message}</p>
 
 	{#if error}
 		<ErrorMessage message={error} />
@@ -69,8 +69,6 @@
 	}
 
 	.confirm__message {
-		font-size: 16px;
-		line-height: 1.5;
 		color: var(--color-text-secondary);
 	}
 

@@ -14,8 +14,8 @@
 		background: var(--color-danger-bg);
 		border: 1px solid var(--color-danger-border);
 		border-radius: var(--radius-control);
-		font-size: 14px;
-		line-height: 1.4;
+		font-size: var(--text-sm);
+		line-height: var(--leading-normal);
 		color: var(--color-danger);
 	}
 </style>

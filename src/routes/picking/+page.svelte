@@ -68,7 +68,7 @@
 		/>
 	{:else}
 		<div class="checklist">
-			<p class="progress" class:progress--done={allPicked} aria-live="polite">
+			<p class="progress text-label" class:progress--done={allPicked} aria-live="polite">
 				{#if allPicked}
 					<Icon name="check" size={16} strokeWidth={2.25} />
 					{t.picking.allDone}
@@ -82,9 +82,9 @@
 					<li>
 						<Checkbox checked={med.picked} onchange={(picked) => toggle(med.id, picked)}>
 							<span class="item" class:item--done={med.picked}>
-								<span class="item__name">{med.name}</span>
+								<span class="item__name text-name">{med.name}</span>
 								{#if med.concentration}
-									<span class="item__conc">{med.concentration}</span>
+									<span class="text-meta">{med.concentration}</span>
 								{/if}
 							</span>
 						</Checkbox>
@@ -107,9 +107,6 @@
 		align-items: center;
 		gap: 6px;
 		padding: 0 4px;
-		font-size: 14px;
-		font-weight: 600;
-		color: var(--color-text-secondary);
 	}
 
 	.progress--done {
@@ -123,15 +120,7 @@
 		column-gap: 8px;
 	}
 
-	.item__name {
-		font-size: 16px;
-		font-weight: 600;
-	}
 
-	.item__conc {
-		font-size: 14px;
-		color: var(--color-text-muted);
-	}
 
 	.item--done .item__name {
 		color: var(--color-text-subtle);

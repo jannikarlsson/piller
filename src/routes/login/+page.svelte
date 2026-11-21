@@ -28,7 +28,7 @@
 	<div class="login-content">
 		<div class="intro">
 			<h1 class="intro__title">{t.app.name}</h1>
-			<p class="intro__text">{t.login.subtitle}.</p>
+			<p class="intro__text text-body">{t.login.subtitle}.</p>
 		</div>
 
 		<div class="login-actions">
@@ -95,15 +95,13 @@
 	}
 
 	.intro__title {
-		font-size: 32px;
+		font-size: var(--text-2xl);
 		font-weight: 600;
-		line-height: 1.15;
+		line-height: var(--leading-tight);
 		letter-spacing: -0.01em;
 	}
 
 	.intro__text {
-		font-size: 16px;
-		line-height: 1.5;
 		color: var(--color-text-muted);
 	}
 
@@ -124,7 +122,7 @@
 		background: var(--color-surface);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-control);
-		font-size: 16px;
+		font-size: var(--text-md);
 		font-weight: 500;
 		color: var(--color-text);
 		transition: background-color 0.12s ease;

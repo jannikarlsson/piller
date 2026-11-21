@@ -48,7 +48,7 @@
 
 <form class="med-form" onsubmit={handleSubmit}>
 	<div class="form-field">
-		<label class="form-label" for="med-name">{t.medications.nameLabel}</label>
+		<label class="text-label" for="med-name">{t.medications.nameLabel}</label>
 		<input
 			id="med-name"
 			class="form-input"
@@ -61,7 +61,7 @@
 	</div>
 
 	<div class="form-field">
-		<label class="form-label" for="med-conc">{t.medications.concentrationLabel}</label>
+		<label class="text-label" for="med-conc">{t.medications.concentrationLabel}</label>
 		<input
 			id="med-conc"
 			class="form-input"
@@ -73,7 +73,7 @@
 	</div>
 
 	<div class="form-field">
-		<label class="form-label" for="med-alts">{t.medications.alternativeNamesLabel}</label>
+		<label class="text-label" for="med-alts">{t.medications.alternativeNamesLabel}</label>
 		<input
 			id="med-alts"
 			class="form-input"
@@ -85,7 +85,7 @@
 	</div>
 
 	<fieldset class="form-options">
-		<legend class="form-label">{t.medications.settingsLegend}</legend>
+		<legend class="text-label">{t.medications.settingsLegend}</legend>
 		<div class="form-options__list">
 			<Checkbox label={t.medications.remindToBuyLabel} bind:checked={remindToBuy} />
 			<Checkbox label={t.medications.remindPrescriptionLabel} bind:checked={remindPrescription} />
@@ -116,14 +116,9 @@
 		gap: 6px;
 	}
 
-	.form-label {
-		font-size: 14px;
-		font-weight: 500;
-		color: var(--color-text-secondary);
-	}
 
 	.form-input {
-		font-size: 16px;
+		font-size: var(--text-md);
 		height: 48px;
 		padding: 0 14px;
 		background: var(--color-surface);
@@ -152,7 +147,7 @@
 		gap: 6px;
 	}
 
-	.form-options .form-label {
+	.form-options legend {
 		margin-bottom: 6px;
 	}
 

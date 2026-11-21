@@ -65,13 +65,13 @@
 	.btn--md {
 		height: 48px;
 		padding: 0 20px;
-		font-size: 16px;
+		font-size: var(--text-md);
 	}
 
 	.btn--sm {
 		height: 44px;
 		padding: 0 18px;
-		font-size: 15px;
+		font-size: var(--text-md);
 	}
 
 	.btn--icon {

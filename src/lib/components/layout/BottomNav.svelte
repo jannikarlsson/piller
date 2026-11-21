@@ -55,7 +55,7 @@
 	}
 
 	.nav-item__label {
-		font-size: 11px;
+		font-size: var(--text-2xs);
 		font-weight: 500;
 	}
 

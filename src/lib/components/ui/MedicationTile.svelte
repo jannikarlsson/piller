@@ -27,12 +27,12 @@
 
 <button type="button" class="tile" onclick={() => ontap(medication.id)}>
 	<span class="tile__main">
-		<span class="tile__name">{medication.name}</span>
+		<span class="text-name">{medication.name}</span>
 		{#if medication.concentration}
-			<span class="tile__concentration">{medication.concentration}</span>
+			<span class="text-meta">{medication.concentration}</span>
 		{/if}
 		{#if medication.alternativeNames.length > 0}
-			<span class="tile__alt">{medication.alternativeNames.join(', ')}</span>
+			<span class="text-caption">{medication.alternativeNames.join(', ')}</span>
 		{/if}
 	</span>
 	{#if state !== 'neutral'}
@@ -66,18 +66,6 @@
 		min-width: 0;
 	}
 
-	.tile__name {
-		font-size: 16px;
-		font-weight: 600;
-	}
 
-	.tile__concentration {
-		font-size: 14px;
-		color: var(--color-text-muted);
-	}
 
-	.tile__alt {
-		font-size: 13px;
-		color: var(--color-text-subtle);
-	}
 </style>

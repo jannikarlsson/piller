@@ -83,7 +83,7 @@
 
 	.checkbox__content {
 		min-width: 0;
-		font-size: 15px;
-		line-height: 1.35;
+		font-size: var(--text-md);
+		line-height: var(--leading-normal);
 	}
 </style>

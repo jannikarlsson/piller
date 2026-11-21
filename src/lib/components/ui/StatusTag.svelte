@@ -22,7 +22,7 @@
 		width: 118px;
 		display: flex;
 		align-items: stretch;
-		font-size: 13px;
+		font-size: var(--text-xs);
 		line-height: 26px;
 		font-weight: 500;
 		border: 1px solid;

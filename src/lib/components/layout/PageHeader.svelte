@@ -31,15 +31,15 @@
 	}
 
 	.page-header__title {
-		font-size: 28px;
+		font-size: var(--text-xl);
 		font-weight: 600;
-		line-height: 1.2;
+		line-height: var(--leading-tight);
 		letter-spacing: -0.01em;
 	}
 
 	.page-header__subtitle {
 		margin-top: 4px;
-		font-size: 15px;
+		font-size: var(--text-md);
 		color: var(--color-text-muted);
 	}
 </style>

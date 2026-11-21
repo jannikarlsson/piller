@@ -25,7 +25,7 @@
 <div class="sheet" role="dialog" aria-modal="true" aria-labelledby={titleId}>
 	<div class="sheet__handle" aria-hidden="true"></div>
 	<div class="sheet__header">
-		<h2 class="sheet__title" id={titleId}>{title}</h2>
+		<h2 class="text-title" id={titleId}>{title}</h2>
 		<Button variant="quiet" size="icon" ariaLabel={t.common.close} onclick={onclose}>
 			<Icon name="close" size={20} />
 		</Button>
@@ -73,8 +73,4 @@
 		margin-right: -10px;
 	}
 
-	.sheet__title {
-		font-size: 20px;
-		font-weight: 600;
-	}
 </style>

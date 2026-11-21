@@ -108,8 +108,8 @@
 	{#if showSettings}
 		<div class="settings-panel">
 			<div class="settings-section">
-				<p class="settings-label">{t.settings.resetTitle}</p>
-				<p class="settings-desc">{t.settings.resetDescription}</p>
+				<p class="text-name">{t.settings.resetTitle}</p>
+				<p class="settings-desc text-meta">{t.settings.resetDescription}</p>
 				<button type="button" class="small-btn small-btn--danger" onclick={handleReset}>
 					{t.settings.resetButton}
 				</button>
@@ -126,12 +126,12 @@
 			{#each medications as med (med.id)}
 				<li class="med-row">
 					<span class="med-row__info">
-						<span class="med-row__name">{med.name}</span>
+						<span class="text-name">{med.name}</span>
 						{#if med.concentration}
-							<span class="med-row__conc">{med.concentration}</span>
+							<span class="text-meta">{med.concentration}</span>
 						{/if}
 						{#if med.alternativeNames.length > 0}
-							<span class="med-row__alt">{med.alternativeNames.join(', ')}</span>
+							<span class="med-row__alt text-caption">{med.alternativeNames.join(', ')}</span>
 						{/if}
 					</span>
 					<Button
@@ -213,16 +213,10 @@
 		gap: 4px;
 	}
 
-	.settings-label {
-		font-size: 16px;
-		font-weight: 600;
-	}
 
 	.settings-desc {
 		margin-bottom: 8px;
-		font-size: 14px;
-		line-height: 1.4;
-		color: var(--color-text-muted);
+		line-height: var(--leading-normal);
 	}
 
 	.settings-divider {
@@ -237,7 +231,7 @@
 		background: var(--color-surface);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-control);
-		font-size: 14px;
+		font-size: var(--text-sm);
 		font-weight: 500;
 		color: var(--color-text);
 	}
@@ -264,19 +258,9 @@
 		min-width: 0;
 	}
 
-	.med-row__name {
-		font-size: 16px;
-		font-weight: 600;
-	}
 
-	.med-row__conc {
-		font-size: 14px;
-		color: var(--color-text-muted);
-	}
 
 	.med-row__alt {
-		font-size: 13px;
-		color: var(--color-text-subtle);
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -295,7 +279,7 @@
 		color: var(--color-on-accent);
 		border: none;
 		border-radius: var(--radius-card);
-		font-size: 15px;
+		font-size: var(--text-md);
 		font-weight: 500;
 		box-shadow: var(--shadow-raised);
 		z-index: 50;
@@ -321,7 +305,7 @@
 		padding: 0 16px;
 		background: transparent;
 		border: none;
-		font-size: 15px;
+		font-size: var(--text-md);
 		font-weight: 500;
 		color: var(--color-danger);
 	}
