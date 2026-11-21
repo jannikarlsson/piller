@@ -7,6 +7,7 @@ export const t = {
 	nav: {
 		inventory: 'Skåpet',
 		prescription: 'Recept',
+		picking: 'Plocka',
 		actions: 'Att göra',
 		medications: 'Läkemedel'
 	},
@@ -45,6 +46,17 @@ export const t = {
 		emptyAction: 'Lägg till läkemedel',
 		resetButton: 'Återställ',
 		resetLabel: 'Återställ receptstatusar',
+	},
+
+	picking: {
+		title: 'Plocka',
+		subtitle: 'Fyll dosetten',
+		empty: 'Inga läkemedel tillagda än.',
+		emptyAction: 'Lägg till läkemedel',
+		progress: (done: number, total: number) => `${done} av ${total} plockade`,
+		allDone: 'Allt plockat',
+		resetButton: 'Återställ',
+		resetLabel: 'Avmarkera alla'
 	},
 
 	actions: {

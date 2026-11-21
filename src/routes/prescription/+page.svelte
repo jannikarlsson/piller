@@ -8,6 +8,7 @@
 	import ListCard from '$lib/components/ListCard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import ResetSheet from '$lib/components/ResetSheet.svelte';
+	import ResetButton from '$lib/components/ResetButton.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
@@ -27,16 +28,12 @@
 	<PageHeader title={t.prescription.title} subtitle={t.prescription.subtitle}>
 		{#snippet actions()}
 			{#if medications.length > 0}
-				<button
-					type="button"
-					class="reset-btn"
-					onclick={() => (showReset = true)}
+				<ResetButton
+					label={t.prescription.resetButton}
+					ariaLabel={t.prescription.resetLabel}
 					disabled={!hasStatuses}
-					aria-label={t.prescription.resetLabel}
-				>
-					<Icon name="reset" size={18} />
-					{t.prescription.resetButton}
-				</button>
+					onclick={() => (showReset = true)}
+				/>
 			{/if}
 		{/snippet}
 	</PageHeader>
@@ -69,30 +66,6 @@
 		flex: 1;
 		overflow-y: auto;
 		padding-bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
-	}
-
-	.reset-btn {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-		height: 44px;
-		padding: 0 12px;
-		background: transparent;
-		border: none;
-		border-radius: var(--radius-control);
-		font-size: 14px;
-		font-weight: 500;
-		color: var(--color-accent);
-	}
-
-	.reset-btn:active:not(:disabled) {
-		background: var(--color-accent-soft);
-	}
-
-	.reset-btn:disabled {
-		color: var(--color-text-subtle);
-		opacity: 0.6;
-		cursor: not-allowed;
 	}
 
 	.content {

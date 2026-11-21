@@ -9,7 +9,8 @@
 		| 'close'
 		| 'plus'
 		| 'check'
-		| 'reset';
+		| 'reset'
+		| 'organizer';
 </script>
 
 <script lang="ts">
@@ -69,6 +70,12 @@
 		<path d="M5 12h14" />
 	{:else if name === 'check'}
 		<path d="M5 12l5 5L19 7" />
+	{:else if name === 'organizer'}
+		<rect x="3" y="9" width="18" height="10" rx="2" />
+		<path d="M7.5 9v10" />
+		<path d="M12 9v10" />
+		<path d="M16.5 9v10" />
+		<path d="M4 9l1.2-3h13.6L20 9" />
 	{:else if name === 'reset'}
 		<path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
 		<path d="M3 3v5h5" />

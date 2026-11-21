@@ -6,6 +6,7 @@
 	const links: { href: string; label: string; icon: IconName }[] = [
 		{ href: '/inventory', label: t.nav.inventory, icon: 'cabinet' },
 		{ href: '/prescription', label: t.nav.prescription, icon: 'prescription' },
+		{ href: '/picking', label: t.nav.picking, icon: 'organizer' },
 		{ href: '/actions', label: t.nav.actions, icon: 'checklist' },
 		{ href: '/medications', label: t.nav.medications, icon: 'pill' }
 	];

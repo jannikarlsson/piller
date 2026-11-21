@@ -68,6 +68,8 @@ export interface Medication {
 	alternativeNames: string[];
 	inventoryState: TileState;
 	prescriptionState: TileState;
+	/** Checked off on the "Plocka" checklist while filling the pill organizer. */
+	picked: boolean;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -97,6 +99,7 @@ export function subscribeMedications(
 				alternativeNames: data.alternativeNames ?? [],
 				inventoryState: data.inventoryState ?? 'neutral',
 				prescriptionState: data.prescriptionState ?? 'neutral',
+				picked: data.picked ?? false,
 				createdAt: data.createdAt?.toDate() ?? new Date(),
 				updatedAt: data.updatedAt?.toDate() ?? new Date()
 			};
@@ -111,6 +114,7 @@ export async function addMedication(userId: string, input: MedicationInput): Pro
 		...input,
 		inventoryState: 'neutral',
 		prescriptionState: 'neutral',
+		picked: false,
 		createdAt: serverTimestamp(),
 		updatedAt: serverTimestamp()
 	});
@@ -141,6 +145,25 @@ export async function updateTileState(
 		[field]: state,
 		updatedAt: serverTimestamp()
 	});
+}
+
+export async function setPicked(userId: string, id: string, picked: boolean): Promise<void> {
+	await updateDoc(doc(medicationsRef(userId), id), {
+		picked,
+		updatedAt: serverTimestamp()
+	});
+}
+
+/** Uncheck every medication on the "Plocka" checklist. */
+export async function resetPicked(userId: string): Promise<void> {
+	const snap = await getDocs(medicationsRef(userId));
+	const batch = writeBatch(db);
+	snap.docs
+		.filter((d) => d.data().picked === true)
+		.forEach((d) => {
+			batch.update(d.ref, { picked: false, updatedAt: serverTimestamp() });
+		});
+	await batch.commit();
 }
 
 /**
