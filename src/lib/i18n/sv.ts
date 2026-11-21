@@ -103,7 +103,6 @@ export const sv = {
 	medications: {
 		title: 'Läkemedel',
 		subtitle: 'Hantera din lista',
-		empty: 'Inga läkemedel tillagda.',
 		editTitle: 'Redigera läkemedel',
 		addTitle: 'Nytt läkemedel',
 		nameLabel: 'Namn',

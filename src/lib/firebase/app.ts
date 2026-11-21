@@ -12,3 +12,9 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 setPersistence(auth, browserLocalPersistence).catch(console.error);
+
+export function currentUid(): string {
+	const uid = auth.currentUser?.uid;
+	if (!uid) throw new Error('Not signed in');
+	return uid;
+}

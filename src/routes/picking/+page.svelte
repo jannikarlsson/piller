@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
-	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { setPicked, resetPicked } from '$lib/firebase';
@@ -18,15 +17,11 @@
 	const allPicked = $derived(medications.length > 0 && pickedCount === medications.length);
 
 	async function toggle(id: string, picked: boolean) {
-		const user = $userStore;
-		if (!user) return;
-		await withErrorToast(() => setPicked(user.uid, id, picked));
+		await withErrorToast(() => setPicked(id, picked));
 	}
 
 	async function handleReset() {
-		const user = $userStore;
-		if (!user) return;
-		await withErrorToast(() => resetPicked(user.uid), t.errors.resetFailed);
+		await withErrorToast(() => resetPicked(), t.errors.resetFailed);
 	}
 </script>
 

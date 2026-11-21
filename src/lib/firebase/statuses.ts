@@ -9,7 +9,6 @@ import { medicationsRef } from './medications';
  * (used when undoing a ticked to-do item).
  */
 export async function updateStatus(
-	userId: string,
 	id: string,
 	kind: StatusKind,
 	status: Status,
@@ -19,30 +18,29 @@ export async function updateStatus(
 	const update: Record<string, unknown> = { [fields.status]: status, updatedAt: serverTimestamp() };
 	if (status !== 'out') update[fields.addedToTodo] = false;
 	else if (addedToTodo !== undefined) update[fields.addedToTodo] = addedToTodo;
-	await updateDoc(doc(medicationsRef(userId), id), update);
+	await updateDoc(doc(medicationsRef(), id), update);
 }
 
 export async function setAddedToTodo(
-	userId: string,
 	id: string,
 	kind: StatusKind,
 	added: boolean
 ): Promise<void> {
-	await updateDoc(doc(medicationsRef(userId), id), {
+	await updateDoc(doc(medicationsRef(), id), {
 		[STATUS_FIELDS[kind].addedToTodo]: added,
 		updatedAt: serverTimestamp()
 	});
 }
 
-export async function setPicked(userId: string, id: string, picked: boolean): Promise<void> {
-	await updateDoc(doc(medicationsRef(userId), id), {
+export async function setPicked(id: string, picked: boolean): Promise<void> {
+	await updateDoc(doc(medicationsRef(), id), {
 		picked,
 		updatedAt: serverTimestamp()
 	});
 }
 
-export async function resetPicked(userId: string): Promise<void> {
-	const snap = await getDocs(medicationsRef(userId));
+export async function resetPicked(): Promise<void> {
+	const snap = await getDocs(medicationsRef());
 	const batch = writeBatch(db);
 	snap.docs
 		.filter((d) => d.data().picked === true)
@@ -57,12 +55,11 @@ export async function resetPicked(userId: string): Promise<void> {
  * With `onlyOut`, only medications marked as out are reset; otherwise every set status is.
  */
 export async function resetStatuses(
-	userId: string,
 	kind: StatusKind,
 	onlyOut = false
 ): Promise<void> {
 	const fields = STATUS_FIELDS[kind];
-	const snap = await getDocs(medicationsRef(userId));
+	const snap = await getDocs(medicationsRef());
 	const batch = writeBatch(db);
 	snap.docs
 		.filter((d) => {
@@ -79,8 +76,8 @@ export async function resetStatuses(
 	await batch.commit();
 }
 
-export async function resetAllStatuses(userId: string): Promise<void> {
-	const snap = await getDocs(medicationsRef(userId));
+export async function resetAllStatuses(): Promise<void> {
+	const snap = await getDocs(medicationsRef());
 	const batch = writeBatch(db);
 	snap.docs.forEach((d) => {
 		const update: Record<string, unknown> = { updatedAt: serverTimestamp() };

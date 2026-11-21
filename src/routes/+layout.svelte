@@ -80,9 +80,18 @@
 		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', background);
 	});
 
-	const showNav = $derived(
-		$authStateStore === 'authenticated' && page.url.pathname !== '/login'
+	/*
+	 * Only show a page once sign-in is known and it's the right page for it: the login page
+	 * when signed out, every other page when signed in. Otherwise show nothing (just the
+	 * background) while Firebase checks or a redirect is on its way, so no page flashes.
+	 */
+	const isLoginPage = $derived(page.url.pathname === '/login');
+	const showPage = $derived(
+		isLoginPage
+			? $authStateStore === 'unauthenticated'
+			: $authStateStore === 'authenticated' && !isPathOff(page.url.pathname, $settingsStore)
 	);
+	const showNav = $derived(showPage && !isLoginPage);
 </script>
 
 <svelte:head>
@@ -91,7 +100,9 @@
 </svelte:head>
 
 <div class="app-shell">
-	{@render children()}
+	{#if showPage}
+		{@render children()}
+	{/if}
 	{#if showNav}
 		<BottomNav />
 	{/if}

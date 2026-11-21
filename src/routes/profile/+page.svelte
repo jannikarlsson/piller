@@ -61,8 +61,7 @@
 	}
 
 	async function handleResetAll() {
-		if (!user) return;
-		await resetAllStatuses(user.uid);
+		await resetAllStatuses();
 		openDrawer = null;
 		showToast(t.profile.resetAllSuccess);
 	}

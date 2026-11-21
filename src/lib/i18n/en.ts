@@ -106,7 +106,6 @@ export const en: Translations = {
 	medications: {
 		title: 'Medications',
 		subtitle: 'Manage your list',
-		empty: 'No medications added.',
 		editTitle: 'Edit medication',
 		addTitle: 'New medication',
 		nameLabel: 'Name',

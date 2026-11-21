@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
-	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { addMedication, updateMedication, deleteMedication } from '$lib/firebase';
@@ -34,12 +33,10 @@
 	}
 
 	async function handleSave(data: MedicationInput) {
-		const user = $userStore;
-		if (!user) return;
 		const editing = sheet?.mode === 'edit' ? sheet.med : null;
 		saving = true;
 		const saved = await withErrorToast(
-			() => (editing ? updateMedication(user.uid, editing.id, data) : addMedication(user.uid, data)),
+			() => (editing ? updateMedication(editing.id, data) : addMedication(data)),
 			t.errors.saveFailed
 		);
 		saving = false;
@@ -48,9 +45,7 @@
 
 	/** Called from the confirm view; errors are shown inside the dialog. */
 	async function handleDelete(id: string) {
-		const user = $userStore;
-		if (!user) return;
-		await deleteMedication(user.uid, id);
+		await deleteMedication(id);
 		closeSheet();
 	}
 </script>
@@ -63,7 +58,7 @@
 	floatingButton
 >
 	{#if medications.length === 0}
-		<EmptyState icon="pill" message={t.medications.empty} />
+		<EmptyState icon="pill" message={t.common.noMedications} />
 	{:else}
 		<Card list as="ul">
 			{#each medications as med (med.id)}

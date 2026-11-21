@@ -10,7 +10,7 @@
 	interface Props {
 		list?: boolean;
 		padding?: 'none' | 'md' | 'lg';
-		as?: 'div' | 'ul' | 'section';
+		as?: 'div' | 'ul';
 		children: Snippet;
 	}
 

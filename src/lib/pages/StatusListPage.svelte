@@ -4,7 +4,6 @@
 -->
 <script lang="ts">
 	import { t } from '$lib/i18n';
-	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { updateStatus, resetStatuses, setAddedToTodo } from '$lib/firebase';
@@ -41,28 +40,22 @@
 	let todoPromptFor = $state<Medication | null>(null);
 
 	async function handleTap(id: string) {
-		const user = $userStore;
-		if (!user) return;
 		const med = medications.find((m) => m.id === id);
 		if (!med) return;
 		const next = nextStatus(statusOf(med, kind));
-		const saved = await withErrorToast(() => updateStatus(user.uid, id, kind, next));
+		const saved = await withErrorToast(() => updateStatus(id, kind, next));
 		if (!saved) return;
 		// Without the automatic reminder, offer to add it to the to-do list by hand
 		if (next === 'out' && !remindsAutomatically(med, kind)) todoPromptFor = med;
 	}
 
 	async function handleReset(onlyOut: boolean) {
-		const user = $userStore;
-		if (!user) return;
-		await resetStatuses(user.uid, kind, onlyOut);
+		await resetStatuses(kind, onlyOut);
 		showReset = false;
 	}
 
 	async function handleAddToTodo(med: Medication) {
-		const user = $userStore;
-		if (!user) return;
-		await setAddedToTodo(user.uid, med.id, kind, true);
+		await setAddedToTodo(med.id, kind, true);
 		todoPromptFor = null;
 	}
 </script>

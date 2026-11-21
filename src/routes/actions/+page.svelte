@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
-	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
 	import { settingsStore } from '$lib/stores/settings';
 	import { updateStatus } from '$lib/firebase';
@@ -17,7 +16,7 @@
 	import MedicationInfo from '$lib/components/ui/MedicationInfo.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
-	import Icon from '$lib/components/ui/Icon.svelte';
+	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
@@ -56,16 +55,14 @@
 	const addedByHand = new Map<string, boolean>();
 
 	async function handleToggle(kind: StatusKind, med: Medication, checked: boolean) {
-		const user = $userStore;
-		if (!user) return;
 		const key = `${kind}:${med.id}`;
 		const previous = done;
 		if (checked) addedByHand.set(key, isAddedToTodo(med, kind));
 		done = checked ? [...done, key] : done.filter((k) => k !== key);
 		const saved = await withErrorToast(() =>
 			checked
-				? updateStatus(user.uid, med.id, kind, 'neutral')
-				: updateStatus(user.uid, med.id, kind, 'out', addedByHand.get(key) ?? false)
+				? updateStatus(med.id, kind, 'neutral')
+				: updateStatus(med.id, kind, 'out', addedByHand.get(key) ?? false)
 		);
 		if (!saved) done = previous;
 	}
@@ -73,13 +70,12 @@
 
 <Page title={t.actions.title} subtitle={t.actions.subtitle} {loading}>
 	{#if allGood}
-		<Card padding="lg">
-			<div class="all-good">
-				<span class="all-good__icon"><Icon name="check" size="lg" weight="bold" /></span>
-				<p class="text-title">{t.actions.allGood}</p>
-				<p class="all-good__sub text-meta">{t.actions.allGoodSub}</p>
-			</div>
-		</Card>
+		<EmptyState
+			icon="check"
+			tone="ok"
+			title={t.actions.allGood}
+			message={t.actions.allGoodSub}
+		/>
 	{:else}
 		<div class="sections">
 			{#each sections as section (section.kind)}
@@ -104,30 +100,6 @@
 </Page>
 
 <style>
-	.all-good {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: var(--space-2);
-		text-align: center;
-	}
-
-	.all-good__icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 48px;
-		height: 48px;
-		margin-bottom: var(--space-1);
-		border-radius: 50%;
-		background: var(--color-ok-bg);
-		color: var(--color-ok);
-	}
-
-	.all-good__sub {
-		line-height: var(--leading-normal);
-	}
-
 	.sections {
 		display: flex;
 		flex-direction: column;
