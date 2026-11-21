@@ -29,6 +29,8 @@ npm run lint     # check formatting (Prettier) and code (ESLint)
 npm run format   # format all files with Prettier
 ```
 
+A Git hook (Husky and lint-staged) formats and lints the files in each commit, and stops the commit if ESLint finds an error. It's set up by `npm install`. In an emergency, `git commit --no-verify` skips it, but CI runs the same checks on everything.
+
 The service worker is only registered in production builds. `npm run preview` can't test it, because it doesn't serve `index.html` the way Firebase Hosting does (the worker fails to install). To try offline mode, serve the `build/` folder from a server that behaves like Firebase Hosting, or deploy.
 
 ## Deploy
