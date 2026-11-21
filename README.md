@@ -44,7 +44,7 @@ First-time setup (Firebase project, sign-in, allowed users) is described in [SET
   - `forms/` – the medication form
   - `dialogs/` – content shown inside a drawer (confirm, reset, choose an option). The page does the saving.
   - `layout/` – page frame, page header and bottom menu
-- `src/lib/firebase.ts` – sign-in and all Firestore reads and writes (medications, statuses, settings)
+- `src/lib/firebase/` – sign-in and all Firestore reads and writes, split into `auth`, `medications`, `statuses` and `settings`. Import everything from `$lib/firebase`.
 - `src/lib/stores/` – shared state: user, medications, settings, toast messages
 - `src/lib/i18n/` – UI text. `sv.ts` defines the texts, `en.ts` must have the same shape.
 - `src/lib/styles/`
