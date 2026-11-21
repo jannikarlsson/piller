@@ -14,7 +14,7 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
-	import ListCard from '$lib/components/ui/ListCard.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
 	import ResetDialog from '$lib/components/dialogs/ResetDialog.svelte';
 	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
@@ -76,11 +76,11 @@
 			actionHref="/medications"
 		/>
 	{:else}
-		<ListCard>
+		<Card variant="accent" list>
 			{#each medications as med (med.id)}
 				<MedicationTile medication={med} mode="prescription" ontap={handleTap} />
 			{/each}
-		</ListCard>
+		</Card>
 	{/if}
 </Page>
 

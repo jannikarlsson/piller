@@ -6,7 +6,7 @@
 	import Toast from '$lib/components/ui/Toast.svelte';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
-	import ListCard from '$lib/components/ui/ListCard.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 
 	type SectionId = 'buy' | 'rx';
@@ -90,11 +90,13 @@
 
 <Page title={t.actions.title} subtitle={t.actions.subtitle} {loading}>
 	{#if allGood}
-		<div class="all-good">
-			<span class="all-good__icon"><Icon name="check" size="lg" weight="bold" /></span>
-			<p class="text-title">{t.actions.allGood}</p>
-			<p class="all-good__sub text-meta">{t.actions.allGoodSub}</p>
-		</div>
+		<Card padding="lg">
+			<div class="all-good">
+				<span class="all-good__icon"><Icon name="check" size="lg" weight="bold" /></span>
+				<p class="text-title">{t.actions.allGood}</p>
+				<p class="all-good__sub text-meta">{t.actions.allGoodSub}</p>
+			</div>
+		</Card>
 	{:else}
 		<div class="sections">
 			{#each sections as section (section.id)}
@@ -103,7 +105,7 @@
 						{section.heading}
 						<span class="text-caption">{section.remaining}</span>
 					</h2>
-					<ListCard as="ul">
+					<Card variant="accent" list as="ul">
 						{#each section.items as med (med.id)}
 							{@const ticked = isDone(section.id, med)}
 							<li>
@@ -120,7 +122,7 @@
 								</Checkbox>
 							</li>
 						{/each}
-					</ListCard>
+					</Card>
 				</section>
 			{/each}
 		</div>
@@ -137,11 +139,7 @@
 		flex-direction: column;
 		align-items: center;
 		gap: var(--space-2);
-		padding: var(--space-10) var(--space-6);
 		text-align: center;
-		background: var(--color-surface);
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius-card);
 	}
 
 	.all-good__icon {

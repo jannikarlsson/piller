@@ -7,6 +7,7 @@
 	import { t } from '$lib/i18n/sv';
 	import type { Medication } from '$lib/firebase';
 	import Button from '$lib/components/ui/Button.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
 
 	interface Props {
@@ -61,21 +62,23 @@
 
 	<fieldset class="options">
 		<legend class="visually-hidden">{t.reset.scopeLegend}</legend>
-		{#each options as option (option.value)}
-			<label class="option" class:option--disabled={option.count === 0}>
-				<input
-					type="radio"
-					name="reset-scope"
-					value={option.value}
-					bind:group={scope}
-					disabled={option.count === 0}
-				/>
-				<span class="option__text">
-					<span class="option__label">{option.label}</span>
-					<span class="option__count text-meta">{t.reset.count(option.count)}</span>
-				</span>
-			</label>
-		{/each}
+		<Card list>
+			{#each options as option (option.value)}
+				<label class="option" class:option--disabled={option.count === 0}>
+					<input
+						type="radio"
+						name="reset-scope"
+						value={option.value}
+						bind:group={scope}
+						disabled={option.count === 0}
+					/>
+					<span class="option__text">
+						<span class="option__label">{option.label}</span>
+						<span class="option__count text-meta">{t.reset.count(option.count)}</span>
+					</span>
+				</label>
+			{/each}
+		</Card>
 	</fieldset>
 
 	{#if error}
@@ -105,28 +108,21 @@
 
 	.options {
 		border: none;
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-2);
 	}
 
 	.option {
 		display: flex;
 		align-items: center;
 		gap: var(--space-3);
-		min-height: 56px;
-		padding: var(--space-2) var(--space-4);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-control);
+		min-height: var(--row-height);
+		padding: var(--row-padding-y) var(--row-padding-x);
 		cursor: pointer;
-		transition:
-			border-color var(--transition-fast),
-			box-shadow var(--transition-fast);
+		transition: background-color var(--transition-fast);
 	}
 
+	/* The chosen option is highlighted within the list */
 	.option:has(input:checked) {
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px var(--color-accent-ring);
+		background: var(--color-accent-soft);
 	}
 
 	.option--disabled {

@@ -2,6 +2,7 @@
 <script lang="ts">
 	import Icon, { type IconName } from './Icon.svelte';
 	import Button from './Button.svelte';
+	import Card from './Card.svelte';
 
 	interface Props {
 		icon: IconName;
@@ -13,15 +14,17 @@
 	let { icon, message, actionLabel, actionHref }: Props = $props();
 </script>
 
-<div class="empty">
-	<span class="empty__icon"><Icon name={icon} size="xl" /></span>
-	<p>{message}</p>
-	{#if actionLabel && actionHref}
-		<span class="empty__action">
-			<Button size="sm" href={actionHref}>{actionLabel}</Button>
-		</span>
-	{/if}
-</div>
+<Card padding="lg">
+	<div class="empty">
+		<span class="empty__icon"><Icon name={icon} size="xl" /></span>
+		<p>{message}</p>
+		{#if actionLabel && actionHref}
+			<span class="empty__action">
+				<Button size="sm" href={actionHref}>{actionLabel}</Button>
+			</span>
+		{/if}
+	</div>
+</Card>
 
 <style>
 	.empty {
@@ -29,11 +32,7 @@
 		flex-direction: column;
 		align-items: center;
 		gap: var(--space-3);
-		padding: var(--space-10) var(--space-6);
 		text-align: center;
-		background: var(--color-surface);
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius-card);
 		color: var(--color-text-muted);
 	}
 

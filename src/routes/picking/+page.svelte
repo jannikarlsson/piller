@@ -6,7 +6,7 @@
 	import Page from '$lib/components/layout/Page.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
-	import ListCard from '$lib/components/ui/ListCard.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 
@@ -77,7 +77,7 @@
 				{/if}
 			</p>
 
-			<ListCard as="ul">
+			<Card variant="accent" list as="ul">
 				{#each medications as med (med.id)}
 					<li>
 						<Checkbox checked={med.picked} onchange={(picked) => toggle(med.id, picked)}>
@@ -90,7 +90,7 @@
 						</Checkbox>
 					</li>
 				{/each}
-			</ListCard>
+			</Card>
 		</div>
 	{/if}
 </Page>

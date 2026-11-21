@@ -47,8 +47,8 @@
 		justify-content: space-between;
 		gap: var(--space-3);
 		width: 100%;
-		min-height: 68px;
-		padding: var(--space-3) var(--space-4);
+		min-height: var(--row-height-tall);
+		padding: var(--row-padding-y) var(--row-padding-x);
 		background: transparent;
 		border: none;
 		text-align: left;

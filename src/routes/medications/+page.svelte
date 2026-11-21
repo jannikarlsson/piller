@@ -15,7 +15,7 @@
 	import Page from '$lib/components/layout/Page.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
-	import ListCard from '$lib/components/ui/ListCard.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
 	import Toast from '$lib/components/ui/Toast.svelte';
@@ -106,23 +106,25 @@
 	{/snippet}
 
 	{#if showSettings}
-		<div class="settings-panel">
-			<div class="settings-section">
-				<p class="text-name">{t.settings.resetTitle}</p>
-				<p class="settings-desc text-meta">{t.settings.resetDescription}</p>
-				<Button variant="danger-outline" size="sm" onclick={handleReset}>
-					{t.settings.resetButton}
-				</Button>
+		<Card padding="md">
+			<div class="settings-panel">
+				<div class="settings-section">
+					<p class="text-name">{t.settings.resetTitle}</p>
+					<p class="settings-desc text-meta">{t.settings.resetDescription}</p>
+					<Button variant="danger-outline" size="sm" onclick={handleReset}>
+						{t.settings.resetButton}
+					</Button>
+				</div>
+				<div class="settings-divider"></div>
+				<Button variant="secondary" size="sm" onclick={handleLogout}>{t.settings.logoutButton}</Button>
 			</div>
-			<div class="settings-divider"></div>
-			<Button variant="secondary" size="sm" onclick={handleLogout}>{t.settings.logoutButton}</Button>
-		</div>
+		</Card>
 	{/if}
 
 	{#if medications.length === 0}
 		<EmptyState icon="pill" message={t.medications.empty} />
 	{:else}
-		<ListCard as="ul">
+		<Card variant="accent" list as="ul">
 			{#each medications as med (med.id)}
 				<li class="med-row">
 					<span class="med-row__info">
@@ -144,7 +146,7 @@
 					</Button>
 				</li>
 			{/each}
-		</ListCard>
+		</Card>
 	{/if}
 
 	<div class="add-btn">
@@ -203,14 +205,10 @@
 	/* Settings */
 	/* Buttons in the panel keep their natural width */
 	.settings-panel {
-		padding: var(--space-4);
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		gap: var(--space-3);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius-card);
 	}
 
 	.settings-section {
@@ -237,8 +235,9 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-3);
-		min-height: 68px;
-		padding: var(--space-2) var(--space-1) var(--space-2) var(--space-4);
+		min-height: var(--row-height-tall);
+		/* Less on the right: the edit button's own tap area supplies the rest */
+		padding: var(--row-padding-y) var(--space-1) var(--row-padding-y) var(--row-padding-x);
 	}
 
 	.med-row__info {

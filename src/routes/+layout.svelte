@@ -118,6 +118,12 @@
 		--size-control: 48px; /* inputs and standard buttons */
 		--size-floating-button: 48px;
 
+		/* List rows: the same inner spacing everywhere, two minimum heights */
+		--row-padding-y: var(--space-3);
+		--row-padding-x: var(--space-4);
+		--row-height: 56px; /* one line, e.g. checkboxes */
+		--row-height-tall: 68px; /* name with strength and alternative names */
+
 		/* Stacking order, back to front */
 		--z-floating: 50; /* floating "Lägg till" button */
 		--z-nav: 100;

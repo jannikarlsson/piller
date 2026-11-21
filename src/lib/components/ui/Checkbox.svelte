@@ -44,8 +44,8 @@
 		display: flex;
 		align-items: center;
 		gap: var(--space-3);
-		min-height: 56px;
-		padding: var(--space-2) var(--space-4);
+		min-height: var(--row-height);
+		padding: var(--row-padding-y) var(--row-padding-x);
 		cursor: pointer;
 		-webkit-tap-highlight-color: transparent;
 		transition: background-color var(--transition-fast);

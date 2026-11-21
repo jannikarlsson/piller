@@ -4,6 +4,7 @@
 	import { DEFAULT_MEDICATION_SETTINGS, type MedicationInput } from '$lib/firebase';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 
 	interface Props {
 		initial?: Partial<MedicationInput>;
@@ -86,11 +87,11 @@
 
 	<fieldset class="form-options">
 		<legend class="text-label">{t.medications.settingsLegend}</legend>
-		<div class="form-options__list">
+		<Card list>
 			<Checkbox label={t.medications.remindToBuyLabel} bind:checked={remindToBuy} />
 			<Checkbox label={t.medications.remindPrescriptionLabel} bind:checked={remindPrescription} />
 			<Checkbox label={t.medications.inPillOrganizerLabel} bind:checked={inPillOrganizer} />
-		</div>
+		</Card>
 	</fieldset>
 
 	<div class="form-actions">
@@ -148,16 +149,6 @@
 
 	.form-options legend {
 		margin-bottom: var(--space-2);
-	}
-
-	.form-options__list {
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-control);
-		overflow: hidden;
-	}
-
-	.form-options__list > :global(* + *) {
-		border-top: 1px solid var(--color-border-light);
 	}
 
 	.form-actions {
