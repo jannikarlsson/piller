@@ -76,3 +76,23 @@ export function nextStatus(current: Status): Status {
 	if (current === 'available') return 'out';
 	return 'neutral';
 }
+
+// Swedish rules: å, ä and ö come after z. Upper and lower case count the same, and numbers sort
+// as numbers ("Ipren 2" before "Ipren 10"). The names are Swedish products, so this doesn't
+// follow the language chosen for the app.
+const nameCollator = new Intl.Collator('sv', { sensitivity: 'base', numeric: true });
+
+/**
+ * A to Z by name. Medications with the same name are told apart by strength, and then the
+ * one added first comes first, so the order never jumps around.
+ */
+export function sortByName<T extends Pick<Medication, 'name' | 'concentration' | 'createdAt'>>(
+	medications: T[]
+): T[] {
+	return [...medications].sort(
+		(a, b) =>
+			nameCollator.compare(a.name, b.name) ||
+			nameCollator.compare(a.concentration, b.concentration) ||
+			a.createdAt.getTime() - b.createdAt.getTime()
+	);
+}

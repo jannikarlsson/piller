@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
-import type { Medication } from '#lib/models/index.ts';
+import { sortByName, type Medication } from '#lib/models/index.ts';
 
+/** The user's medications, A to Z. Every list in the app reads them from here. */
 export const medicationsStore = writable<Medication[]>([]);
 export const medicationsLoading = writable(true);
 
@@ -13,7 +14,7 @@ export function startMedicationsSync(userId: string) {
 	import('#lib/firebase/index.ts')
 		.then(({ subscribeMedications }) => {
 			unsubscribe = subscribeMedications(userId, (meds) => {
-				medicationsStore.set(meds);
+				medicationsStore.set(sortByName(meds));
 				medicationsLoading.set(false);
 			});
 		})

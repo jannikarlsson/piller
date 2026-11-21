@@ -5,6 +5,7 @@ import {
 	needsAction,
 	nextStatus,
 	remindsAutomatically,
+	sortByName,
 	statusOf,
 	type Medication
 } from './medication';
@@ -85,5 +86,55 @@ describe('needsAction', () => {
 		const med = medication({ inventoryState: 'out', prescriptionState: 'available' });
 		expect(needsAction(med, 'inventory')).toBe(true);
 		expect(needsAction(med, 'prescription')).toBe(false);
+	});
+});
+
+describe('sortByName', () => {
+	const names = (meds: Medication[]) => meds.map((m) => m.name);
+
+	it('sorts A to Z and ignores upper and lower case', () => {
+		const meds = [
+			medication({ name: 'ipren' }),
+			medication({ name: 'Alvedon' }),
+			medication({ name: 'Nasonex' })
+		];
+		expect(names(sortByName(meds))).toEqual(['Alvedon', 'ipren', 'Nasonex']);
+	});
+
+	it('puts å, ä and ö after z, as in Swedish', () => {
+		const meds = [
+			medication({ name: 'Östrogen' }),
+			medication({ name: 'Zyrtec' }),
+			medication({ name: 'Åtgärd' }),
+			medication({ name: 'Älvdroppar' }),
+			medication({ name: 'Apodorm' })
+		];
+		expect(names(sortByName(meds))).toEqual([
+			'Apodorm',
+			'Zyrtec',
+			'Åtgärd',
+			'Älvdroppar',
+			'Östrogen'
+		]);
+	});
+
+	it('sorts numbers as numbers', () => {
+		const meds = [medication({ name: 'Ipren 10' }), medication({ name: 'Ipren 2' })];
+		expect(names(sortByName(meds))).toEqual(['Ipren 2', 'Ipren 10']);
+	});
+
+	it('orders the same name by strength, then by who was added first', () => {
+		const meds = [
+			medication({ id: 'c', name: 'Alvedon', concentration: '500 mg', createdAt: new Date(3) }),
+			medication({ id: 'b', name: 'Alvedon', concentration: '500 mg', createdAt: new Date(2) }),
+			medication({ id: 'a', name: 'Alvedon', concentration: '250 mg', createdAt: new Date(9) })
+		];
+		expect(sortByName(meds).map((m) => m.id)).toEqual(['a', 'b', 'c']);
+	});
+
+	it('does not change the list it was given', () => {
+		const meds = [medication({ name: 'B' }), medication({ name: 'A' })];
+		sortByName(meds);
+		expect(names(meds)).toEqual(['B', 'A']);
 	});
 });
