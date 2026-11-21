@@ -1,42 +1,36 @@
-# sv
+# Piller
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A small home-medicine-cabinet app, installable on a phone as a PWA. Built with SvelteKit and Firebase, with a Swedish UI.
 
-## Creating a project
+## What it does
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Skåpet** – mark each medication as at home or out.
+- **Recept** – mark whether there is an active prescription.
+- **Plocka** – a checklist for filling the pill organizer.
+- **Att göra** – what needs to be bought or renewed, built from the statuses above.
+- **Läkemedel** – add, edit and remove medications, and choose per medication whether it gets automatic reminders and is part of the pill organizer.
 
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@0.15.3 create --template minimal --types ts --install npm .
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Development
 
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm install
+npm run dev      # start the dev server
+npm run check    # type-check
 ```
 
-## Building
-
-To create a production version of your app:
+## Deploy
 
 ```sh
-npm run build
+npm run deploy        # build and deploy to Firebase Hosting
+npm run deploy:rules  # deploy firestore.rules (only when they change)
 ```
 
-You can preview the production build with `npm run preview`.
+First-time setup (Firebase project, sign-in, allowed users) is described in [SETUP.md](SETUP.md).
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Where things live
+
+- `src/routes/` – one folder per page
+- `src/lib/components/` – shared UI (drawer, list card, icons, …)
+- `src/lib/firebase.ts` – auth and all Firestore reads/writes
+- `src/lib/i18n/sv.ts` – all Swedish UI text
+- `src/routes/+layout.svelte` – colors, spacing and fonts as CSS variables

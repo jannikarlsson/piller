@@ -1,7 +1,6 @@
 export const t = {
 	app: {
 		name: 'Piller',
-		tagline: 'Ditt apoteksskåp, ordnat'
 	},
 
 	nav: {
@@ -13,7 +12,6 @@ export const t = {
 	},
 
 	login: {
-		title: 'Välkommen till Piller',
 		subtitle: 'Logga in för att hantera ditt läkemedelsförråd',
 		button: 'Logga in med Google',
 		loading: 'Loggar in...',
@@ -25,7 +23,6 @@ export const t = {
 		loading: 'Laddar…',
 		settings: 'Inställningar',
 		close: 'Stäng',
-		undo: 'Ångra',
 		edit: 'Redigera',
 		add: 'Lägg till',
 		mainMenu: 'Huvudmeny'
@@ -99,7 +96,6 @@ export const t = {
 	medications: {
 		title: 'Läkemedel',
 		subtitle: 'Hantera din lista',
-		addButton: 'Lägg till läkemedel',
 		empty: 'Inga läkemedel tillagda.',
 		editTitle: 'Redigera läkemedel',
 		addTitle: 'Nytt läkemedel',
@@ -124,15 +120,13 @@ export const t = {
 	},
 
 	tileStates: {
-		neutral: 'Okänd',
-		inventoryAvailable: 'Finns hemma',
-		inventoryOut: 'Slut hemma',
-		prescriptionActive: 'Aktivt recept',
+		inventoryAvailable: 'Hemma',
+		inventoryOut: 'Slut',
+		prescriptionAvailable: 'Aktivt',
 		prescriptionOut: 'Inget recept'
 	},
 
 	settings: {
-		title: 'Inställningar',
 		resetTitle: 'Återställ statusar',
 		resetDescription: 'Återställer alla läkemedels status till okänd. Listan bevaras.',
 		resetButton: 'Återställ allt',
@@ -143,7 +137,6 @@ export const t = {
 	},
 
 	errors: {
-		loadFailed: 'Kunde inte ladda läkemedel.',
 		saveFailed: 'Kunde inte spara. Försök igen.',
 		deleteFailed: 'Kunde inte ta bort. Försök igen.',
 		updateFailed: 'Kunde inte uppdatera status.',

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { t } from '$lib/i18n/sv';
 	import type { Medication } from '$lib/firebase';
 	import StatusTag from './StatusTag.svelte';
 
@@ -17,8 +18,9 @@
 	const stateLabel = $derived(
 		{
 			neutral: '',
-			available: mode === 'inventory' ? 'Hemma' : 'Aktivt',
-			out: mode === 'inventory' ? 'Slut' : 'Inget recept'
+			available:
+				mode === 'inventory' ? t.tileStates.inventoryAvailable : t.tileStates.prescriptionAvailable,
+			out: mode === 'inventory' ? t.tileStates.inventoryOut : t.tileStates.prescriptionOut
 		}[state]
 	);
 </script>
