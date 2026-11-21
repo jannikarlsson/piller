@@ -146,6 +146,16 @@ export const sv = {
 		featurePillOrganizer: 'Dosett',
 		featurePillOrganizerDescription: 'Checklista för att fylla dosetten',
 		dataHeading: 'Data',
+		resetMode: 'Återställning',
+		resetModeLegend: 'Vad ska återställ-knappen göra?',
+		resetModeOptions: {
+			ask: 'Fråga varje gång',
+			all: 'Återställ alla',
+			out: 'Bara de som är slut'
+		},
+		resetModeAllDescription: 'Alla statusar i listan blir okända direkt',
+		resetModeOutDescription: 'Direkt, utan att fråga. För recept: de utan recept',
+		resetModeAskDescription: 'Välj i en ruta varje gång',
 		accountHeading: 'Konto',
 		resetAll: 'Återställ alla statusar',
 		resetAllTitle: 'Återställ alla statusar?',

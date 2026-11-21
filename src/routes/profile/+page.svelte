@@ -5,7 +5,7 @@
 	import { showToast, withErrorToast } from '$lib/stores/toast';
 	import { settingsStore, updateSettings } from '$lib/stores/settings';
 	import { resetAllStatuses, resetPicked, signOutUser } from '$lib/firebase';
-	import type { ThemeSetting, UserSettings } from '$lib/models';
+	import type { ResetMode, ThemeSetting, UserSettings } from '$lib/models';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
@@ -18,7 +18,9 @@
 
 	const user = $derived($userStore);
 
-	let openDrawer = $state<'theme' | 'language' | 'resetAll' | 'logout' | null>(null);
+	let openDrawer = $state<'theme' | 'language' | 'resetMode' | 'resetAll' | 'logout' | null>(
+		null
+	);
 
 	const themeOptions = $derived([
 		{ value: 'light' as const, label: t.profile.themeOptions.light },
@@ -40,6 +42,24 @@
 		}
 	]);
 
+	const resetModeOptions = $derived([
+		{
+			value: 'ask' as const,
+			label: t.profile.resetModeOptions.ask,
+			description: t.profile.resetModeAskDescription
+		},
+		{
+			value: 'all' as const,
+			label: t.profile.resetModeOptions.all,
+			description: t.profile.resetModeAllDescription
+		},
+		{
+			value: 'out' as const,
+			label: t.profile.resetModeOptions.out,
+			description: t.profile.resetModeOutDescription
+		}
+	]);
+
 	const languageLabel = $derived(
 		$settingsStore.language === 'system'
 			? t.profile.languageSystem
@@ -53,6 +73,11 @@
 
 	function setSetting(changes: Partial<UserSettings>) {
 		withErrorToast(() => updateSettings(changes), t.errors.settingsFailed);
+	}
+
+	function handleResetMode(resetMode: ResetMode) {
+		openDrawer = null;
+		setSetting({ resetMode });
 	}
 
 	function handleTheme(theme: ThemeSetting) {
@@ -135,6 +160,11 @@
 
 	<Section title={t.profile.dataHeading}>
 		<Card list>
+			<ListItem
+				label={t.profile.resetMode}
+				value={t.profile.resetModeOptions[$settingsStore.resetMode]}
+				onclick={() => (openDrawer = 'resetMode')}
+			/>
 			<ListItem label={t.profile.resetAll} onclick={() => (openDrawer = 'resetAll')} />
 		</Card>
 	</Section>
@@ -162,6 +192,15 @@
 			options={languageOptions}
 			selected={$settingsStore.language}
 			onselect={handleLanguage}
+		/>
+	</BottomSheet>
+{:else if openDrawer === 'resetMode'}
+	<BottomSheet title={t.profile.resetMode} onclose={() => (openDrawer = null)}>
+		<ChoiceDialog
+			legend={t.profile.resetModeLegend}
+			options={resetModeOptions}
+			selected={$settingsStore.resetMode}
+			onselect={handleResetMode}
 		/>
 	</BottomSheet>
 {:else if openDrawer === 'resetAll'}

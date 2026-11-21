@@ -148,6 +148,16 @@ export const en: Translations = {
 		featurePillOrganizer: 'Pill organizer',
 		featurePillOrganizerDescription: 'Checklist for filling your pill organizer',
 		dataHeading: 'Data',
+		resetMode: 'Resetting',
+		resetModeLegend: 'What should the reset button do?',
+		resetModeOptions: {
+			ask: 'Ask every time',
+			all: 'Reset all',
+			out: 'Only those that are out'
+		},
+		resetModeAllDescription: 'Every status in the list becomes unknown right away',
+		resetModeOutDescription: 'Right away, without asking. For prescriptions: those without one',
+		resetModeAskDescription: 'Choose in a drawer each time',
 		accountHeading: 'Account',
 		resetAll: 'Reset all statuses',
 		resetAllTitle: 'Reset all statuses?',

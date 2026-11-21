@@ -5,6 +5,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
 	import { withErrorToast } from '$lib/stores/toast';
+	import { settingsStore } from '$lib/stores/settings';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { updateStatus, resetStatuses, setAddedToTodo } from '$lib/firebase';
 	import {
@@ -35,7 +36,13 @@
 	const text = $derived(t[kind]);
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
-	const hasStatuses = $derived(medications.some((m) => statusOf(m, kind) !== 'neutral'));
+	const resetMode = $derived($settingsStore.resetMode);
+	// Nothing to reset: no status set, or (when resetting only "out" straight away) none out
+	const canReset = $derived(
+		medications.some((m) =>
+			resetMode === 'out' ? statusOf(m, kind) === 'out' : statusOf(m, kind) !== 'neutral'
+		)
+	);
 	let showReset = $state(false);
 	let todoPromptFor = $state<Medication | null>(null);
 
@@ -54,6 +61,12 @@
 		showReset = false;
 	}
 
+	// The setting in Profile decides whether to ask first or reset straight away
+	function handleResetButton() {
+		if (resetMode === 'ask') showReset = true;
+		else withErrorToast(() => resetStatuses(kind, resetMode === 'out'), t.errors.resetFailed);
+	}
+
 	async function handleAddToTodo(med: Medication) {
 		await setAddedToTodo(med.id, kind, true);
 		todoPromptFor = null;
@@ -67,8 +80,8 @@
 				variant="ghost"
 				size="sm"
 				ariaLabel={text.resetLabel}
-				disabled={!hasStatuses}
-				onclick={() => (showReset = true)}
+				disabled={!canReset}
+				onclick={handleResetButton}
 			>
 				<Icon name="reset" />
 				{text.resetButton}
