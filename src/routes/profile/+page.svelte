@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { t } from '$lib/i18n/sv';
+	import { t, LANGUAGE_NAMES, type LanguageSetting } from '$lib/i18n';
 	import { userStore } from '$lib/stores/auth';
 	import { medicationsStore } from '$lib/stores/medications';
 	import { showToast, withErrorToast } from '$lib/stores/toast';
@@ -17,9 +17,9 @@
 	const user = $derived($userStore);
 
 	/** Which drawer is open, if any. */
-	let openDrawer = $state<'theme' | 'resetAll' | 'logout' | null>(null);
+	let openDrawer = $state<'theme' | 'language' | 'resetAll' | 'logout' | null>(null);
 
-	const themeOptions = [
+	const themeOptions = $derived([
 		{ value: 'light' as const, label: t.profile.themeOptions.light },
 		{ value: 'dark' as const, label: t.profile.themeOptions.dark },
 		{
@@ -27,7 +27,28 @@
 			label: t.profile.themeOptions.system,
 			description: t.profile.themeSystemDescription
 		}
-	];
+	]);
+
+	const languageOptions = $derived([
+		{ value: 'sv' as const, label: LANGUAGE_NAMES.sv },
+		{ value: 'en' as const, label: LANGUAGE_NAMES.en },
+		{
+			value: 'system' as const,
+			label: t.profile.languageSystem,
+			description: t.profile.languageSystemDescription
+		}
+	]);
+
+	const languageLabel = $derived(
+		$settingsStore.language === 'system'
+			? t.profile.languageSystem
+			: LANGUAGE_NAMES[$settingsStore.language]
+	);
+
+	function handleLanguage(language: LanguageSetting) {
+		openDrawer = null;
+		withErrorToast(() => updateSettings({ language }), t.errors.settingsFailed);
+	}
 
 	/** The new theme applies immediately; the drawer closes so the user sees it. */
 	function handleTheme(theme: ThemeSetting) {
@@ -78,6 +99,11 @@
 				value={t.profile.themeOptions[$settingsStore.theme]}
 				onclick={() => (openDrawer = 'theme')}
 			/>
+			<ListItem
+				label={t.profile.language}
+				value={languageLabel}
+				onclick={() => (openDrawer = 'language')}
+			/>
 		</Card>
 	</Section>
 
@@ -101,6 +127,15 @@
 			options={themeOptions}
 			selected={$settingsStore.theme}
 			onselect={handleTheme}
+		/>
+	</BottomSheet>
+{:else if openDrawer === 'language'}
+	<BottomSheet title={t.profile.language} onclose={() => (openDrawer = null)}>
+		<ChoiceDialog
+			legend={t.profile.language}
+			options={languageOptions}
+			selected={$settingsStore.language}
+			onselect={handleLanguage}
 		/>
 	</BottomSheet>
 {:else if openDrawer === 'resetAll'}

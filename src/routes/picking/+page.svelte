@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { t } from '$lib/i18n/sv';
+	import { t } from '$lib/i18n';
 	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';

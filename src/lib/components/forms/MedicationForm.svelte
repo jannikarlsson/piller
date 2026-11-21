@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { t } from '$lib/i18n/sv';
+	import { t } from '$lib/i18n';
 	import { DEFAULT_MEDICATION_SETTINGS, type MedicationInput } from '$lib/firebase';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import Button from '$lib/components/ui/Button.svelte';

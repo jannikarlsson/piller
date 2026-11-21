@@ -4,7 +4,7 @@
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { t } from '$lib/i18n/sv';
+	import { t } from '$lib/i18n';
 	import PageHeader from './PageHeader.svelte';
 
 	interface Props {

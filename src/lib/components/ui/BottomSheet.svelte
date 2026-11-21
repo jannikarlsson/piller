@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { t } from '$lib/i18n/sv';
+	import { t } from '$lib/i18n';
 	import Icon from './Icon.svelte';
 	import Button from './Button.svelte';
 

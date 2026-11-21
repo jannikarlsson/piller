@@ -1,17 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { t } from '$lib/i18n/sv';
+	import { t } from '$lib/i18n';
 	import { userStore } from '$lib/stores/auth';
 	import Icon, { type IconName } from '$lib/components/ui/Icon.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
 
-	// `icon: null` shows the user's photo instead (the Profil tab)
-	const links: { href: string; label: string; icon: IconName | null }[] = [
-		{ href: '/inventory', label: t.nav.inventory, icon: 'cabinet' },
-		{ href: '/prescription', label: t.nav.prescription, icon: 'prescription' },
-		{ href: '/picking', label: t.nav.picking, icon: 'organizer' },
-		{ href: '/actions', label: t.nav.actions, icon: 'checklist' },
-		{ href: '/profile', label: t.nav.profile, icon: null }
+	// `icon: null` shows the user's photo instead (the Profil tab).
+	// Labels are looked up when shown, so they follow the current language.
+	const links: { href: string; label: keyof typeof t.nav; icon: IconName | null }[] = [
+		{ href: '/inventory', label: 'inventory', icon: 'cabinet' },
+		{ href: '/prescription', label: 'prescription', icon: 'prescription' },
+		{ href: '/picking', label: 'picking', icon: 'organizer' },
+		{ href: '/actions', label: 'actions', icon: 'checklist' },
+		{ href: '/profile', label: 'profile', icon: null }
 	];
 </script>
 
@@ -31,7 +32,7 @@
 			{:else}
 				<span class="nav-item__avatar"><Avatar photoUrl={$userStore?.photoURL} /></span>
 			{/if}
-			<span class="nav-item__label">{link.label}</span>
+			<span class="nav-item__label">{t.nav[link.label]}</span>
 		</a>
 	{/each}
 </nav>

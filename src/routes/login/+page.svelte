@@ -1,20 +1,21 @@
 <script lang="ts">
-	import { t } from '$lib/i18n/sv';
+	import { t } from '$lib/i18n';
 	import { signInWithGoogle } from '$lib/firebase';
 	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
 	import CabinetIllustration from './CabinetIllustration.svelte';
 
 	let loading = $state(false);
-	let error = $state<string | null>(null);
+	// Which error happened; the message is looked up when shown so it follows the language
+	let error = $state<'errorNotAllowed' | 'errorGeneral' | null>(null);
 
 	async function handleLogin() {
 		loading = true;
 		error = null;
 		const result = await signInWithGoogle();
 		if (result.error === 'not_allowed') {
-			error = t.login.errorNotAllowed;
+			error = 'errorNotAllowed';
 		} else if (result.error) {
-			error = t.login.errorGeneral;
+			error = 'errorGeneral';
 		}
 		loading = false;
 	}
@@ -33,7 +34,7 @@
 
 		<div class="login-actions">
 			{#if error}
-				<ErrorMessage message={error} />
+				<ErrorMessage message={t.login[error]} />
 			{/if}
 
 			<button type="button" class="google-btn" onclick={handleLogin} disabled={loading}>

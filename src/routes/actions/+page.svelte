@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { t } from '$lib/i18n/sv';
+	import { t } from '$lib/i18n';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
@@ -33,8 +33,8 @@
 
 	// One section per status kind: "Köp" for the cabinet, "Skaffa recept" for prescriptions
 	const SECTIONS = [
-		{ kind: 'inventory', heading: t.actions.buyHeading },
-		{ kind: 'prescription', heading: t.actions.prescriptionHeading }
+		{ kind: 'inventory', heading: 'buyHeading' },
+		{ kind: 'prescription', heading: 'prescriptionHeading' }
 	] as const;
 
 	const sections = $derived(
@@ -80,7 +80,7 @@
 	{:else}
 		<div class="sections">
 			{#each sections as section (section.kind)}
-				<Section title={section.heading} count={section.remaining}>
+				<Section title={t.actions[section.heading]} count={section.remaining}>
 					<Card variant="accent" list as="ul">
 						{#each section.items as med (med.id)}
 							{@const ticked = isDone(section.kind, med)}

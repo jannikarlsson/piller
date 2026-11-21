@@ -24,6 +24,7 @@ import {
 	orderBy
 } from 'firebase/firestore';
 import { firebaseConfig, ALLOWED_EMAILS } from './config';
+import type { LanguageSetting } from './i18n';
 
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -307,11 +308,14 @@ export type ThemeSetting = 'system' | 'light' | 'dark';
 export interface UserSettings {
 	/** `system` follows the phone's light/dark setting. */
 	theme: ThemeSetting;
+	/** `system` follows the phone's language (Swedish, otherwise English). */
+	language: LanguageSetting;
 }
 
 /** Used for anything not saved yet, so new settings need no migration. */
 export const DEFAULT_SETTINGS: UserSettings = {
-	theme: 'system'
+	theme: 'system',
+	language: 'system'
 };
 
 function settingsRef(userId: string) {

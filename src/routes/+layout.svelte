@@ -8,6 +8,7 @@
 	import BottomNav from '$lib/components/layout/BottomNav.svelte';
 	import Toast from '$lib/components/ui/Toast.svelte';
 	import { toastMessage } from '$lib/stores/toast';
+	import { setLanguage, resolveLanguage, getLanguage } from '$lib/i18n';
 
 	let { children } = $props();
 
@@ -52,6 +53,16 @@
 	const theme = $derived(
 		$settingsStore.theme === 'system' ? (systemPrefersDark ? 'dark' : 'light') : $settingsStore.theme
 	);
+
+	// Switch all texts to the chosen language before the page updates
+	$effect.pre(() => {
+		setLanguage(resolveLanguage($settingsStore.language));
+	});
+
+	// Tell browsers and screen readers which language the page is in
+	$effect(() => {
+		document.documentElement.lang = getLanguage();
+	});
 
 	// Apply the theme to the page, and match the phone's status bar to the background
 	$effect(() => {

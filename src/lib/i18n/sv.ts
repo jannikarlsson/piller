@@ -1,6 +1,7 @@
-export const t = {
+/** Swedish. This file defines which texts exist; other languages must match its shape. */
+export const sv = {
 	app: {
-		name: 'Piller',
+		name: 'Piller'
 	},
 
 	nav: {
@@ -35,7 +36,7 @@ export const t = {
 		empty: 'Inga läkemedel tillagda än.',
 		emptyAction: 'Lägg till läkemedel',
 		resetButton: 'Återställ',
-		resetLabel: 'Återställ statusar i skåpet',
+		resetLabel: 'Återställ statusar i skåpet'
 	},
 
 	prescription: {
@@ -44,7 +45,7 @@ export const t = {
 		empty: 'Inga läkemedel tillagda än.',
 		emptyAction: 'Lägg till läkemedel',
 		resetButton: 'Återställ',
-		resetLabel: 'Återställ receptstatusar',
+		resetLabel: 'Återställ receptstatusar'
 	},
 
 	picking: {
@@ -143,6 +144,9 @@ export const t = {
 			system: 'System'
 		},
 		themeSystemDescription: 'Följer telefonens inställning',
+		language: 'Språk',
+		languageSystem: 'System',
+		languageSystemDescription: 'Följer telefonens språk',
 		dataHeading: 'Data',
 		accountHeading: 'Konto',
 		resetAll: 'Återställ alla statusar',
@@ -167,4 +171,11 @@ export const t = {
 	}
 } as const;
 
-export type Translations = typeof t;
+/** Same shape as `sv`, but any wording: strings become `string`, functions keep their parameters. */
+type Widen<T> = T extends string
+	? string
+	: T extends (...args: infer A) => infer R
+		? (...args: A) => Widen<R>
+		: { readonly [K in keyof T]: Widen<T[K]> };
+
+export type Translations = Widen<typeof sv>;

@@ -4,7 +4,7 @@
 	and the dialog stays open.
 -->
 <script lang="ts">
-	import { t } from '$lib/i18n/sv';
+	import { t } from '$lib/i18n';
 	import Button from '$lib/components/ui/Button.svelte';
 	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
 
@@ -22,9 +22,9 @@
 	let {
 		message,
 		confirmLabel,
-		cancelLabel = t.common.cancel,
+		cancelLabel,
 		tone = 'primary',
-		errorMessage = t.errors.saveFailed,
+		errorMessage,
 		onconfirm,
 		oncancel
 	}: Props = $props();
@@ -39,7 +39,7 @@
 			await onconfirm();
 		} catch (e) {
 			console.error(e);
-			error = errorMessage;
+			error = errorMessage ?? t.errors.saveFailed;
 		} finally {
 			busy = false;
 		}
@@ -54,7 +54,7 @@
 	{/if}
 
 	<div class="confirm__actions">
-		<Button variant="secondary" onclick={oncancel} disabled={busy}>{cancelLabel}</Button>
+		<Button variant="secondary" onclick={oncancel} disabled={busy}>{cancelLabel ?? t.common.cancel}</Button>
 		<Button variant={tone} onclick={handleConfirm} disabled={busy}>
 			{busy ? t.common.loading : confirmLabel}
 		</Button>
