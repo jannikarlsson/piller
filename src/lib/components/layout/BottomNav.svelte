@@ -19,12 +19,14 @@
 			class:nav-item--active={active}
 			aria-current={active ? 'page' : undefined}
 		>
-			{#if link.icon}
-				<Icon name={link.icon} size="lg" />
-			{:else}
-				<span class="nav-item__avatar"><Avatar photoUrl={$userStore?.photoURL} /></span>
-			{/if}
-			<span class="nav-item__label">{t.nav[link.label]}</span>
+			<span class="nav-item__box">
+				{#if link.icon}
+					<Icon name={link.icon} size="lg" />
+				{:else}
+					<span class="nav-item__avatar"><Avatar photoUrl={$userStore?.photoURL} /></span>
+				{/if}
+				<span class="nav-item__label">{t.nav[link.label]}</span>
+			</span>
 		</a>
 	{/each}
 </nav>
@@ -36,24 +38,35 @@
 		left: 0;
 		right: 0;
 		display: flex;
-		padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+		gap: var(--space-1);
+		padding: var(--space-1) var(--space-1) calc(var(--space-1) + env(safe-area-inset-bottom, 0px));
 		background: var(--color-surface);
 		border-top: 1px solid var(--color-border-light);
 		z-index: var(--z-nav);
 	}
 
+	/* Equal columns; the box fills its column, leaving only the small gap between tabs */
 	.nav-item {
 		flex: 1;
-		min-height: var(--size-control);
+		display: flex;
+		text-decoration: none;
+		color: var(--color-text-subtle);
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.nav-item__box {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: var(--space-1);
-		text-decoration: none;
-		color: var(--color-text-subtle);
+		gap: 2px;
+		width: 100%;
+		min-height: var(--size-control);
+		padding: var(--space-2) 0;
 		border-radius: var(--radius-control);
-		-webkit-tap-highlight-color: transparent;
+		transition:
+			background-color var(--transition-fast),
+			color var(--transition-fast);
 	}
 
 	.nav-item__label {
@@ -61,8 +74,9 @@
 		font-weight: 500;
 	}
 
-	.nav-item--active {
-		color: var(--color-accent);
+	.nav-item--active .nav-item__box {
+		background: var(--color-accent-tint);
+		color: var(--color-accent-hover);
 	}
 
 	.nav-item--active .nav-item__label {
@@ -71,11 +85,5 @@
 
 	.nav-item__avatar {
 		display: flex;
-		border-radius: 50%;
-		box-shadow: 0 0 0 1.5px transparent;
-	}
-
-	.nav-item--active .nav-item__avatar {
-		box-shadow: 0 0 0 2px var(--color-accent);
 	}
 </style>
