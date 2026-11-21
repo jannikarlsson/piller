@@ -14,7 +14,7 @@
 		confirmLabel: string;
 		cancelLabel?: string;
 		tone?: 'primary' | 'danger';
-		errorMessage?: string;
+		errorMessage: string;
 		onconfirm: () => Promise<void>;
 		oncancel: () => void;
 	}
@@ -39,7 +39,7 @@
 			await onconfirm();
 		} catch (e) {
 			console.error(e);
-			error = errorMessage ?? t.errors.saveFailed;
+			error = errorMessage;
 		} finally {
 			busy = false;
 		}

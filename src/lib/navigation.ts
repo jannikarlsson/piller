@@ -32,7 +32,6 @@ export function isLinkVisible(link: NavLink, settings: UserSettings): boolean {
 	return !link.feature || isFeatureOn(settings, link.feature);
 }
 
-/** True when the path belongs to a feature that is switched off. */
 export function isPathOff(path: string, settings: UserSettings): boolean {
 	return NAV_LINKS.some((link) => !isLinkVisible(link, settings) && isUnder(path, link.href));
 }

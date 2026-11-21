@@ -25,7 +25,6 @@
 	const outCount = $derived(medications.filter((m) => statusOf(m, kind) === 'out').length);
 	const setCount = $derived(medications.filter((m) => statusOf(m, kind) !== 'neutral').length);
 
-	// Default to "only out" when there is something to clear there, otherwise "all".
 	let scope = $state<Scope>(untrack(() => (outCount > 0 ? 'out' : 'all')));
 	let submitting = $state(false);
 	let error = $state<string | null>(null);

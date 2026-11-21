@@ -45,7 +45,6 @@
 		z-index: var(--z-nav);
 	}
 
-	/* Equal columns; the box fills its column, leaving only the small gap between tabs */
 	.nav-item {
 		flex: 1;
 		display: flex;

@@ -84,7 +84,6 @@
 		gap: var(--space-2);
 	}
 
-	/* The app name: a step bigger than page headings */
 	.intro__title {
 		font-size: var(--text-2xl);
 	}

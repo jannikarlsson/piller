@@ -1,6 +1,6 @@
 <!--
 	Frame for every page with the bottom menu: a scrolling area with the page header,
-	side padding for the content, room for the menu, and a loading text while data loads.
+	side padding for the content, room for the menu, and placeholder rows while data loads.
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
@@ -39,8 +39,7 @@
 
 	.page--floating-button {
 		padding-bottom: calc(
-			var(--nav-height) + var(--size-floating-button) + var(--space-8) +
-				env(safe-area-inset-bottom, 0px)
+			var(--nav-height) + var(--size-control) + var(--space-8) + env(safe-area-inset-bottom, 0px)
 		);
 	}
 

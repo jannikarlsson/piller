@@ -52,7 +52,6 @@
 		padding-top: 3px;
 	}
 
-	/* Grey shapes with a soft light passing over them */
 	.bar {
 		display: block;
 		border-radius: var(--radius-sm);

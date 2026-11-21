@@ -25,13 +25,12 @@
 	--radius-control: 10px; /* inputs, buttons */
 	--radius-card: 12px; /* cards, panels */
 	--radius-lg: 16px; /* top corners of the drawer */
-	--radius-row-focus: calc(
-		var(--radius-card) - 1px
-	); /* focused list row, inside the card's border */
+	/* A card clips anything outside its rounded corners, so the focus ring of a list row is drawn
+	   inside the row and follows the card's corners: the card's radius minus its 1px border. */
+	--radius-row-focus: calc(var(--radius-card) - 1px);
 
 	--size-tap: 44px; /* minimum touch target */
 	--size-control: 48px; /* inputs and standard buttons */
-	--size-floating-button: 48px;
 	--nav-height: 76px;
 
 	/* List rows: the same inner spacing everywhere, two minimum heights */

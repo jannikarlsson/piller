@@ -68,7 +68,6 @@
 		color: var(--color-text);
 	}
 
-	/* A title makes the message a subtitle under it */
 	.empty__title + .empty__message {
 		margin-top: calc(-1 * var(--space-1));
 		font-size: var(--text-sm);

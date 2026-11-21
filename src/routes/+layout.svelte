@@ -75,7 +75,6 @@
 			: $settingsStore.theme
 	);
 
-	// A switched-off feature's page isn't reachable: go to the cabinet instead
 	$effect(() => {
 		if (isPathOff(page.url.pathname, $settingsStore)) goto(HOME_PATH, { replaceState: true });
 	});

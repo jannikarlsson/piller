@@ -15,7 +15,6 @@
 
 	// Named explicitly: otherwise the label would control the first button inside it, the info icon
 	const id = $props.id();
-	// The switch is named by the label text only and described by the info text
 	const labelId = `${id}-label`;
 	const infoId = `${id}-info`;
 </script>
@@ -64,7 +63,6 @@
 		font-size: var(--text-md);
 	}
 
-	/* The track, with the knob drawn as ::after */
 	.switch {
 		position: relative;
 		flex-shrink: 0;
@@ -96,8 +94,6 @@
 		transform: translateX(18px);
 	}
 
-	/* Rows fill a card that clips anything outside it, so the focus ring sits inside the row,
-	   rounded like the card so its corners aren't cut off in the first and last row */
 	.item:has(input:focus-visible) {
 		outline: var(--focus-outline);
 		outline-offset: -2px;

@@ -63,7 +63,6 @@
 		showReset = false;
 	}
 
-	// The setting in Profile decides whether to ask first or reset straight away
 	function handleResetButton() {
 		if (resetMode === 'ask') showReset = true;
 		else withErrorToast(() => resetStatuses(kind, resetMode === 'out'), t.errors.resetFailed);

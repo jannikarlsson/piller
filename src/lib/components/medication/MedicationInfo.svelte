@@ -68,7 +68,6 @@
 		text-overflow: ellipsis;
 	}
 
-	/* Shown in full up to two lines, then cut off */
 	.info__description {
 		display: -webkit-box;
 		-webkit-box-orient: vertical;

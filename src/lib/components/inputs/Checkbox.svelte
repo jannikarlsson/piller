@@ -71,8 +71,6 @@
 			border-color var(--transition-fast);
 	}
 
-	/* Rows fill a card that clips anything outside it, so the focus ring sits inside the row,
-	   rounded like the card so its corners aren't cut off in the first and last row */
 	.checkbox:has(input:focus-visible) {
 		outline: var(--focus-outline);
 		outline-offset: -2px;

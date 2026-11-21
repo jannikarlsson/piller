@@ -15,7 +15,6 @@ export function subscribeSettings(
 	});
 }
 
-/** Save only the changed settings; other saved settings are kept. */
 export async function saveSettings(userId: string, changes: Partial<UserSettings>): Promise<void> {
 	await save(
 		setDoc(settingsRef(userId), { ...changes, updatedAt: serverTimestamp() }, { merge: true })

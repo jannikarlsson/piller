@@ -5,7 +5,6 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
 	plugins: [
 		withPwa(
-			// SvelteKit
 			{
 				adapter: adapter({
 					pages: 'build',

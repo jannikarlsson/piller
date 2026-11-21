@@ -37,7 +37,6 @@
 		background: var(--color-accent-soft);
 	}
 
-	/* The text sits at the bottom; the illustration fills the space above it */
 	.start__art {
 		flex: 1 1 auto;
 		min-height: 0;
@@ -78,7 +77,6 @@
 		padding: var(--space-6) var(--space-6) calc(var(--space-10) + env(safe-area-inset-bottom, 0px));
 	}
 
-	/* A ring with one coloured quarter, turning */
 	.start__spinner {
 		align-self: center;
 		width: 28px;
