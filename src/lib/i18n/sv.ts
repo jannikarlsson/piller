@@ -33,14 +33,18 @@ export const t = {
 		title: 'Skåpet',
 		subtitle: 'Vad finns hemma?',
 		empty: 'Inga läkemedel tillagda än.',
-		emptyAction: 'Lägg till läkemedel'
+		emptyAction: 'Lägg till läkemedel',
+		resetButton: 'Återställ',
+		resetLabel: 'Återställ statusar i skåpet',
 	},
 
 	prescription: {
 		title: 'Recept',
 		subtitle: 'Aktiva recept',
 		empty: 'Inga läkemedel tillagda än.',
-		emptyAction: 'Lägg till läkemedel'
+		emptyAction: 'Lägg till läkemedel',
+		resetButton: 'Återställ',
+		resetLabel: 'Återställ receptstatusar',
 	},
 
 	actions: {
@@ -50,6 +54,20 @@ export const t = {
 		prescriptionHeading: 'Skaffa recept',
 		allGood: 'Allt är i ordning',
 		allGoodSub: 'Ingenting behöver köpas eller förnyas just nu.'
+	},
+
+	reset: {
+		inventoryTitle: 'Återställ skåpet',
+		prescriptionTitle: 'Återställ recept',
+		inventoryIntro: 'Välj vilka statusar i skåpet som ska bli okända igen. Recepten påverkas inte.',
+		prescriptionIntro: 'Välj vilka receptstatusar som ska bli okända igen. Skåpet påverkas inte.',
+		scopeLegend: 'Vad ska återställas?',
+		optionOutInventory: 'Bara de som är slut',
+		optionOutPrescription: 'Bara de utan recept',
+		optionAll: 'Alla statusar',
+		count: (n: number) => `${n} läkemedel`,
+		confirm: 'Återställ',
+		cancel: 'Avbryt'
 	},
 
 	medications: {
@@ -94,7 +112,8 @@ export const t = {
 		loadFailed: 'Kunde inte ladda läkemedel.',
 		saveFailed: 'Kunde inte spara. Försök igen.',
 		deleteFailed: 'Kunde inte ta bort. Försök igen.',
-		updateFailed: 'Kunde inte uppdatera status.'
+		updateFailed: 'Kunde inte uppdatera status.',
+		resetFailed: 'Kunde inte återställa. Försök igen.'
 	}
 } as const;
 

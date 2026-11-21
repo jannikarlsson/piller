@@ -143,6 +143,25 @@ export async function updateTileState(
 	});
 }
 
+/**
+ * Reset one status type (cabinet or prescription) to neutral.
+ * With `onlyOut`, only medications marked as out are reset; otherwise every set status is.
+ */
+export async function resetStates(
+	userId: string,
+	field: 'inventoryState' | 'prescriptionState',
+	onlyOut = false
+): Promise<void> {
+	const snap = await getDocs(medicationsRef(userId));
+	const batch = writeBatch(db);
+	snap.docs
+		.filter((d) => (onlyOut ? d.data()[field] === 'out' : d.data()[field] !== 'neutral'))
+		.forEach((d) => {
+			batch.update(d.ref, { [field]: 'neutral', updatedAt: serverTimestamp() });
+		});
+	await batch.commit();
+}
+
 export async function resetAllStates(userId: string): Promise<void> {
 	const snap = await getDocs(medicationsRef(userId));
 	const batch = writeBatch(db);

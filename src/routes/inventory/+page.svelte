@@ -7,9 +7,12 @@
 	import PageHeader from '$lib/components/PageHeader.svelte';
 	import ListCard from '$lib/components/ListCard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
+	import ResetSheet from '$lib/components/ResetSheet.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
+	const hasStatuses = $derived(medications.some((m) => m.inventoryState !== 'neutral'));
+	let showReset = $state(false);
 
 	async function handleTap(id: string) {
 		const user = $userStore;
@@ -21,7 +24,22 @@
 </script>
 
 <div class="page">
-	<PageHeader title={t.inventory.title} subtitle={t.inventory.subtitle} />
+	<PageHeader title={t.inventory.title} subtitle={t.inventory.subtitle}>
+		{#snippet actions()}
+			{#if medications.length > 0}
+				<button
+					type="button"
+					class="reset-btn"
+					onclick={() => (showReset = true)}
+					disabled={!hasStatuses}
+					aria-label={t.inventory.resetLabel}
+				>
+					<Icon name="reset" size={18} />
+					{t.inventory.resetButton}
+				</button>
+			{/if}
+		{/snippet}
+	</PageHeader>
 
 	{#if loading}
 		<p class="status-text">{t.common.loading}</p>
@@ -42,11 +60,39 @@
 	{/if}
 </div>
 
+{#if showReset}
+	<ResetSheet mode="inventory" {medications} onclose={() => (showReset = false)} />
+{/if}
+
 <style>
 	.page {
 		flex: 1;
 		overflow-y: auto;
 		padding-bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
+	}
+
+	.reset-btn {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		height: 44px;
+		padding: 0 12px;
+		background: transparent;
+		border: none;
+		border-radius: var(--radius-control);
+		font-size: 14px;
+		font-weight: 500;
+		color: var(--color-accent);
+	}
+
+	.reset-btn:active:not(:disabled) {
+		background: var(--color-accent-soft);
+	}
+
+	.reset-btn:disabled {
+		color: var(--color-text-subtle);
+		opacity: 0.6;
+		cursor: not-allowed;
 	}
 
 	.content {

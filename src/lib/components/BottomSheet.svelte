@@ -1,0 +1,97 @@
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+	import { t } from '$lib/i18n/sv';
+	import Icon from './Icon.svelte';
+
+	interface Props {
+		title: string;
+		onclose: () => void;
+		children: Snippet;
+	}
+
+	let { title, onclose, children }: Props = $props();
+
+	const titleId = `sheet-title-${Math.random().toString(36).slice(2, 8)}`;
+
+	function handleKeydown(e: KeyboardEvent) {
+		if (e.key === 'Escape') onclose();
+	}
+</script>
+
+<svelte:window onkeydown={handleKeydown} />
+
+<div class="sheet-backdrop" onclick={onclose} role="presentation"></div>
+<div class="sheet" role="dialog" aria-modal="true" aria-labelledby={titleId}>
+	<div class="sheet__handle" aria-hidden="true"></div>
+	<div class="sheet__header">
+		<h2 class="sheet__title" id={titleId}>{title}</h2>
+		<button type="button" class="sheet__close" onclick={onclose} aria-label={t.common.close}>
+			<Icon name="close" size={20} />
+		</button>
+	</div>
+	{@render children()}
+</div>
+
+<style>
+	.sheet-backdrop {
+		position: fixed;
+		inset: 0;
+		background: var(--backdrop);
+		z-index: 200;
+	}
+
+	.sheet {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 201;
+		max-height: 90dvh;
+		overflow-y: auto;
+		background: var(--color-surface);
+		border-radius: 16px 16px 0 0;
+		padding: 8px 20px calc(32px + env(safe-area-inset-bottom, 0px));
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.sheet__handle {
+		width: 36px;
+		height: 4px;
+		background: var(--color-handle);
+		border-radius: 2px;
+		margin: 0 auto;
+		flex-shrink: 0;
+	}
+
+	.sheet__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-right: -10px;
+	}
+
+	.sheet__title {
+		font-size: 20px;
+		font-weight: 600;
+	}
+
+	.sheet__close {
+		flex-shrink: 0;
+		width: 44px;
+		height: 44px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		border: none;
+		border-radius: var(--radius-control);
+		color: var(--color-text-muted);
+	}
+
+	.sheet__close:active {
+		background: var(--color-accent-soft);
+		color: var(--color-accent);
+	}
+</style>

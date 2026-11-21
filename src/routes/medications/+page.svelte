@@ -15,6 +15,7 @@
 	import PageHeader from '$lib/components/PageHeader.svelte';
 	import ListCard from '$lib/components/ListCard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
+	import BottomSheet from '$lib/components/BottomSheet.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
@@ -151,17 +152,10 @@
 </div>
 
 {#if sheet}
-	<div class="sheet-backdrop" onclick={() => (sheet = null)} role="presentation"></div>
-	<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
-		<div class="sheet__handle" aria-hidden="true"></div>
-		<div class="sheet__header">
-			<h2 class="sheet__title" id="sheet-title">
-				{sheet.mode === 'add' ? t.medications.addTitle : t.medications.editTitle}
-			</h2>
-			<button type="button" class="icon-btn" onclick={() => (sheet = null)} aria-label={t.common.close}>
-				<Icon name="close" size={20} />
-			</button>
-		</div>
+	<BottomSheet
+		title={sheet.mode === 'add' ? t.medications.addTitle : t.medications.editTitle}
+		onclose={() => (sheet = null)}
+	>
 		<MedicationForm
 			initial={sheet.mode === 'edit' ? sheet.med : {}}
 			onSave={handleSave}
@@ -177,7 +171,7 @@
 				{t.medications.deleteButton}
 			</button>
 		{/if}
-	</div>
+	</BottomSheet>
 {/if}
 
 {#if toastMessage}
@@ -346,51 +340,6 @@
 
 	.add-btn:active {
 		background: var(--color-accent-hover);
-	}
-
-	/* Bottom sheet */
-	.sheet-backdrop {
-		position: fixed;
-		inset: 0;
-		background: var(--backdrop);
-		z-index: 200;
-	}
-
-	.sheet {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		z-index: 201;
-		max-height: 90dvh;
-		overflow-y: auto;
-		background: var(--color-surface);
-		border-radius: 16px 16px 0 0;
-		padding: 8px 20px calc(32px + env(safe-area-inset-bottom, 0px));
-		display: flex;
-		flex-direction: column;
-		gap: 20px;
-	}
-
-	.sheet__handle {
-		width: 36px;
-		height: 4px;
-		background: var(--color-handle);
-		border-radius: 2px;
-		margin: 0 auto;
-		flex-shrink: 0;
-	}
-
-	.sheet__header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-right: -10px;
-	}
-
-	.sheet__title {
-		font-size: 20px;
-		font-weight: 600;
 	}
 
 	.delete-btn {
