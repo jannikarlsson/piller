@@ -9,6 +9,7 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
+	import RadioGroup from '$lib/components/ui/RadioGroup.svelte';
 
 	interface Props {
 		kind: StatusKind;
@@ -35,9 +36,15 @@
 		{
 			value: 'out' as const,
 			label: t.reset.optionOut[kind],
-			count: outCount
+			detail: t.reset.count(outCount),
+			disabled: outCount === 0
 		},
-		{ value: 'all' as const, label: t.reset.optionAll, count: setCount }
+		{
+			value: 'all' as const,
+			label: t.reset.optionAll,
+			detail: t.reset.count(setCount),
+			disabled: setCount === 0
+		}
 	]);
 
 	async function handleSubmit(e: SubmitEvent) {
@@ -59,26 +66,12 @@
 		{t.reset.intro[kind]}
 	</p>
 
-	<fieldset class="options">
-		<legend class="visually-hidden">{t.reset.scopeLegend}</legend>
-		<Card list>
-			{#each options as option (option.value)}
-				<label class="option" class:option--disabled={option.count === 0}>
-					<input
-						type="radio"
-						name="reset-scope"
-						value={option.value}
-						bind:group={scope}
-						disabled={option.count === 0}
-					/>
-					<span class="option__text">
-						<span class="option__label">{option.label}</span>
-						<span class="option__count text-meta">{t.reset.count(option.count)}</span>
-					</span>
-				</label>
-			{/each}
-		</Card>
-	</fieldset>
+	<RadioGroup
+		legend={t.reset.scopeLegend}
+		{options}
+		selected={scope}
+		onselect={(value) => (scope = value)}
+	/>
 
 	{#if error}
 		<ErrorMessage message={error} />
@@ -103,54 +96,6 @@
 
 	.intro {
 		color: var(--color-text-muted);
-	}
-
-	.options {
-		border: none;
-	}
-
-	.option {
-		display: flex;
-		align-items: center;
-		gap: var(--space-3);
-		min-height: var(--row-height);
-		padding: var(--row-padding-y) var(--row-padding-x);
-		cursor: pointer;
-		transition: background-color var(--transition-fast);
-	}
-
-	.option:has(input:checked) {
-		background: var(--color-accent-soft);
-	}
-
-	.option--disabled {
-		cursor: not-allowed;
-		opacity: 0.5;
-	}
-
-	.option input {
-		width: 20px;
-		height: 20px;
-		flex-shrink: 0;
-		margin: 0;
-		accent-color: var(--color-accent);
-	}
-
-	.option__text {
-		display: flex;
-		flex: 1;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: var(--space-3);
-	}
-
-	.option__label {
-		font-size: var(--text-md);
-		font-weight: 500;
-	}
-
-	.option__count {
-		white-space: nowrap;
 	}
 
 	.actions {

@@ -42,7 +42,7 @@ First-time setup (Firebase project, sign-in, allowed users) is described in [SET
 - `src/lib/components/`
   - `ui/` – generic building blocks (button, card, drawer, list rows, icons, …). Nothing here knows about medications.
   - `medication/` – pieces that show a medication (its name and details, the tappable status row)
-  - `dialogs/` – content shown inside a drawer (confirm, reset, choose an option, the medication form). The page does the saving.
+  - `dialogs/` – content shown inside a drawer (confirm, reset, the medication form). The page does the saving.
   - `layout/` – page frame, page header and bottom menu
 - `src/lib/models/` – the types (medication, settings) and the rules about them, e.g. when a medication belongs on the to-do list. No Firebase here, so any component can use it.
 - `src/lib/navigation.ts` – the bottom menu's links, which feature each belongs to, and the start page

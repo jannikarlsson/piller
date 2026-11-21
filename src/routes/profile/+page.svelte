@@ -14,7 +14,7 @@
 	import SwitchItem from '$lib/components/ui/SwitchItem.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
 	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
-	import ChoiceDialog from '$lib/components/dialogs/ChoiceDialog.svelte';
+	import RadioGroup from '$lib/components/ui/RadioGroup.svelte';
 
 	const user = $derived($userStore);
 
@@ -178,7 +178,7 @@
 
 {#if openDrawer === 'theme'}
 	<BottomSheet title={t.profile.theme} onclose={() => (openDrawer = null)}>
-		<ChoiceDialog
+		<RadioGroup
 			legend={t.profile.theme}
 			options={themeOptions}
 			selected={$settingsStore.theme}
@@ -187,7 +187,7 @@
 	</BottomSheet>
 {:else if openDrawer === 'language'}
 	<BottomSheet title={t.profile.language} onclose={() => (openDrawer = null)}>
-		<ChoiceDialog
+		<RadioGroup
 			legend={t.profile.language}
 			options={languageOptions}
 			selected={$settingsStore.language}
@@ -196,7 +196,7 @@
 	</BottomSheet>
 {:else if openDrawer === 'resetMode'}
 	<BottomSheet title={t.profile.resetMode} onclose={() => (openDrawer = null)}>
-		<ChoiceDialog
+		<RadioGroup
 			legend={t.profile.resetModeLegend}
 			options={resetModeOptions}
 			selected={$settingsStore.resetMode}
