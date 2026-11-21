@@ -1,14 +1,20 @@
 # Piller
 
-A small home-medicine-cabinet app, installable on a phone as a PWA. Built with SvelteKit and Firebase, with a Swedish UI.
+A small home-medicine-cabinet app, installable on a phone as a PWA. Built with SvelteKit and Firebase, in Swedish and English.
 
 ## What it does
 
-- **Skåpet** – mark each medication as at home or out.
-- **Recept** – mark whether there is an active prescription.
-- **Plocka** – a checklist for filling the pill organizer.
-- **Att göra** – what needs to be bought or renewed, built from the statuses above.
-- **Läkemedel** – add, edit and remove medications, and choose per medication whether it gets automatic reminders and is part of the pill organizer.
+- **Cabinet** – mark each medication as at home or out.
+- **Prescriptions** – mark whether there is an active prescription.
+- **Pill organizer** – a checklist for filling the pill organizer.
+- **To do** – what needs to be bought or renewed, built from the statuses above. Ticking an item resets its status.
+- **Profile** – settings and account:
+  - **Medications** – add, edit and remove medications, and choose per medication whether it gets automatic reminders and is part of the pill organizer.
+  - **Appearance** – theme (system, light, dark) and language (system, Swedish, English).
+  - **Features** – switch off Prescriptions or Pill organizer if you don't use them.
+  - Reset all statuses, and sign out.
+
+Settings are saved per user in Firestore and also kept in the browser, so the theme and language apply before the page renders.
 
 ## Development
 
@@ -22,15 +28,26 @@ npm run check    # type-check
 
 ```sh
 npm run deploy        # build and deploy to Firebase Hosting
-npm run deploy:rules  # deploy firestore.rules (only when they change)
+npm run deploy:rules  # deploy firestore.rules
 ```
+
+Run `deploy:rules` whenever `firestore.rules` changes, for example when a new Firestore collection is added. Without it, saving to that collection fails.
 
 First-time setup (Firebase project, sign-in, allowed users) is described in [SETUP.md](SETUP.md).
 
 ## Where things live
 
-- `src/routes/` – one folder per page
-- `src/lib/components/` – shared UI (drawer, list card, icons, …)
-- `src/lib/firebase.ts` – auth and all Firestore reads/writes
-- `src/lib/i18n/sv.ts` – all Swedish UI text
-- `src/routes/+layout.svelte` – colors, spacing and fonts as CSS variables
+- `src/routes/` – one folder per page. Components used by only one page sit next to it (e.g. `login/CabinetIllustration.svelte`).
+- `src/lib/pages/` – page content shared by several routes (Cabinet and Prescriptions use the same page).
+- `src/lib/components/`
+  - `ui/` – generic building blocks (button, card, drawer, list rows, icons, …)
+  - `forms/` – the medication form
+  - `dialogs/` – content shown inside a drawer (confirm, reset, choose an option). The page does the saving.
+  - `layout/` – page frame, page header and bottom menu
+- `src/lib/firebase.ts` – sign-in and all Firestore reads and writes (medications, statuses, settings)
+- `src/lib/stores/` – shared state: user, medications, settings, toast messages
+- `src/lib/i18n/` – UI text. `sv.ts` defines the texts, `en.ts` must have the same shape.
+- `src/lib/styles/`
+  - `theme.css` – colours, shadow and backdrop for light and dark mode
+  - `tokens.css` – text sizes, spacing, radii, sizes and stacking order
+  - `base.css` – reset, base styles and the global `.text-*` classes
