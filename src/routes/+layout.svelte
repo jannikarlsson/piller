@@ -5,6 +5,8 @@
 	import { initAuth, userStore, authStateStore } from '$lib/stores/auth';
 	import { startMedicationsSync, stopMedicationsSync } from '$lib/stores/medications';
 	import BottomNav from '$lib/components/layout/BottomNav.svelte';
+	import Toast from '$lib/components/ui/Toast.svelte';
+	import { toastMessage } from '$lib/stores/toast';
 
 	let { children } = $props();
 
@@ -48,6 +50,9 @@
 	{@render children()}
 	{#if showNav}
 		<BottomNav />
+	{/if}
+	{#if $toastMessage}
+		<Toast message={$toastMessage} />
 	{/if}
 </div>
 

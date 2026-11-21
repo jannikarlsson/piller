@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/sv';
 	import { userStore } from '$lib/stores/auth';
+	import { withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import {
 		updateTileState,
@@ -32,7 +33,8 @@
 		const med = medications.find((m) => m.id === id);
 		if (!med) return;
 		const next = nextTileState(med.prescriptionState);
-		await updateTileState(user.uid, id, 'prescriptionState', next);
+		const saved = await withErrorToast(() => updateTileState(user.uid, id, 'prescriptionState', next));
+		if (!saved) return;
 		// Without the automatic reminder, offer to add it to the to-do list by hand
 		if (next === 'out' && !med.remindPrescription) todoPromptFor = med;
 	}

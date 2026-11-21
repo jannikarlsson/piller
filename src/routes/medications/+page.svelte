@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/sv';
 	import { userStore } from '$lib/stores/auth';
+	import { showToast, withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import {
 		addMedication,
@@ -18,7 +19,6 @@
 	import Card from '$lib/components/ui/Card.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
-	import Toast from '$lib/components/ui/Toast.svelte';
 	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
 
 	const medications = $derived($medicationsStore);
@@ -40,29 +40,18 @@
 		confirmingDelete = false;
 	}
 	let showSettings = $state(false);
-	let toastMessage = $state<string | null>(null);
-
-	function showToast(msg: string) {
-		toastMessage = msg;
-		setTimeout(() => (toastMessage = null), 2500);
-	}
 
 	async function handleSave(data: MedicationInput) {
 		const user = $userStore;
 		if (!user) return;
+		const editing = sheet?.mode === 'edit' ? sheet.med : null;
 		saving = true;
-		try {
-			if (sheet?.mode === 'edit') {
-				await updateMedication(user.uid, sheet.med.id, data);
-			} else {
-				await addMedication(user.uid, data);
-			}
-			closeSheet();
-		} catch {
-			showToast(t.errors.saveFailed);
-		} finally {
-			saving = false;
-		}
+		const saved = await withErrorToast(
+			() => (editing ? updateMedication(user.uid, editing.id, data) : addMedication(user.uid, data)),
+			t.errors.saveFailed
+		);
+		saving = false;
+		if (saved) closeSheet();
 	}
 
 	/** Called from the confirm view; errors are shown inside the dialog. */
@@ -77,18 +66,16 @@
 		const user = $userStore;
 		if (!user) return;
 		if (!confirm(t.settings.resetConfirm)) return;
-		try {
-			await resetAllStates(user.uid);
+		const saved = await withErrorToast(() => resetAllStates(user.uid), t.errors.resetFailed);
+		if (saved) {
 			showToast(t.settings.resetSuccess);
 			showSettings = false;
-		} catch {
-			showToast(t.errors.saveFailed);
 		}
 	}
 
 	async function handleLogout() {
 		if (!confirm(t.settings.logoutConfirm)) return;
-		await signOutUser();
+		await withErrorToast(() => signOutUser(), t.errors.logoutFailed);
 	}
 </script>
 
@@ -197,9 +184,6 @@
 	</BottomSheet>
 {/if}
 
-{#if toastMessage}
-	<Toast message={toastMessage} />
-{/if}
 
 <style>
 	/* Settings */

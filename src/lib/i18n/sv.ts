@@ -138,7 +138,8 @@ export const t = {
 		saveFailed: 'Kunde inte spara. Försök igen.',
 		deleteFailed: 'Kunde inte ta bort. Försök igen.',
 		updateFailed: 'Kunde inte uppdatera status.',
-		resetFailed: 'Kunde inte återställa. Försök igen.'
+		resetFailed: 'Kunde inte återställa. Försök igen.',
+		logoutFailed: 'Kunde inte logga ut. Försök igen.'
 	}
 } as const;
 

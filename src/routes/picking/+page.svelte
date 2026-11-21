@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/sv';
 	import { userStore } from '$lib/stores/auth';
+	import { withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { setPicked, resetPicked } from '$lib/firebase';
 	import Page from '$lib/components/layout/Page.svelte';
@@ -18,21 +19,13 @@
 	async function toggle(id: string, picked: boolean) {
 		const user = $userStore;
 		if (!user) return;
-		try {
-			await setPicked(user.uid, id, picked);
-		} catch (e) {
-			console.error(e);
-		}
+		await withErrorToast(() => setPicked(user.uid, id, picked));
 	}
 
 	async function handleReset() {
 		const user = $userStore;
 		if (!user) return;
-		try {
-			await resetPicked(user.uid);
-		} catch (e) {
-			console.error(e);
-		}
+		await withErrorToast(() => resetPicked(user.uid), t.errors.resetFailed);
 	}
 </script>
 

@@ -2,8 +2,8 @@
 	import { t } from '$lib/i18n/sv';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { userStore } from '$lib/stores/auth';
+	import { withErrorToast } from '$lib/stores/toast';
 	import { updateTileState, ADDED_TO_TODO_FIELD, type Medication } from '$lib/firebase';
-	import Toast from '$lib/components/ui/Toast.svelte';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
@@ -12,7 +12,6 @@
 	type SectionId = 'buy' | 'rx';
 
 	const FIELD = { buy: 'inventoryState', rx: 'prescriptionState' } as const;
-	const TOAST_MS = 4000;
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
@@ -57,14 +56,6 @@
 			.map((s) => ({ ...s, remaining: s.items.filter((m) => !isDone(s.id, m)).length }))
 	);
 
-	let toastMessage = $state<string | null>(null);
-	let toastTimer: ReturnType<typeof setTimeout> | undefined;
-
-	function showError() {
-		clearTimeout(toastTimer);
-		toastMessage = t.errors.updateFailed;
-		toastTimer = setTimeout(() => (toastMessage = null), TOAST_MS);
-	}
 
 	/** Tick: reset the status to neutral. Untick: set it back to out. */
 	async function handleToggle(section: SectionId, med: Medication, checked: boolean) {
@@ -75,16 +66,12 @@
 		const previous = done;
 		if (checked) addedByHand.set(key, med[ADDED_TO_TODO_FIELD[field]]);
 		done = checked ? [...done, key] : done.filter((k) => k !== key);
-		try {
-			if (checked) {
-				await updateTileState(user.uid, med.id, field, 'neutral');
-			} else {
-				await updateTileState(user.uid, med.id, field, 'out', addedByHand.get(key) ?? false);
-			}
-		} catch {
-			done = previous;
-			showError();
-		}
+		const saved = await withErrorToast(() =>
+			checked
+				? updateTileState(user.uid, med.id, field, 'neutral')
+				: updateTileState(user.uid, med.id, field, 'out', addedByHand.get(key) ?? false)
+		);
+		if (!saved) done = previous;
 	}
 </script>
 
@@ -129,9 +116,6 @@
 	{/if}
 </Page>
 
-{#if toastMessage}
-	<Toast message={toastMessage} />
-{/if}
 
 <style>
 	.all-good {
