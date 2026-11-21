@@ -37,7 +37,7 @@ First-time setup (Firebase project, sign-in, allowed users) is described in [SET
 
 ## Where things live
 
-- `src/routes/` – one folder per page. Components used by only one page sit next to it (e.g. `login/CabinetIllustration.svelte`).
+- `src/routes/` – one folder per page. Components used by only one page can sit next to it.
 - `src/lib/pages/` – page content shared by several routes (Cabinet and Prescriptions use the same page).
 - `src/lib/components/`
   - `ui/` – generic building blocks (button, card, drawer, list rows, icons, …). Nothing here knows about medications.

@@ -10,7 +10,7 @@
 	const visibleLinks = $derived(NAV_LINKS.filter((link) => isLinkVisible(link, $settingsStore)));
 </script>
 
-<nav class="bottom-nav" aria-label={t.common.mainMenu}>
+<nav class="bottom-nav" aria-label={t.common.mainMenu} data-sveltekit-preload-code="eager">
 	{#each visibleLinks as link (link.href)}
 		{@const active = isUnder(page.url.pathname, link.href)}
 		<a

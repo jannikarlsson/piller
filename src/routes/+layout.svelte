@@ -10,6 +10,7 @@
 	import { settingsStore, startSettingsSync, stopSettingsSync } from '$lib/stores/settings';
 	import { isPathOff, HOME_PATH } from '$lib/navigation';
 	import BottomNav from '$lib/components/layout/BottomNav.svelte';
+	import StartScreen from '$lib/components/layout/StartScreen.svelte';
 	import Toast from '$lib/components/ui/Toast.svelte';
 	import { toastMessage } from '$lib/stores/toast';
 	import { t, setLanguage, resolveLanguage, getLanguage } from '$lib/i18n';
@@ -107,6 +108,12 @@
 <div class="app-shell">
 	{#if showPage}
 		{@render children()}
+	{:else if $authStateStore === 'loading'}
+		<!-- The login page's green screen without text, so a slow start flows into it -->
+		<div class="splash" role="status">
+			<span class="visually-hidden">{t.common.loading}</span>
+			<StartScreen />
+		</div>
 	{/if}
 	{#if showNav}
 		<BottomNav />
@@ -121,5 +128,11 @@
 		display: flex;
 		flex-direction: column;
 		height: 100dvh;
+	}
+
+	.splash {
+		display: flex;
+		flex: 1;
+		min-height: 0;
 	}
 </style>

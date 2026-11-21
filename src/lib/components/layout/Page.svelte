@@ -4,8 +4,8 @@
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { t } from '$lib/i18n';
 	import PageHeader from './PageHeader.svelte';
+	import ListSkeleton from '$lib/components/ui/ListSkeleton.svelte';
 
 	interface Props {
 		title: string;
@@ -30,7 +30,7 @@
 	<PageHeader {title} {actions} {back} />
 	<div class="page__body">
 		{#if loading}
-			<p class="page__loading">{t.common.loading}</p>
+			<ListSkeleton />
 		{:else}
 			{@render children()}
 		{/if}
@@ -53,11 +53,5 @@
 		flex-direction: column;
 		gap: var(--space-4);
 		padding: 0 var(--space-4);
-	}
-
-	.page__loading {
-		padding: var(--space-8) var(--space-1);
-		text-align: center;
-		color: var(--color-text-muted);
 	}
 </style>
