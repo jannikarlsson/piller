@@ -16,6 +16,7 @@
 	import ListCard from '$lib/components/ListCard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import BottomSheet from '$lib/components/BottomSheet.svelte';
+	import Toast from '$lib/components/Toast.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
@@ -175,7 +176,7 @@
 {/if}
 
 {#if toastMessage}
-	<div class="toast" role="status">{toastMessage}</div>
+	<Toast message={toastMessage} />
 {/if}
 
 <style>
@@ -351,22 +352,5 @@
 		font-size: 15px;
 		font-weight: 500;
 		color: var(--color-danger);
-	}
-
-	/* Toast */
-	.toast {
-		position: fixed;
-		bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
-		left: 50%;
-		transform: translateX(-50%);
-		max-width: calc(100% - 32px);
-		padding: 10px 16px;
-		background: var(--color-text);
-		color: #ffffff;
-		font-size: 14px;
-		font-weight: 500;
-		border-radius: var(--radius-control);
-		box-shadow: var(--shadow-raised);
-		z-index: 300;
 	}
 </style>

@@ -25,6 +25,7 @@ export const t = {
 		loading: 'Laddar…',
 		settings: 'Inställningar',
 		close: 'Stäng',
+		undo: 'Ångra',
 		edit: 'Redigera',
 		add: 'Lägg till',
 		mainMenu: 'Huvudmeny'
