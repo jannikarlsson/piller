@@ -55,7 +55,11 @@
 	});
 
 	const theme = $derived(
-		$settingsStore.theme === 'system' ? (systemPrefersDark ? 'dark' : 'light') : $settingsStore.theme
+		$settingsStore.theme === 'system'
+			? systemPrefersDark
+				? 'dark'
+				: 'light'
+			: $settingsStore.theme
 	);
 
 	// A switched-off feature's page isn't reachable: go to the cabinet instead

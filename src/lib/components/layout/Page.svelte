@@ -16,14 +16,7 @@
 		children: Snippet;
 	}
 
-	let {
-		title,
-		actions,
-		back,
-		loading = false,
-		floatingButton = false,
-		children
-	}: Props = $props();
+	let { title, actions, back, loading = false, floatingButton = false, children }: Props = $props();
 </script>
 
 <main class="page" class:page--floating-button={floatingButton}>
@@ -45,7 +38,10 @@
 	}
 
 	.page--floating-button {
-		padding-bottom: calc(var(--nav-height) + var(--size-floating-button) + var(--space-8) + env(safe-area-inset-bottom, 0px));
+		padding-bottom: calc(
+			var(--nav-height) + var(--size-floating-button) + var(--space-8) +
+				env(safe-area-inset-bottom, 0px)
+		);
 	}
 
 	.page__body {

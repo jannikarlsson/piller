@@ -131,6 +131,7 @@ firebase deploy --only hosting
 ```
 
 **YOU:** Firebase will print a URL like `https://your-project.web.app` — open it on your phone and install it as a PWA:
+
 - **iPhone**: tap the Share button → "Add to Home Screen"
 - **Android**: tap the browser menu → "Install app" (or a banner will appear)
 

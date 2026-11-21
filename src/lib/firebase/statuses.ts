@@ -21,22 +21,22 @@ export async function updateStatus(
 	await save(updateDoc(doc(medicationsRef(), id), update));
 }
 
-export async function setAddedToTodo(
-	id: string,
-	kind: StatusKind,
-	added: boolean
-): Promise<void> {
-	await save(updateDoc(doc(medicationsRef(), id), {
-		[STATUS_FIELDS[kind].addedToTodo]: added,
-		updatedAt: serverTimestamp()
-	}));
+export async function setAddedToTodo(id: string, kind: StatusKind, added: boolean): Promise<void> {
+	await save(
+		updateDoc(doc(medicationsRef(), id), {
+			[STATUS_FIELDS[kind].addedToTodo]: added,
+			updatedAt: serverTimestamp()
+		})
+	);
 }
 
 export async function setPicked(id: string, picked: boolean): Promise<void> {
-	await save(updateDoc(doc(medicationsRef(), id), {
-		picked,
-		updatedAt: serverTimestamp()
-	}));
+	await save(
+		updateDoc(doc(medicationsRef(), id), {
+			picked,
+			updatedAt: serverTimestamp()
+		})
+	);
 }
 
 export async function resetPicked(): Promise<void> {
@@ -54,10 +54,7 @@ export async function resetPicked(): Promise<void> {
  * Reset one status type (cabinet or prescription) to neutral.
  * With `onlyOut`, only medications marked as out are reset; otherwise every set status is.
  */
-export async function resetStatuses(
-	kind: StatusKind,
-	onlyOut = false
-): Promise<void> {
+export async function resetStatuses(kind: StatusKind, onlyOut = false): Promise<void> {
 	const fields = STATUS_FIELDS[kind];
 	const snap = await getDocs(medicationsRef());
 	const batch = writeBatch(db);

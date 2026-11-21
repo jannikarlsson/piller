@@ -70,7 +70,8 @@ export const sv = {
 			prescription: 'Påminn om recept?'
 		},
 		text: {
-			inventory: (name: string) => `${name} är slut. Vill du lägga till den under Köp i ”Att göra”?`,
+			inventory: (name: string) =>
+				`${name} är slut. Vill du lägga till den under Köp i ”Att göra”?`,
 			prescription: (name: string) =>
 				`${name} saknar recept. Vill du lägga till den under Skaffa recept i ”Att göra”?`
 		},
@@ -117,8 +118,7 @@ export const sv = {
 		saveButton: 'Spara',
 		deleteButton: 'Ta bort läkemedel',
 		deleteTitle: 'Ta bort läkemedel?',
-		deleteConfirm: (name: string) =>
-			`${name} tas bort från alla listor. Det går inte att ångra.`,
+		deleteConfirm: (name: string) => `${name} tas bort från alla listor. Det går inte att ångra.`,
 		deleteConfirmButton: 'Ta bort'
 	},
 

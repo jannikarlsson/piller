@@ -54,7 +54,9 @@
 	{/if}
 
 	<ButtonRow>
-		<Button variant="secondary" onclick={oncancel} disabled={busy}>{cancelLabel ?? t.common.cancel}</Button>
+		<Button variant="secondary" onclick={oncancel} disabled={busy}>
+			{cancelLabel ?? t.common.cancel}
+		</Button>
 		<Button variant={tone} onclick={handleConfirm} disabled={busy}>
 			{busy ? t.common.loading : confirmLabel}
 		</Button>

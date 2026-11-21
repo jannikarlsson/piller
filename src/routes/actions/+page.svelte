@@ -41,11 +41,11 @@
 			(section) => section.kind !== 'prescription' || $settingsStore.showPrescriptions
 		)
 			.map((section) => {
-			const items = medications.filter(
-				(m) => needsAction(m, section.kind) || isDone(section.kind, m)
-			);
-			const remaining = items.filter((m) => !isDone(section.kind, m)).length;
-			return { ...section, items, remaining };
+				const items = medications.filter(
+					(m) => needsAction(m, section.kind) || isDone(section.kind, m)
+				);
+				const remaining = items.filter((m) => !isDone(section.kind, m)).length;
+				return { ...section, items, remaining };
 			})
 			.filter((section) => section.items.length > 0)
 	);
@@ -72,12 +72,7 @@
 
 <Page title={t.actions.title} {loading}>
 	{#if allGood}
-		<EmptyState
-			icon="check"
-			tone="ok"
-			title={t.actions.allGood}
-			message={t.actions.allGoodSub}
-		/>
+		<EmptyState icon="check" tone="ok" title={t.actions.allGood} message={t.actions.allGoodSub} />
 	{:else}
 		<div class="sections">
 			{#each sections as section (section.kind)}

@@ -10,13 +10,7 @@
 	import type { Snippet } from 'svelte';
 
 	interface Props {
-		variant?:
-			| 'primary'
-			| 'secondary'
-			| 'danger'
-			| 'danger-ghost'
-			| 'ghost'
-			| 'quiet';
+		variant?: 'primary' | 'secondary' | 'danger' | 'danger-ghost' | 'ghost' | 'quiet';
 		size?: 'md' | 'sm' | 'icon';
 		type?: 'button' | 'submit';
 		href?: string;

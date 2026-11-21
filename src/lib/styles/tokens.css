@@ -25,7 +25,9 @@
 	--radius-control: 10px; /* inputs, buttons */
 	--radius-card: 12px; /* cards, panels */
 	--radius-lg: 16px; /* top corners of the drawer */
-	--radius-row-focus: calc(var(--radius-card) - 1px); /* focused list row, inside the card's border */
+	--radius-row-focus: calc(
+		var(--radius-card) - 1px
+	); /* focused list row, inside the card's border */
 
 	--size-tap: 44px; /* minimum touch target */
 	--size-control: 48px; /* inputs and standard buttons */

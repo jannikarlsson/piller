@@ -10,18 +10,17 @@ export function startMedicationsSync(userId: string) {
 	stopMedicationsSync();
 	medicationsLoading.set(true);
 
-	import('$lib/firebase').then(({ subscribeMedications }) => {
-		unsubscribe = subscribeMedications(
-			userId,
-			(meds) => {
+	import('$lib/firebase')
+		.then(({ subscribeMedications }) => {
+			unsubscribe = subscribeMedications(userId, (meds) => {
 				medicationsStore.set(meds);
 				medicationsLoading.set(false);
-			}
-		);
-	}).catch((e) => {
-		console.error(e);
-		medicationsLoading.set(false);
-	});
+			});
+		})
+		.catch((e) => {
+			console.error(e);
+			medicationsLoading.set(false);
+		});
 }
 
 export function stopMedicationsSync() {

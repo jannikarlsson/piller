@@ -86,7 +86,8 @@ export const en: Translations = {
 			prescription: 'Reset prescriptions'
 		},
 		intro: {
-			inventory: 'Choose which cabinet statuses to set back to unknown. Prescriptions are not affected.',
+			inventory:
+				'Choose which cabinet statuses to set back to unknown. Prescriptions are not affected.',
 			prescription:
 				'Choose which prescription statuses to set back to unknown. The cabinet is not affected.'
 		},
@@ -120,7 +121,8 @@ export const en: Translations = {
 		saveButton: 'Save',
 		deleteButton: 'Delete medication',
 		deleteTitle: 'Delete medication?',
-		deleteConfirm: (name: string) => `${name} will be removed from all lists. This can't be undone.`,
+		deleteConfirm: (name: string) =>
+			`${name} will be removed from all lists. This can't be undone.`,
 		deleteConfirmButton: 'Delete'
 	},
 

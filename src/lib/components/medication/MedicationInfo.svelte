@@ -22,9 +22,7 @@
 		done = false
 	}: Props = $props();
 
-	const showAlternatives = $derived(
-		alternatives && medication.alternativeNames.length > 0
-	);
+	const showAlternatives = $derived(alternatives && medication.alternativeNames.length > 0);
 	const showDescription = $derived(layout === 'stacked' && !!medication.description);
 </script>
 

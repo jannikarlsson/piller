@@ -123,6 +123,11 @@
 
 {#if showReset}
 	<BottomSheet title={t.reset.title[kind]} onclose={() => (showReset = false)}>
-		<ResetDialog {kind} {medications} onconfirm={handleReset} oncancel={() => (showReset = false)} />
+		<ResetDialog
+			{kind}
+			{medications}
+			onconfirm={handleReset}
+			oncancel={() => (showReset = false)}
+		/>
 	</BottomSheet>
 {/if}

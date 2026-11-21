@@ -32,7 +32,8 @@
 		align-items: flex-start;
 		justify-content: space-between;
 		gap: var(--space-3);
-		padding: calc(var(--space-8) + env(safe-area-inset-top, 0px)) var(--space-3) var(--space-5) var(--space-5);
+		padding: calc(var(--space-8) + env(safe-area-inset-top, 0px)) var(--space-3) var(--space-5)
+			var(--space-5);
 	}
 
 	.page-header__back {
@@ -42,5 +43,4 @@
 	.page-header--sub {
 		padding-top: var(--space-1);
 	}
-
 </style>

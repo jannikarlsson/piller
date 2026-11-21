@@ -18,9 +18,7 @@
 
 	const user = $derived($userStore);
 
-	let openDrawer = $state<'theme' | 'language' | 'resetMode' | 'resetAll' | 'logout' | null>(
-		null
-	);
+	let openDrawer = $state<'theme' | 'language' | 'resetMode' | 'resetAll' | 'logout' | null>(null);
 
 	const themeOptions = $derived([
 		{ value: 'light' as const, label: t.profile.themeOptions.light },

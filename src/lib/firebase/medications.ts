@@ -50,23 +50,27 @@ export function subscribeMedications(
 
 export async function addMedication(input: MedicationInput): Promise<void> {
 	const ref = doc(medicationsRef());
-	await save(setDoc(ref, {
-		...input,
-		inventoryState: 'neutral',
-		prescriptionState: 'neutral',
-		picked: false,
-		addedToBuyList: false,
-		addedToPrescriptionList: false,
-		createdAt: serverTimestamp(),
-		updatedAt: serverTimestamp()
-	}));
+	await save(
+		setDoc(ref, {
+			...input,
+			inventoryState: 'neutral',
+			prescriptionState: 'neutral',
+			picked: false,
+			addedToBuyList: false,
+			addedToPrescriptionList: false,
+			createdAt: serverTimestamp(),
+			updatedAt: serverTimestamp()
+		})
+	);
 }
 
 export async function updateMedication(id: string, input: MedicationInput): Promise<void> {
-	await save(updateDoc(doc(medicationsRef(), id), {
-		...input,
-		updatedAt: serverTimestamp()
-	}));
+	await save(
+		updateDoc(doc(medicationsRef(), id), {
+			...input,
+			updatedAt: serverTimestamp()
+		})
+	);
 }
 
 export async function deleteMedication(id: string): Promise<void> {

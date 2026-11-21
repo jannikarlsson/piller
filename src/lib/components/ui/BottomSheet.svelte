@@ -50,12 +50,7 @@
 	}
 </script>
 
-<dialog
-	bind:this={dialog}
-	class="sheet-dialog"
-	aria-labelledby={titleId}
-	oncancel={handleCancel}
->
+<dialog bind:this={dialog} class="sheet-dialog" aria-labelledby={titleId} oncancel={handleCancel}>
 	<div
 		class="sheet-backdrop"
 		onclick={onclose}

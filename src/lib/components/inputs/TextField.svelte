@@ -25,7 +25,8 @@
 <div class="field">
 	<label class="text-label" for={id}>{label}</label>
 	{#if multiline}
-		<textarea {id} class="input input--multiline" rows="2" bind:value {placeholder} {required}></textarea>
+		<textarea {id} class="input input--multiline" rows="2" bind:value {placeholder} {required}
+		></textarea>
 	{:else}
 		<input {id} class="input" type="text" bind:value {placeholder} {required} autocomplete="off" />
 	{/if}

@@ -16,7 +16,15 @@
 	<rect x="75" y="70" width="240" height="425" rx="10" fill="var(--color-surface)" />
 	<rect x="104" y="112" width="22" height="10" rx="2" fill="var(--color-accent)" />
 	<rect x="100" y="122" width="30" height="53" rx="4" fill="var(--color-surface)" />
-	<rect x="104" y="138" width="22" height="18" rx="2" fill="var(--color-accent-tint)" stroke="none" />
+	<rect
+		x="104"
+		y="138"
+		width="22"
+		height="18"
+		rx="2"
+		fill="var(--color-accent-tint)"
+		stroke="none"
+	/>
 	<rect x="142" y="105" width="44" height="70" rx="3" fill="var(--color-accent-tint)" />
 	<path d="M142 120H186" />
 	<rect x="202" y="128" width="32" height="10" rx="3" fill="var(--color-accent)" />
@@ -31,7 +39,15 @@
 	<path d="M108 266H128" />
 	<rect x="186" y="212" width="26" height="10" rx="2" fill="var(--color-accent)" />
 	<rect x="182" y="222" width="34" height="58" rx="4" fill="var(--color-surface)" />
-	<rect x="186" y="238" width="26" height="20" rx="2" fill="var(--color-accent-tint)" stroke="none" />
+	<rect
+		x="186"
+		y="238"
+		width="26"
+		height="20"
+		rx="2"
+		fill="var(--color-accent-tint)"
+		stroke="none"
+	/>
 	<rect x="228" y="262" width="56" height="18" rx="4" fill="var(--color-surface)" />
 	<rect x="284" y="265" width="14" height="12" rx="2" fill="var(--color-accent)" />
 	<path d="M75 280H315" />
@@ -50,7 +66,15 @@
 	<rect x="273" y="350" width="22" height="40" rx="4" fill="var(--color-surface)" />
 	<path d="M75 390H315" />
 	<rect x="100" y="420" width="36" height="75" rx="3" fill="var(--color-surface)" />
-	<rect x="104" y="440" width="28" height="12" rx="1" fill="var(--color-accent-tint)" stroke="none" />
+	<rect
+		x="104"
+		y="440"
+		width="28"
+		height="12"
+		rx="1"
+		fill="var(--color-accent-tint)"
+		stroke="none"
+	/>
 	<path d="M106 464H124" />
 	<rect x="142" y="438" width="40" height="57" rx="3" fill="var(--color-accent-tint)" />
 	<path d="M142 452H182" />
@@ -59,7 +83,15 @@
 	<path d="M207 480H213" />
 	<rect x="252" y="430" width="22" height="8" rx="2" fill="var(--color-accent)" />
 	<rect x="248" y="438" width="30" height="42" rx="4" fill="var(--color-surface)" />
-	<rect x="252" y="450" width="22" height="14" rx="2" fill="var(--color-accent-tint)" stroke="none" />
+	<rect
+		x="252"
+		y="450"
+		width="22"
+		height="14"
+		rx="2"
+		fill="var(--color-accent-tint)"
+		stroke="none"
+	/>
 	<rect x="248" y="485" width="56" height="10" rx="5" fill="var(--color-surface)" />
 	<circle cx="253" cy="490" r="6" fill="var(--color-accent)" />
 </svg>

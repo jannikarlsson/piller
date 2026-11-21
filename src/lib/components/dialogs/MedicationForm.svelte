@@ -24,7 +24,8 @@
 		alts: (initial.alternativeNames ?? []).join(', '),
 		description: initial.description ?? '',
 		remindToBuy: initial.remindToBuy ?? DEFAULT_MEDICATION_SETTINGS.remindToBuy,
-		remindPrescription: initial.remindPrescription ?? DEFAULT_MEDICATION_SETTINGS.remindPrescription,
+		remindPrescription:
+			initial.remindPrescription ?? DEFAULT_MEDICATION_SETTINGS.remindPrescription,
 		inPillOrganizer: initial.inPillOrganizer ?? DEFAULT_MEDICATION_SETTINGS.inPillOrganizer
 	}));
 	let name = $state(_init.name);

@@ -14,19 +14,10 @@
 		children: Snippet;
 	}
 
-	let {
-		list = false,
-		padding = 'none',
-		as = 'div',
-		children
-	}: Props = $props();
+	let { list = false, padding = 'none', as = 'div', children }: Props = $props();
 </script>
 
-<svelte:element
-	this={as}
-	class="card card--padding-{padding}"
-	class:card--list={list}
->
+<svelte:element this={as} class="card card--padding-{padding}" class:card--list={list}>
 	{@render children()}
 </svelte:element>
 
