@@ -6,6 +6,8 @@
 	import { untrack } from 'svelte';
 	import { t } from '$lib/i18n/sv';
 	import type { Medication } from '$lib/firebase';
+	import Button from '$lib/components/ui/Button.svelte';
+	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
 
 	interface Props {
 		mode: 'inventory' | 'prescription';
@@ -77,16 +79,16 @@
 	</fieldset>
 
 	{#if error}
-		<p class="error" role="alert">{error}</p>
+		<ErrorMessage message={error} />
 	{/if}
 
 	<div class="actions">
-		<button type="button" class="btn btn--secondary" onclick={oncancel} disabled={submitting}>
+		<Button variant="secondary" onclick={oncancel} disabled={submitting}>
 			{t.common.cancel}
-		</button>
-		<button type="submit" class="btn btn--primary" disabled={submitting || selectedCount === 0}>
+		</Button>
+		<Button type="submit" disabled={submitting || selectedCount === 0}>
 			{submitting ? t.common.loading : t.reset.confirm}
-		</button>
+		</Button>
 	</div>
 </form>
 
@@ -161,56 +163,10 @@
 		white-space: nowrap;
 	}
 
-	.error {
-		padding: 12px 14px;
-		background: var(--color-danger-bg);
-		border: 1px solid var(--color-danger-border);
-		border-radius: var(--radius-control);
-		font-size: 14px;
-		color: var(--color-danger);
-	}
-
 	.actions {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 12px;
 		padding-top: 4px;
-	}
-
-	.btn {
-		font-size: 16px;
-		font-weight: 500;
-		height: 48px;
-		border-radius: var(--radius-control);
-	}
-
-	.btn:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn--primary {
-		background: var(--color-accent);
-		color: #ffffff;
-		border: none;
-	}
-
-	.btn--primary:not(:disabled):active {
-		background: var(--color-accent-hover);
-	}
-
-	.btn--secondary {
-		background: var(--color-surface);
-		color: var(--color-text);
-		border: 1px solid var(--color-border);
-	}
-
-	.visually-hidden {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		overflow: hidden;
-		clip: rect(0 0 0 0);
-		white-space: nowrap;
 	}
 </style>

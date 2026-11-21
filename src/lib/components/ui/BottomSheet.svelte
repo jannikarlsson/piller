@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { t } from '$lib/i18n/sv';
 	import Icon from './Icon.svelte';
+	import Button from './Button.svelte';
 
 	interface Props {
 		title: string;
@@ -25,9 +26,9 @@
 	<div class="sheet__handle" aria-hidden="true"></div>
 	<div class="sheet__header">
 		<h2 class="sheet__title" id={titleId}>{title}</h2>
-		<button type="button" class="sheet__close" onclick={onclose} aria-label={t.common.close}>
+		<Button variant="quiet" size="icon" ariaLabel={t.common.close} onclick={onclose}>
 			<Icon name="close" size={20} />
-		</button>
+		</Button>
 	</div>
 	{@render children()}
 </div>
@@ -75,23 +76,5 @@
 	.sheet__title {
 		font-size: 20px;
 		font-weight: 600;
-	}
-
-	.sheet__close {
-		flex-shrink: 0;
-		width: 44px;
-		height: 44px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: transparent;
-		border: none;
-		border-radius: var(--radius-control);
-		color: var(--color-text-muted);
-	}
-
-	.sheet__close:active {
-		background: var(--color-accent-soft);
-		color: var(--color-accent);
 	}
 </style>

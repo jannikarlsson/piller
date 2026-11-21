@@ -4,7 +4,8 @@
 	import { userStore } from '$lib/stores/auth';
 	import { updateTileState, ADDED_TO_TODO_FIELD, type Medication } from '$lib/firebase';
 	import Toast from '$lib/components/ui/Toast.svelte';
-	import PageHeader from '$lib/components/ui/PageHeader.svelte';
+	import Page from '$lib/components/layout/Page.svelte';
+	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import ListCard from '$lib/components/ui/ListCard.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 
@@ -87,12 +88,8 @@
 	}
 </script>
 
-<div class="page">
-	<PageHeader title={t.actions.title} subtitle={t.actions.subtitle} />
-
-	{#if loading}
-		<p class="status-text">{t.common.loading}</p>
-	{:else if allGood}
+<Page title={t.actions.title} subtitle={t.actions.subtitle} {loading}>
+	{#if allGood}
 		<div class="all-good">
 			<span class="all-good__icon"><Icon name="check" size={28} strokeWidth={2.25} /></span>
 			<p class="all-good__title">{t.actions.allGood}</p>
@@ -108,27 +105,19 @@
 					</h2>
 					<ListCard as="ul">
 						{#each section.items as med (med.id)}
-							{@const isTicked = isDone(section.id, med)}
+							{@const ticked = isDone(section.id, med)}
 							<li>
-								<label class="action-item" class:action-item--ticked={isTicked}>
-									<input
-										type="checkbox"
-										class="action-item__input"
-										checked={isTicked}
-										onchange={(e) => handleToggle(section.id, med, e.currentTarget.checked)}
-									/>
-									<span class="action-item__box" aria-hidden="true">
-										{#if isTicked}
-											<Icon name="check" size={16} strokeWidth={2.5} />
-										{/if}
-									</span>
-									<span class="action-item__text">
-										<span class="action-item__name">{med.name}</span>
+								<Checkbox
+									checked={ticked}
+									onchange={(checked) => handleToggle(section.id, med, checked)}
+								>
+									<span class="item" class:item--done={ticked}>
+										<span class="item__name">{med.name}</span>
 										{#if med.concentration}
-											<span class="action-item__conc">{med.concentration}</span>
+											<span class="item__conc">{med.concentration}</span>
 										{/if}
 									</span>
-								</label>
+								</Checkbox>
 							</li>
 						{/each}
 					</ListCard>
@@ -136,31 +125,18 @@
 			{/each}
 		</div>
 	{/if}
-</div>
+</Page>
 
 {#if toastMessage}
 	<Toast message={toastMessage} />
 {/if}
 
 <style>
-	.page {
-		flex: 1;
-		overflow-y: auto;
-		padding-bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
-	}
-
-	.status-text {
-		padding: 48px 20px;
-		text-align: center;
-		color: var(--color-text-muted);
-	}
-
 	.all-good {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 8px;
-		margin: 0 16px;
 		padding: 40px 24px;
 		text-align: center;
 		background: var(--color-surface);
@@ -195,7 +171,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 24px;
-		padding: 0 16px;
 	}
 
 	.section {
@@ -220,76 +195,25 @@
 		color: var(--color-text-subtle);
 	}
 
-	.action-item {
-		position: relative;
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		min-height: 56px;
-		padding: 8px 16px;
-		cursor: pointer;
-		-webkit-tap-highlight-color: transparent;
-		transition: background-color 0.12s ease;
-	}
-
-	.action-item:active {
-		background: var(--color-accent-soft);
-	}
-
-	/* Native checkbox stays focusable and accessible; the box below is its visual */
-	.action-item__input {
-		position: absolute;
-		opacity: 0;
-		width: 1px;
-		height: 1px;
-	}
-
-	.action-item__box {
-		width: 22px;
-		height: 22px;
-		flex-shrink: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: 1.5px solid var(--color-checkbox);
-		border-radius: 6px;
-		background: var(--color-surface);
-		color: #ffffff;
-		transition:
-			background-color 0.12s ease,
-			border-color 0.12s ease;
-	}
-
-	.action-item__input:focus-visible + .action-item__box {
-		outline: 2px solid var(--color-accent);
-		outline-offset: 2px;
-	}
-
-	.action-item--ticked .action-item__box {
-		background: var(--color-accent);
-		border-color: var(--color-accent);
-	}
-
-	.action-item--ticked .action-item__name {
-		color: var(--color-text-subtle);
-		text-decoration: line-through;
-	}
-
-	.action-item__text {
+	.item {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
 		column-gap: 8px;
-		min-width: 0;
 	}
 
-	.action-item__name {
+	.item__name {
 		font-size: 16px;
 		font-weight: 600;
 	}
 
-	.action-item__conc {
+	.item__conc {
 		font-size: 14px;
 		color: var(--color-text-muted);
+	}
+
+	.item--done .item__name {
+		color: var(--color-text-subtle);
+		text-decoration: line-through;
 	}
 </style>

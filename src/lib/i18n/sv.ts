@@ -110,7 +110,6 @@ export const t = {
 		remindPrescriptionLabel: 'Påminn om nytt recept när det saknas',
 		inPillOrganizerLabel: 'Ingår i dosetten',
 		saveButton: 'Spara',
-		cancelButton: 'Avbryt',
 		deleteButton: 'Ta bort läkemedel',
 		deleteTitle: 'Ta bort läkemedel?',
 		deleteConfirm: (name: string) =>

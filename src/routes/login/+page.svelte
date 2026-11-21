@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/sv';
 	import { signInWithGoogle } from '$lib/firebase';
-	import CabinetIllustration from '$lib/components/ui/CabinetIllustration.svelte';
+	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
+	import CabinetIllustration from './CabinetIllustration.svelte';
 
 	let loading = $state(false);
 	let error = $state<string | null>(null);
@@ -32,7 +33,7 @@
 
 		<div class="login-actions">
 			{#if error}
-				<p class="error-box" role="alert">{error}</p>
+				<ErrorMessage message={error} />
 			{/if}
 
 			<button type="button" class="google-btn" onclick={handleLogin} disabled={loading}>
@@ -110,16 +111,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
-	}
-
-	.error-box {
-		padding: 12px 14px;
-		background: var(--color-danger-bg);
-		border: 1px solid var(--color-danger-border);
-		border-radius: var(--radius-control);
-		font-size: 14px;
-		line-height: 1.4;
-		color: var(--color-danger);
 	}
 
 	.google-btn {

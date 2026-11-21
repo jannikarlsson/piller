@@ -30,7 +30,7 @@
 		gap: 12px;
 		padding: 6px 6px 6px 16px;
 		background: var(--color-text);
-		color: #ffffff;
+		color: var(--color-on-accent);
 		font-size: 14px;
 		font-weight: 500;
 		border-radius: var(--radius-control);

@@ -12,7 +12,9 @@
 		type MedicationInput
 	} from '$lib/firebase';
 	import MedicationForm from '$lib/components/forms/MedicationForm.svelte';
-	import PageHeader from '$lib/components/ui/PageHeader.svelte';
+	import Page from '$lib/components/layout/Page.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
+	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import ListCard from '$lib/components/ui/ListCard.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
@@ -90,21 +92,18 @@
 	}
 </script>
 
-<div class="page">
-	<PageHeader title={t.medications.title} subtitle={t.medications.subtitle}>
-		{#snippet actions()}
-			<button
-				type="button"
-				class="icon-btn"
-				class:icon-btn--active={showSettings}
-				onclick={() => (showSettings = !showSettings)}
-				aria-label={t.common.settings}
-				aria-expanded={showSettings}
-			>
-				<Icon name="settings" size={22} />
-			</button>
-		{/snippet}
-	</PageHeader>
+<Page title={t.medications.title} subtitle={t.medications.subtitle} {loading} floatingButton>
+	{#snippet actions()}
+		<Button
+			variant="quiet"
+			size="icon"
+			ariaLabel={t.common.settings}
+			expanded={showSettings}
+			onclick={() => (showSettings = !showSettings)}
+		>
+			<Icon name="settings" size={22} />
+		</Button>
+	{/snippet}
 
 	{#if showSettings}
 		<div class="settings-panel">
@@ -120,46 +119,39 @@
 		</div>
 	{/if}
 
-	{#if loading}
-		<p class="status-text">{t.common.loading}</p>
-	{:else if medications.length === 0}
-		<div class="empty">
-			<span class="empty__icon"><Icon name="pill" size={32} /></span>
-			<p>{t.medications.empty}</p>
-		</div>
+	{#if medications.length === 0}
+		<EmptyState icon="pill" message={t.medications.empty} />
 	{:else}
-		<div class="content">
-			<ListCard as="ul">
-				{#each medications as med (med.id)}
-					<li class="med-row">
-						<span class="med-row__info">
-							<span class="med-row__name">{med.name}</span>
-							{#if med.concentration}
-								<span class="med-row__conc">{med.concentration}</span>
-							{/if}
-							{#if med.alternativeNames.length > 0}
-								<span class="med-row__alt">{med.alternativeNames.join(', ')}</span>
-							{/if}
-						</span>
-						<button
-							type="button"
-							class="icon-btn"
-							onclick={() => openSheet({ mode: 'edit', med })}
-							aria-label="{t.common.edit} {med.name}"
-						>
-							<Icon name="edit" size={20} />
-						</button>
-					</li>
-				{/each}
-			</ListCard>
-		</div>
+		<ListCard as="ul">
+			{#each medications as med (med.id)}
+				<li class="med-row">
+					<span class="med-row__info">
+						<span class="med-row__name">{med.name}</span>
+						{#if med.concentration}
+							<span class="med-row__conc">{med.concentration}</span>
+						{/if}
+						{#if med.alternativeNames.length > 0}
+							<span class="med-row__alt">{med.alternativeNames.join(', ')}</span>
+						{/if}
+					</span>
+					<Button
+						variant="quiet"
+						size="icon"
+						ariaLabel="{t.common.edit} {med.name}"
+						onclick={() => openSheet({ mode: 'edit', med })}
+					>
+						<Icon name="edit" size={20} />
+					</Button>
+				</li>
+			{/each}
+		</ListCard>
 	{/if}
 
 	<button type="button" class="add-btn" onclick={() => openSheet({ mode: 'add' })}>
 		<Icon name="plus" size={20} strokeWidth={2} />
 		{t.common.add}
 	</button>
-</div>
+</Page>
 
 {#if sheet}
 	<BottomSheet
@@ -204,38 +196,8 @@
 {/if}
 
 <style>
-	.page {
-		flex: 1;
-		overflow-y: auto;
-		padding-bottom: calc(var(--nav-height) + 80px + env(safe-area-inset-bottom, 0px));
-	}
-
-	.content {
-		padding: 0 16px;
-	}
-
-	.icon-btn {
-		flex-shrink: 0;
-		width: 44px;
-		height: 44px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: transparent;
-		border: none;
-		border-radius: var(--radius-control);
-		color: var(--color-text-muted);
-	}
-
-	.icon-btn:active,
-	.icon-btn--active {
-		background: var(--color-accent-soft);
-		color: var(--color-accent);
-	}
-
 	/* Settings */
 	.settings-panel {
-		margin: 0 16px 16px;
 		padding: 16px;
 		display: flex;
 		flex-direction: column;
@@ -286,12 +248,6 @@
 	}
 
 	/* List */
-	.status-text {
-		padding: 48px 20px;
-		text-align: center;
-		color: var(--color-text-muted);
-	}
-
 	.med-row {
 		display: flex;
 		align-items: center;
@@ -326,24 +282,6 @@
 		text-overflow: ellipsis;
 	}
 
-	.empty {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 12px;
-		margin: 0 16px;
-		padding: 40px 24px;
-		text-align: center;
-		background: var(--color-surface);
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius-card);
-		color: var(--color-text-muted);
-	}
-
-	.empty__icon {
-		color: var(--color-accent);
-	}
-
 	.add-btn {
 		position: fixed;
 		right: 16px;
@@ -354,7 +292,7 @@
 		align-items: center;
 		gap: 8px;
 		background: var(--color-accent);
-		color: #ffffff;
+		color: var(--color-on-accent);
 		border: none;
 		border-radius: var(--radius-card);
 		font-size: 15px;

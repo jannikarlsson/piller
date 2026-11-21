@@ -71,6 +71,8 @@
 		--color-accent-ring: rgba(29, 107, 87, 0.15);
 		--color-accent-soft: #e3eee9;
 		--color-accent-tint: #cfe3da;
+		/* Text and icons on accent, danger and dark backgrounds */
+		--color-on-accent: #ffffff;
 
 		--color-ok: #17624f;
 		--color-ok-bg: #e7f3ee;
@@ -94,15 +96,14 @@
 		padding: 0;
 	}
 
+	/* The app shell scrolls inside each page, never the document itself */
 	:global(html, body) {
-		height: 100%;
 		overflow: hidden;
 		overscroll-behavior: none;
 	}
 
 	:global(body) {
 		background: var(--color-bg);
-		min-height: 100dvh;
 		font-family: var(--font-sans);
 		color: var(--color-text);
 		-webkit-font-smoothing: antialiased;
@@ -121,6 +122,17 @@
 	:global(:focus-visible) {
 		outline: 2px solid var(--color-accent);
 		outline-offset: 2px;
+	}
+
+	/* Hidden visually but still read by screen readers and focusable (for inputs) */
+	:global(.visually-hidden) {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		white-space: nowrap;
 	}
 
 	.app-shell {

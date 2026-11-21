@@ -10,10 +10,11 @@
 		type Medication
 	} from '$lib/firebase';
 	import MedicationTile from '$lib/components/ui/MedicationTile.svelte';
-	import PageHeader from '$lib/components/ui/PageHeader.svelte';
-	import ListCard from '$lib/components/ui/ListCard.svelte';
+	import Page from '$lib/components/layout/Page.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
-	import ResetButton from '$lib/components/ui/ResetButton.svelte';
+	import EmptyState from '$lib/components/ui/EmptyState.svelte';
+	import ListCard from '$lib/components/ui/ListCard.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
 	import ResetDialog from '$lib/components/dialogs/ResetDialog.svelte';
 	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
@@ -51,38 +52,37 @@
 	}
 </script>
 
-<div class="page">
-	<PageHeader title={t.inventory.title} subtitle={t.inventory.subtitle}>
-		{#snippet actions()}
-			{#if medications.length > 0}
-				<ResetButton
-					label={t.inventory.resetButton}
-					ariaLabel={t.inventory.resetLabel}
-					disabled={!hasStatuses}
-					onclick={() => (showReset = true)}
-				/>
-			{/if}
-		{/snippet}
-	</PageHeader>
+<Page title={t.inventory.title} subtitle={t.inventory.subtitle} {loading}>
+	{#snippet actions()}
+		{#if medications.length > 0}
+			<Button
+				variant="ghost"
+				size="sm"
+				ariaLabel={t.inventory.resetLabel}
+				disabled={!hasStatuses}
+				onclick={() => (showReset = true)}
+			>
+				<Icon name="reset" size={18} />
+				{t.inventory.resetButton}
+			</Button>
+		{/if}
+	{/snippet}
 
-	{#if loading}
-		<p class="status-text">{t.common.loading}</p>
-	{:else if medications.length === 0}
-		<div class="empty">
-			<span class="empty__icon"><Icon name="cabinet" size={32} /></span>
-			<p>{t.inventory.empty}</p>
-			<a class="empty__action" href="/medications">{t.inventory.emptyAction}</a>
-		</div>
+	{#if medications.length === 0}
+		<EmptyState
+			icon="cabinet"
+			message={t.inventory.empty}
+			actionLabel={t.inventory.emptyAction}
+			actionHref="/medications"
+		/>
 	{:else}
-		<div class="content">
-			<ListCard>
-				{#each medications as med (med.id)}
-					<MedicationTile medication={med} mode="inventory" ontap={handleTap} />
-				{/each}
-			</ListCard>
-		</div>
+		<ListCard>
+			{#each medications as med (med.id)}
+				<MedicationTile medication={med} mode="inventory" ontap={handleTap} />
+			{/each}
+		</ListCard>
 	{/if}
-</div>
+</Page>
 
 {#if todoPromptFor}
 	{@const med = todoPromptFor}
@@ -108,53 +108,3 @@
 		/>
 	</BottomSheet>
 {/if}
-
-<style>
-	.page {
-		flex: 1;
-		overflow-y: auto;
-		padding-bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
-	}
-
-	.content {
-		padding: 0 16px;
-	}
-
-	.status-text {
-		padding: 48px 20px;
-		text-align: center;
-		color: var(--color-text-muted);
-	}
-
-	.empty {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 12px;
-		margin: 0 16px;
-		padding: 40px 24px;
-		text-align: center;
-		background: var(--color-surface);
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius-card);
-		color: var(--color-text-muted);
-	}
-
-	.empty__icon {
-		color: var(--color-accent);
-	}
-
-	.empty__action {
-		display: inline-flex;
-		align-items: center;
-		height: 44px;
-		padding: 0 18px;
-		margin-top: 4px;
-		background: var(--color-accent);
-		color: #ffffff;
-		border-radius: var(--radius-control);
-		font-size: 15px;
-		font-weight: 500;
-		text-decoration: none;
-	}
-</style>

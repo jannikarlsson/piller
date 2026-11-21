@@ -2,7 +2,8 @@
 	import { untrack } from 'svelte';
 	import { t } from '$lib/i18n/sv';
 	import { DEFAULT_MEDICATION_SETTINGS, type MedicationInput } from '$lib/firebase';
-	import Checkbox from './Checkbox.svelte';
+	import Checkbox from '$lib/components/ui/Checkbox.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 
 	interface Props {
 		initial?: Partial<MedicationInput>;
@@ -93,12 +94,12 @@
 	</fieldset>
 
 	<div class="form-actions">
-		<button type="button" class="btn btn--secondary" onclick={onCancel} disabled={saving}>
-			{t.medications.cancelButton}
-		</button>
-		<button type="submit" class="btn btn--primary" disabled={saving || !name.trim()}>
+		<Button variant="secondary" onclick={onCancel} disabled={saving}>
+			{t.common.cancel}
+		</Button>
+		<Button type="submit" disabled={saving || !name.trim()}>
 			{saving ? t.common.loading : t.medications.saveButton}
-		</button>
+		</Button>
 	</div>
 </form>
 
@@ -170,34 +171,5 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 12px;
 		padding-top: 4px;
-	}
-
-	.btn {
-		font-size: 16px;
-		font-weight: 500;
-		height: 48px;
-		border-radius: var(--radius-control);
-		transition: background-color 0.12s ease;
-	}
-
-	.btn:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn--primary {
-		background: var(--color-accent);
-		color: #ffffff;
-		border: none;
-	}
-
-	.btn--primary:not(:disabled):active {
-		background: var(--color-accent-hover);
-	}
-
-	.btn--secondary {
-		background: var(--color-surface);
-		color: var(--color-text);
-		border: 1px solid var(--color-border);
 	}
 </style>

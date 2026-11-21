@@ -5,6 +5,8 @@
 -->
 <script lang="ts">
 	import { t } from '$lib/i18n/sv';
+	import Button from '$lib/components/ui/Button.svelte';
+	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
 
 	interface Props {
 		message: string;
@@ -48,16 +50,14 @@
 	<p class="confirm__message">{message}</p>
 
 	{#if error}
-		<p class="confirm__error" role="alert">{error}</p>
+		<ErrorMessage message={error} />
 	{/if}
 
 	<div class="confirm__actions">
-		<button type="button" class="btn btn--secondary" onclick={oncancel} disabled={busy}>
-			{cancelLabel}
-		</button>
-		<button type="button" class="btn btn--{tone}" onclick={handleConfirm} disabled={busy}>
+		<Button variant="secondary" onclick={oncancel} disabled={busy}>{cancelLabel}</Button>
+		<Button variant={tone} onclick={handleConfirm} disabled={busy}>
 			{busy ? t.common.loading : confirmLabel}
-		</button>
+		</Button>
 	</div>
 </div>
 
@@ -74,52 +74,9 @@
 		color: var(--color-text-secondary);
 	}
 
-	.confirm__error {
-		padding: 12px 14px;
-		background: var(--color-danger-bg);
-		border: 1px solid var(--color-danger-border);
-		border-radius: var(--radius-control);
-		font-size: 14px;
-		color: var(--color-danger);
-	}
-
 	.confirm__actions {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 12px;
-	}
-
-	.btn {
-		font-size: 16px;
-		font-weight: 500;
-		height: 48px;
-		border-radius: var(--radius-control);
-	}
-
-	.btn:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.btn--primary {
-		background: var(--color-accent);
-		color: #ffffff;
-		border: none;
-	}
-
-	.btn--primary:not(:disabled):active {
-		background: var(--color-accent-hover);
-	}
-
-	.btn--danger {
-		background: var(--color-danger);
-		color: #ffffff;
-		border: none;
-	}
-
-	.btn--secondary {
-		background: var(--color-surface);
-		color: var(--color-text);
-		border: 1px solid var(--color-border);
 	}
 </style>

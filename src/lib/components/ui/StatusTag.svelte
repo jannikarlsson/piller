@@ -48,7 +48,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: #ffffff;
+		color: var(--color-on-accent);
 	}
 
 	.tag--ok .tag__icon {

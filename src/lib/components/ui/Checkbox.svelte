@@ -1,22 +1,41 @@
+<!--
+	A full-width checkbox row. Pass `label` for plain text, or children for richer content
+	(the parent can style that content based on `checked`).
+	Use `bind:checked` in forms, or `checked` + `onchange` when the value is saved elsewhere.
+-->
 <script lang="ts">
-	import Icon from '$lib/components/ui/Icon.svelte';
+	import type { Snippet } from 'svelte';
+	import Icon from './Icon.svelte';
 
 	interface Props {
-		label: string;
 		checked: boolean;
+		label?: string;
+		onchange?: (checked: boolean) => void;
+		children?: Snippet;
 	}
 
-	let { label, checked = $bindable() }: Props = $props();
+	let { checked = $bindable(), label, onchange, children }: Props = $props();
 </script>
 
 <label class="checkbox" class:checkbox--checked={checked}>
-	<input type="checkbox" class="checkbox__input" bind:checked />
+	<input
+		type="checkbox"
+		class="visually-hidden"
+		bind:checked
+		onchange={() => onchange?.(checked)}
+	/>
 	<span class="checkbox__box" aria-hidden="true">
 		{#if checked}
 			<Icon name="check" size={16} strokeWidth={2.5} />
 		{/if}
 	</span>
-	<span class="checkbox__label">{label}</span>
+	<span class="checkbox__content">
+		{#if children}
+			{@render children()}
+		{:else}
+			{label}
+		{/if}
+	</span>
 </label>
 
 <style>
@@ -25,18 +44,15 @@
 		display: flex;
 		align-items: center;
 		gap: 12px;
-		min-height: 48px;
-		padding: 8px 14px;
+		min-height: 56px;
+		padding: 8px 16px;
 		cursor: pointer;
 		-webkit-tap-highlight-color: transparent;
+		transition: background-color 0.12s ease;
 	}
 
-	/* Native checkbox stays focusable and accessible; the box below is its visual */
-	.checkbox__input {
-		position: absolute;
-		opacity: 0;
-		width: 1px;
-		height: 1px;
+	.checkbox:active {
+		background: var(--color-accent-soft);
 	}
 
 	.checkbox__box {
@@ -49,13 +65,13 @@
 		border: 1.5px solid var(--color-checkbox);
 		border-radius: 6px;
 		background: var(--color-surface);
-		color: #ffffff;
+		color: var(--color-on-accent);
 		transition:
 			background-color 0.12s ease,
 			border-color 0.12s ease;
 	}
 
-	.checkbox__input:focus-visible + .checkbox__box {
+	input:focus-visible + .checkbox__box {
 		outline: 2px solid var(--color-accent);
 		outline-offset: 2px;
 	}
@@ -65,7 +81,8 @@
 		border-color: var(--color-accent);
 	}
 
-	.checkbox__label {
+	.checkbox__content {
+		min-width: 0;
 		font-size: 15px;
 		line-height: 1.35;
 	}
