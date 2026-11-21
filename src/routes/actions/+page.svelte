@@ -15,6 +15,7 @@
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import MedicationInfo from '$lib/components/ui/MedicationInfo.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
+	import Section from '$lib/components/ui/Section.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 
 	const medications = $derived($medicationsStore);
@@ -79,11 +80,7 @@
 	{:else}
 		<div class="sections">
 			{#each sections as section (section.kind)}
-				<section class="section" aria-labelledby="heading-{section.kind}">
-					<h2 class="section__heading text-label" id="heading-{section.kind}">
-						{section.heading}
-						<span class="text-caption">{section.remaining}</span>
-					</h2>
+				<Section title={section.heading} count={section.remaining}>
 					<Card variant="accent" list as="ul">
 						{#each section.items as med (med.id)}
 							{@const ticked = isDone(section.kind, med)}
@@ -97,12 +94,11 @@
 							</li>
 						{/each}
 					</Card>
-				</section>
+				</Section>
 			{/each}
 		</div>
 	{/if}
 </Page>
-
 
 <style>
 	.all-good {
@@ -133,18 +129,5 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-6);
-	}
-
-	.section {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-2);
-	}
-
-	.section__heading {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		padding: 0 var(--space-1);
 	}
 </style>

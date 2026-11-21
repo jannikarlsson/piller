@@ -77,7 +77,7 @@
 			icon="prescription"
 			message={t.prescription.empty}
 			actionLabel={t.prescription.emptyAction}
-			actionHref="/medications"
+			actionHref="/profile/medications"
 		/>
 	{:else}
 		<Card variant="accent" list>

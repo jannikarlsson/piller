@@ -1,27 +1,36 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n/sv';
+	import { userStore } from '$lib/stores/auth';
 	import Icon, { type IconName } from '$lib/components/ui/Icon.svelte';
+	import Avatar from '$lib/components/ui/Avatar.svelte';
 
-	const links: { href: string; label: string; icon: IconName }[] = [
+	// `icon: null` shows the user's photo instead (the Profil tab)
+	const links: { href: string; label: string; icon: IconName | null }[] = [
 		{ href: '/inventory', label: t.nav.inventory, icon: 'cabinet' },
 		{ href: '/prescription', label: t.nav.prescription, icon: 'prescription' },
 		{ href: '/picking', label: t.nav.picking, icon: 'organizer' },
 		{ href: '/actions', label: t.nav.actions, icon: 'checklist' },
-		{ href: '/medications', label: t.nav.medications, icon: 'pill' }
+		{ href: '/profile', label: t.nav.profile, icon: null }
 	];
 </script>
 
 <nav class="bottom-nav" aria-label={t.common.mainMenu}>
 	{#each links as link}
-		{@const active = $page.url.pathname === link.href}
+		<!-- Sub-pages (e.g. /profile/medications) keep their parent tab highlighted -->
+		{@const active =
+			$page.url.pathname === link.href || $page.url.pathname.startsWith(`${link.href}/`)}
 		<a
 			href={link.href}
 			class="nav-item"
 			class:nav-item--active={active}
 			aria-current={active ? 'page' : undefined}
 		>
-			<Icon name={link.icon} size="lg" />
+			{#if link.icon}
+				<Icon name={link.icon} size="lg" />
+			{:else}
+				<span class="nav-item__avatar"><Avatar photoUrl={$userStore?.photoURL} /></span>
+			{/if}
 			<span class="nav-item__label">{link.label}</span>
 		</a>
 	{/each}
@@ -65,5 +74,16 @@
 
 	.nav-item--active .nav-item__label {
 		font-weight: 600;
+	}
+
+	/* The photo gets a ring in the active colour instead of changing colour */
+	.nav-item__avatar {
+		display: flex;
+		border-radius: 50%;
+		box-shadow: 0 0 0 1.5px transparent;
+	}
+
+	.nav-item--active .nav-item__avatar {
+		box-shadow: 0 0 0 2px var(--color-accent);
 	}
 </style>

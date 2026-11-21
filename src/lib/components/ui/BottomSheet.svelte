@@ -12,7 +12,7 @@
 
 	let { title, onclose, children }: Props = $props();
 
-	const titleId = `sheet-title-${Math.random().toString(36).slice(2, 8)}`;
+	const titleId = $props.id();
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') onclose();

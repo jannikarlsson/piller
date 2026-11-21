@@ -77,7 +77,7 @@
 			icon="cabinet"
 			message={t.inventory.empty}
 			actionLabel={t.inventory.emptyAction}
-			actionHref="/medications"
+			actionHref="/profile/medications"
 		/>
 	{:else}
 		<Card variant="accent" list>

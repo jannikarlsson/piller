@@ -51,14 +51,14 @@
 			icon="organizer"
 			message={t.picking.empty}
 			actionLabel={t.picking.emptyAction}
-			actionHref="/medications"
+			actionHref="/profile/medications"
 		/>
 	{:else if medications.length === 0}
 		<EmptyState
 			icon="organizer"
 			message={t.picking.emptyNoneInOrganizer}
 			actionLabel={t.picking.emptyNoneInOrganizerAction}
-			actionHref="/medications"
+			actionHref="/profile/medications"
 		/>
 	{:else}
 		<div class="checklist">

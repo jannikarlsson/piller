@@ -8,7 +8,7 @@ export const t = {
 		prescription: 'Recept',
 		picking: 'Plocka',
 		actions: 'Att göra',
-		medications: 'Läkemedel'
+		profile: 'Profil'
 	},
 
 	login: {
@@ -22,7 +22,6 @@ export const t = {
 
 	common: {
 		loading: 'Laddar…',
-		settings: 'Inställningar',
 		close: 'Stäng',
 		cancel: 'Avbryt',
 		edit: 'Redigera',
@@ -133,14 +132,21 @@ export const t = {
 		prescription: { available: 'Aktivt', out: 'Inget recept' }
 	},
 
-	settings: {
-		resetTitle: 'Återställ statusar',
-		resetDescription: 'Återställer alla läkemedels status till okänd. Listan bevaras.',
-		resetButton: 'Återställ allt',
-		resetConfirm: 'Är du säker? Alla statusar återställs till okänd.',
-		resetSuccess: 'Alla statusar återställda!',
-		logoutButton: 'Logga ut',
-		logoutConfirm: 'Vill du logga ut?'
+	profile: {
+		title: 'Profil',
+		medications: 'Läkemedel',
+		dataHeading: 'Data',
+		accountHeading: 'Konto',
+		resetAll: 'Återställ alla statusar',
+		resetAllTitle: 'Återställ alla statusar?',
+		resetAllConfirm:
+			'Alla statusar i skåpet och för recepten blir okända igen. Dina läkemedel finns kvar.',
+		resetAllConfirmButton: 'Återställ',
+		resetAllSuccess: 'Alla statusar återställda',
+		logout: 'Logga ut',
+		logoutTitle: 'Logga ut?',
+		logoutConfirm: 'Du kan logga in igen när som helst med samma Google-konto.',
+		logoutConfirmButton: 'Logga ut'
 	},
 
 	errors: {

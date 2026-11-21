@@ -1,14 +1,12 @@
 <script lang="ts">
 	import { t } from '$lib/i18n/sv';
 	import { userStore } from '$lib/stores/auth';
-	import { showToast, withErrorToast } from '$lib/stores/toast';
+	import { withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import {
 		addMedication,
 		updateMedication,
 		deleteMedication,
-		resetAllStates,
-		signOutUser,
 		type Medication,
 		type MedicationInput
 	} from '$lib/firebase';
@@ -40,7 +38,6 @@
 		sheet = null;
 		confirmingDelete = false;
 	}
-	let showSettings = $state(false);
 
 	async function handleSave(data: MedicationInput) {
 		const user = $userStore;
@@ -62,53 +59,15 @@
 		await deleteMedication(user.uid, id);
 		closeSheet();
 	}
-
-	async function handleReset() {
-		const user = $userStore;
-		if (!user) return;
-		if (!confirm(t.settings.resetConfirm)) return;
-		const saved = await withErrorToast(() => resetAllStates(user.uid), t.errors.resetFailed);
-		if (saved) {
-			showToast(t.settings.resetSuccess);
-			showSettings = false;
-		}
-	}
-
-	async function handleLogout() {
-		if (!confirm(t.settings.logoutConfirm)) return;
-		await withErrorToast(() => signOutUser(), t.errors.logoutFailed);
-	}
 </script>
 
-<Page title={t.medications.title} subtitle={t.medications.subtitle} {loading} floatingButton>
-	{#snippet actions()}
-		<Button
-			variant="quiet"
-			size="icon"
-			ariaLabel={t.common.settings}
-			expanded={showSettings}
-			onclick={() => (showSettings = !showSettings)}
-		>
-			<Icon name="settings" />
-		</Button>
-	{/snippet}
-
-	{#if showSettings}
-		<Card padding="md">
-			<div class="settings-panel">
-				<div class="settings-section">
-					<p class="text-name">{t.settings.resetTitle}</p>
-					<p class="settings-desc text-meta">{t.settings.resetDescription}</p>
-					<Button variant="danger-outline" size="sm" onclick={handleReset}>
-						{t.settings.resetButton}
-					</Button>
-				</div>
-				<div class="settings-divider"></div>
-				<Button variant="secondary" size="sm" onclick={handleLogout}>{t.settings.logoutButton}</Button>
-			</div>
-		</Card>
-	{/if}
-
+<Page
+	title={t.medications.title}
+	subtitle={t.medications.subtitle}
+	back={{ href: '/profile', label: t.nav.profile }}
+	{loading}
+	floatingButton
+>
 	{#if medications.length === 0}
 		<EmptyState icon="pill" message={t.medications.empty} />
 	{:else}
@@ -177,36 +136,7 @@
 	</BottomSheet>
 {/if}
 
-
 <style>
-	/* Settings */
-	/* Buttons in the panel keep their natural width */
-	.settings-panel {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		gap: var(--space-3);
-	}
-
-	.settings-section {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		gap: var(--space-1);
-	}
-
-	.settings-desc {
-		margin-bottom: var(--space-2);
-		line-height: var(--leading-normal);
-	}
-
-	.settings-divider {
-		align-self: stretch;
-		height: 1px;
-		background: var(--color-border-light);
-	}
-
-	/* List */
 	.med-row {
 		display: flex;
 		align-items: center;
