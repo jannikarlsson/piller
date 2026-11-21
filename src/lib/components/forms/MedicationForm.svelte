@@ -137,7 +137,7 @@
 
 	.form-input:focus {
 		border-color: var(--color-accent);
-		box-shadow: 0 0 0 3px var(--color-accent-ring);
+		box-shadow: var(--focus-ring);
 	}
 
 	.form-options {

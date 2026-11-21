@@ -74,6 +74,8 @@
 		--color-accent: #1d6b57;
 		--color-accent-hover: #14503f;
 		--color-accent-ring: rgba(29, 107, 87, 0.15);
+		/* Pressed state for buttons on a dark background (the toast) */
+		--color-pressed-on-dark: rgba(255, 255, 255, 0.12);
 		--color-accent-soft: #e3eee9;
 		--color-accent-tint: #cfe3da;
 		/* Text and icons on accent, danger and dark backgrounds */
@@ -91,6 +93,8 @@
 		--radius-card: 12px; /* cards, panels */
 		--radius-lg: 16px; /* top corners of the drawer */
 		--shadow-raised: 0 2px 8px rgba(21, 24, 28, 0.12);
+		/* Soft glow around a focused input */
+		--focus-ring: 0 0 0 3px var(--color-accent-ring);
 		--backdrop: rgba(21, 24, 28, 0.4);
 		--nav-height: 76px;
 

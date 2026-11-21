@@ -56,6 +56,6 @@
 	}
 
 	.toast__action:active {
-		background: rgba(255, 255, 255, 0.12);
+		background: var(--color-pressed-on-dark);
 	}
 </style>

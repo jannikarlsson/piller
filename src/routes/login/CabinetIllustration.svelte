@@ -1,7 +1,11 @@
+<script lang="ts">
+	import { t } from '$lib/i18n/sv';
+</script>
+
 <svg
 	class="cabinet"
 	role="img"
-	aria-label="Illustration av ett medicinskåp"
+	aria-label={t.login.illustrationLabel}
 	viewBox="0 -18 390 600"
 	fill="none"
 	stroke="var(--color-accent)"

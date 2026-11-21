@@ -12,6 +12,7 @@ export const t = {
 	},
 
 	login: {
+		illustrationLabel: 'Illustration av ett medicinskåp',
 		subtitle: 'Logga in för att hantera ditt läkemedelsförråd',
 		button: 'Logga in med Google',
 		loading: 'Loggar in...',
