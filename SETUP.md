@@ -140,8 +140,10 @@ firebase deploy --only hosting
 Whenever you make changes:
 
 ```bash
-npm run build && firebase deploy --only hosting
+npm run deploy
 ```
+
+This builds the app and deploys it to Firebase Hosting. If you change `firestore.rules`, deploy those with `npm run deploy:rules`.
 
 ---
 
