@@ -30,6 +30,7 @@ export const en: Translations = {
 		edit: 'Edit',
 		add: 'Add',
 		mainMenu: 'Main menu',
+		moreInfo: 'More information',
 		noMedications: 'No medications added yet.',
 		addMedication: 'Add medication'
 	},
@@ -71,9 +72,9 @@ export const en: Translations = {
 			prescription: 'Remind about prescription?'
 		},
 		text: {
-			inventory: (name: string) => `${name} has run out. Add it under Buy in To do?`,
+			inventory: (name: string) => `${name} has run out. Add it under Buy in “To do”?`,
 			prescription: (name: string) =>
-				`${name} has no prescription. Add it under Get a prescription in To do?`
+				`${name} has no prescription. Add it under Get a prescription in “To do”?`
 		},
 		confirm: 'Add',
 		decline: 'No thanks'
@@ -144,14 +145,16 @@ export const en: Translations = {
 		languageSystemDescription: "Follows your phone's language",
 		featuresHeading: 'Features',
 		featurePrescriptions: 'Prescriptions',
-		featurePrescriptionsDescription: 'Keep track of which medications have a prescription',
+		featurePrescriptionsDescription:
+			'Keep track of which medications have a valid prescription, and get reminders in “To do” when one is missing.',
 		featurePillOrganizer: 'Pill organizer',
-		featurePillOrganizerDescription: 'Checklist for filling your pill organizer',
-		askToAddToTodo: 'Ask about To do',
+		featurePillOrganizerDescription:
+			'A checklist for filling your pill organizer, with the medications that go in it.',
+		askToAddToTodo: 'Ask about “To do”',
 		askToAddToTodoDescription:
-			'Ask whether to add it to To do when something without an automatic reminder runs out',
+			"Medications without an automatic reminder don't go on “To do” by themselves. With this on, you're asked when you mark one as out or without a prescription. Off, only the status changes.",
 		dataHeading: 'Data',
-		resetMode: 'Resetting',
+		resetMode: 'Reset button',
 		resetModeLegend: 'What should the reset button do?',
 		resetModeOptions: {
 			ask: 'Ask every time',

@@ -12,7 +12,8 @@
 		| 'organizer'
 		| 'user'
 		| 'chevron-left'
-		| 'chevron-right';
+		| 'chevron-right'
+		| 'info';
 </script>
 
 <script lang="ts">
@@ -84,6 +85,10 @@
 		<path d="M15 18l-6-6 6-6" />
 	{:else if name === 'chevron-right'}
 		<path d="M9 18l6-6-6-6" />
+	{:else if name === 'info'}
+		<circle cx="12" cy="12" r="9" />
+		<path d="M12 11v5" />
+		<path d="M12 7.5v.01" />
 	{:else if name === 'reset'}
 		<path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
 		<path d="M3 3v5h5" />

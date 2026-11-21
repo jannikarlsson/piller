@@ -145,19 +145,19 @@
 		<Card list>
 			<SwitchItem
 				label={t.profile.featurePrescriptions}
-				description={t.profile.featurePrescriptionsDescription}
+				info={t.profile.featurePrescriptionsDescription}
 				checked={$settingsStore.showPrescriptions}
 				onchange={(on) => setSetting({ showPrescriptions: on })}
 			/>
 			<SwitchItem
 				label={t.profile.featurePillOrganizer}
-				description={t.profile.featurePillOrganizerDescription}
+				info={t.profile.featurePillOrganizerDescription}
 				checked={$settingsStore.showPillOrganizer}
 				onchange={handlePillOrganizerSwitch}
 			/>
 			<SwitchItem
 				label={t.profile.askToAddToTodo}
-				description={t.profile.askToAddToTodoDescription}
+				info={t.profile.askToAddToTodoDescription}
 				checked={$settingsStore.askToAddToTodo}
 				onchange={(on) => setSetting({ askToAddToTodo: on })}
 			/>

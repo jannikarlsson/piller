@@ -28,6 +28,7 @@ export const sv = {
 		edit: 'Redigera',
 		add: 'Lägg till',
 		mainMenu: 'Huvudmeny',
+		moreInfo: 'Mer information',
 		noMedications: 'Inga läkemedel tillagda än.',
 		addMedication: 'Lägg till läkemedel'
 	},
@@ -69,9 +70,9 @@ export const sv = {
 			prescription: 'Påminn om recept?'
 		},
 		text: {
-			inventory: (name: string) => `${name} är slut. Vill du lägga till den under Köp i Att göra?`,
+			inventory: (name: string) => `${name} är slut. Vill du lägga till den under Köp i ”Att göra”?`,
 			prescription: (name: string) =>
-				`${name} saknar recept. Vill du lägga till den under Skaffa recept i Att göra?`
+				`${name} saknar recept. Vill du lägga till den under Skaffa recept i ”Att göra”?`
 		},
 		confirm: 'Lägg till',
 		decline: 'Nej tack'
@@ -142,14 +143,16 @@ export const sv = {
 		languageSystemDescription: 'Följer telefonens språk',
 		featuresHeading: 'Funktioner',
 		featurePrescriptions: 'Recept',
-		featurePrescriptionsDescription: 'Håll koll på vilka läkemedel som har recept',
-		featurePillOrganizer: 'Dosett',
-		featurePillOrganizerDescription: 'Checklista för att fylla dosetten',
-		askToAddToTodo: 'Fråga om Att göra',
+		featurePrescriptionsDescription:
+			'Håll koll på vilka läkemedel som har ett giltigt recept, och få påminnelser i ”Att göra” när ett recept saknas.',
+		featurePillOrganizer: 'Fyll dosett',
+		featurePillOrganizerDescription:
+			'En checklista för när du fyller dosetten, med de läkemedel som ingår i den.',
+		askToAddToTodo: 'Fråga om ”Att göra”',
 		askToAddToTodoDescription:
-			'Fråga om läkemedlet ska läggas till i Att göra när något utan automatisk påminnelse tar slut',
+			'Läkemedel utan automatisk påminnelse läggs inte i ”Att göra” av sig själva. Med det här påslaget får du frågan när du markerar ett sådant som slut eller utan recept. Avstängt ändras bara statusen.',
 		dataHeading: 'Data',
-		resetMode: 'Återställning',
+		resetMode: 'Återställ-knappen',
 		resetModeLegend: 'Vad ska återställ-knappen göra?',
 		resetModeOptions: {
 			ask: 'Fråga varje gång',

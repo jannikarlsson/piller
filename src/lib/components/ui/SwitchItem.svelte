@@ -1,24 +1,38 @@
+<!--
+	An on/off row. `info` adds a circled "i" after the label that explains the setting.
+-->
 <script lang="ts">
+	import InfoTip from './InfoTip.svelte';
+
 	interface Props {
 		label: string;
-		description?: string;
+		info?: string;
 		checked: boolean;
 		onchange: (checked: boolean) => void;
 	}
 
-	let { label, description, checked, onchange }: Props = $props();
+	let { label, info, checked, onchange }: Props = $props();
+
+	// Named explicitly: otherwise the label would control the first button inside it, the info icon
+	const id = $props.id();
+	// The switch is named by the label text only and described by the info text
+	const labelId = `${id}-label`;
+	const infoId = `${id}-info`;
 </script>
 
-<label class="item">
+<label class="item" for={id}>
 	<span class="item__text">
-		<span class="item__label">{label}</span>
-		{#if description}
-			<span class="text-meta">{description}</span>
+		<span class="item__label" id={labelId}>{label}</span>
+		{#if info}
+			<InfoTip text={info} id={infoId} />
 		{/if}
 	</span>
 	<input
+		{id}
 		type="checkbox"
 		role="switch"
+		aria-labelledby={labelId}
+		aria-describedby={info ? infoId : undefined}
 		class="visually-hidden"
 		{checked}
 		onchange={(e) => onchange(e.currentTarget.checked)}
@@ -42,8 +56,8 @@
 		flex: 1;
 		min-width: 0;
 		display: flex;
-		flex-direction: column;
-		gap: var(--space-1);
+		align-items: center;
+		gap: var(--space-2);
 	}
 
 	.item__label {
