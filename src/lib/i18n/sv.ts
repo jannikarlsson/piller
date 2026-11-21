@@ -52,7 +52,7 @@ export const sv = {
 		emptyNoneInOrganizerAction: 'Gå till Läkemedel',
 		allDone: 'Allt plockat',
 		resetButton: 'Återställ',
-		resetLabel: 'Avmarkera alla'
+		resetLabel: 'Återställ alla'
 	},
 
 	actions: {

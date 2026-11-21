@@ -55,7 +55,7 @@ export const en: Translations = {
 		emptyNoneInOrganizerAction: 'Go to Medications',
 		allDone: 'All picked',
 		resetButton: 'Reset',
-		resetLabel: 'Uncheck all'
+		resetLabel: 'Reset all'
 	},
 
 	actions: {

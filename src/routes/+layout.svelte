@@ -12,7 +12,7 @@
 	import BottomNav from '$lib/components/layout/BottomNav.svelte';
 	import Toast from '$lib/components/ui/Toast.svelte';
 	import { toastMessage } from '$lib/stores/toast';
-	import { setLanguage, resolveLanguage, getLanguage } from '$lib/i18n';
+	import { t, setLanguage, resolveLanguage, getLanguage } from '$lib/i18n';
 
 	let { children } = $props();
 
@@ -92,10 +92,15 @@
 			: $authStateStore === 'authenticated' && !isPathOff(page.url.pathname, $settingsStore)
 	);
 	const showNav = $derived(showPage && !isLoginPage);
+
+	// Each route's +page.ts names its title; it follows the chosen language
+	const pageTitle = $derived(
+		page.data.titleKey ? `${t[page.data.titleKey].title} – ${t.app.name}` : t.app.name
+	);
 </script>
 
 <svelte:head>
-	<title>Piller</title>
+	<title>{pageTitle}</title>
 	<link rel="manifest" href="/manifest.webmanifest" />
 </svelte:head>
 
