@@ -61,7 +61,22 @@ export { onAuthStateChanged };
 
 export type TileState = 'neutral' | 'available' | 'out';
 
-export interface Medication {
+export interface MedicationSettings {
+	/** Show on the buy list in "Att göra" when marked as out in the cabinet. */
+	remindToBuy: boolean;
+	/** Show on the prescription list in "Att göra" when marked as having no prescription. */
+	remindPrescription: boolean;
+	/** Include on the "Plocka" checklist for the pill organizer. */
+	inPillOrganizer: boolean;
+}
+
+export const DEFAULT_MEDICATION_SETTINGS: MedicationSettings = {
+	remindToBuy: true,
+	remindPrescription: true,
+	inPillOrganizer: true
+};
+
+export interface Medication extends MedicationSettings {
 	id: string;
 	name: string;
 	concentration: string;
@@ -74,7 +89,7 @@ export interface Medication {
 	updatedAt: Date;
 }
 
-export interface MedicationInput {
+export interface MedicationInput extends MedicationSettings {
 	name: string;
 	concentration: string;
 	alternativeNames: string[];
@@ -100,6 +115,11 @@ export function subscribeMedications(
 				inventoryState: data.inventoryState ?? 'neutral',
 				prescriptionState: data.prescriptionState ?? 'neutral',
 				picked: data.picked ?? false,
+				// Medications saved before these settings existed get the defaults
+				remindToBuy: data.remindToBuy ?? DEFAULT_MEDICATION_SETTINGS.remindToBuy,
+				remindPrescription:
+					data.remindPrescription ?? DEFAULT_MEDICATION_SETTINGS.remindPrescription,
+				inPillOrganizer: data.inPillOrganizer ?? DEFAULT_MEDICATION_SETTINGS.inPillOrganizer,
 				createdAt: data.createdAt?.toDate() ?? new Date(),
 				updatedAt: data.updatedAt?.toDate() ?? new Date()
 			};

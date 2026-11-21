@@ -8,8 +8,12 @@
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
 
-	const needsBuy = $derived(medications.filter((m) => m.inventoryState === 'out'));
-	const needsPrescription = $derived(medications.filter((m) => m.prescriptionState === 'out'));
+	const needsBuy = $derived(
+		medications.filter((m) => m.remindToBuy && m.inventoryState === 'out')
+	);
+	const needsPrescription = $derived(
+		medications.filter((m) => m.remindPrescription && m.prescriptionState === 'out')
+	);
 	const allGood = $derived(needsBuy.length === 0 && needsPrescription.length === 0);
 
 	const sections = $derived(

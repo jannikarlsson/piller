@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { t } from '$lib/i18n/sv';
-	import type { MedicationInput } from '$lib/firebase';
+	import { DEFAULT_MEDICATION_SETTINGS, type MedicationInput } from '$lib/firebase';
+	import Checkbox from './Checkbox.svelte';
 
 	interface Props {
 		initial?: Partial<MedicationInput>;
@@ -15,11 +16,17 @@
 	const _init = untrack(() => ({
 		name: initial.name ?? '',
 		concentration: initial.concentration ?? '',
-		alts: (initial.alternativeNames ?? []).join(', ')
+		alts: (initial.alternativeNames ?? []).join(', '),
+		remindToBuy: initial.remindToBuy ?? DEFAULT_MEDICATION_SETTINGS.remindToBuy,
+		remindPrescription: initial.remindPrescription ?? DEFAULT_MEDICATION_SETTINGS.remindPrescription,
+		inPillOrganizer: initial.inPillOrganizer ?? DEFAULT_MEDICATION_SETTINGS.inPillOrganizer
 	}));
 	let name = $state(_init.name);
 	let concentration = $state(_init.concentration);
 	let alternativeNamesRaw = $state(_init.alts);
+	let remindToBuy = $state(_init.remindToBuy);
+	let remindPrescription = $state(_init.remindPrescription);
+	let inPillOrganizer = $state(_init.inPillOrganizer);
 
 	async function handleSubmit(e: SubmitEvent) {
 		e.preventDefault();
@@ -27,7 +34,14 @@
 			.split(',')
 			.map((s) => s.trim())
 			.filter(Boolean);
-		await onSave({ name: name.trim(), concentration: concentration.trim(), alternativeNames: alts });
+		await onSave({
+			name: name.trim(),
+			concentration: concentration.trim(),
+			alternativeNames: alts,
+			remindToBuy,
+			remindPrescription,
+			inPillOrganizer
+		});
 	}
 </script>
 
@@ -68,6 +82,15 @@
 			autocomplete="off"
 		/>
 	</div>
+
+	<fieldset class="form-options">
+		<legend class="form-label">{t.medications.settingsLegend}</legend>
+		<div class="form-options__list">
+			<Checkbox label={t.medications.remindToBuyLabel} bind:checked={remindToBuy} />
+			<Checkbox label={t.medications.remindPrescriptionLabel} bind:checked={remindPrescription} />
+			<Checkbox label={t.medications.inPillOrganizerLabel} bind:checked={inPillOrganizer} />
+		</div>
+	</fieldset>
 
 	<div class="form-actions">
 		<button type="button" class="btn btn--secondary" onclick={onCancel} disabled={saving}>
@@ -119,6 +142,27 @@
 	.form-input:focus {
 		border-color: var(--color-accent);
 		box-shadow: 0 0 0 3px var(--color-accent-ring);
+	}
+
+	.form-options {
+		border: none;
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	.form-options .form-label {
+		margin-bottom: 6px;
+	}
+
+	.form-options__list {
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-control);
+		overflow: hidden;
+	}
+
+	.form-options__list > :global(* + *) {
+		border-top: 1px solid var(--color-border-light);
 	}
 
 	.form-actions {

@@ -8,7 +8,7 @@
 	import ResetButton from '$lib/components/ResetButton.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 
-	const medications = $derived($medicationsStore);
+	const medications = $derived($medicationsStore.filter((m) => m.inPillOrganizer));
 	const loading = $derived($medicationsLoading);
 	const pickedCount = $derived(medications.filter((m) => m.picked).length);
 	const allPicked = $derived(medications.length > 0 && pickedCount === medications.length);
@@ -53,8 +53,13 @@
 	{:else if medications.length === 0}
 		<div class="empty">
 			<span class="empty__icon"><Icon name="organizer" size={32} /></span>
-			<p>{t.picking.empty}</p>
-			<a class="empty__action" href="/medications">{t.picking.emptyAction}</a>
+			{#if $medicationsStore.length === 0}
+				<p>{t.picking.empty}</p>
+				<a class="empty__action" href="/medications">{t.picking.emptyAction}</a>
+			{:else}
+				<p>{t.picking.emptyNoneInOrganizer}</p>
+				<a class="empty__action" href="/medications">{t.picking.emptyNoneInOrganizerAction}</a>
+			{/if}
 		</div>
 	{:else}
 		<div class="content">
