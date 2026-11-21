@@ -7,6 +7,7 @@
 	import { t } from '$lib/i18n';
 	import { statusOf, type Medication, type StatusKind } from '$lib/models';
 	import Button from '$lib/components/ui/Button.svelte';
+	import ButtonRow from '$lib/components/ui/ButtonRow.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
 	import RadioGroup from '$lib/components/inputs/RadioGroup.svelte';
@@ -77,14 +78,14 @@
 		<ErrorMessage message={error} />
 	{/if}
 
-	<div class="actions">
+	<ButtonRow>
 		<Button variant="secondary" onclick={oncancel} disabled={submitting}>
 			{t.common.cancel}
 		</Button>
 		<Button type="submit" disabled={submitting || selectedCount === 0}>
 			{submitting ? t.common.loading : t.reset.confirm}
 		</Button>
-	</div>
+	</ButtonRow>
 </form>
 
 <style>
@@ -96,12 +97,5 @@
 
 	.intro {
 		color: var(--color-text-muted);
-	}
-
-	.actions {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: var(--space-3);
-		padding-top: var(--space-1);
 	}
 </style>

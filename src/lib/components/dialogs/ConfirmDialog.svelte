@@ -6,6 +6,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
 	import Button from '$lib/components/ui/Button.svelte';
+	import ButtonRow from '$lib/components/ui/ButtonRow.svelte';
 	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
 
 	interface Props {
@@ -52,12 +53,12 @@
 		<ErrorMessage message={error} />
 	{/if}
 
-	<div class="confirm__actions">
+	<ButtonRow>
 		<Button variant="secondary" onclick={oncancel} disabled={busy}>{cancelLabel ?? t.common.cancel}</Button>
 		<Button variant={tone} onclick={handleConfirm} disabled={busy}>
 			{busy ? t.common.loading : confirmLabel}
 		</Button>
-	</div>
+	</ButtonRow>
 </div>
 
 <style>
@@ -69,11 +70,5 @@
 
 	.confirm__message {
 		color: var(--color-text-secondary);
-	}
-
-	.confirm__actions {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: var(--space-3);
 	}
 </style>

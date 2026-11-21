@@ -6,6 +6,7 @@
 	import Checkbox from '$lib/components/inputs/Checkbox.svelte';
 	import TextField from '$lib/components/inputs/TextField.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
+	import ButtonRow from '$lib/components/ui/ButtonRow.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 
 	interface Props {
@@ -94,14 +95,14 @@
 		</Card>
 	</fieldset>
 
-	<div class="form-actions">
+	<ButtonRow>
 		<Button variant="secondary" onclick={onCancel} disabled={saving}>
 			{t.common.cancel}
 		</Button>
 		<Button type="submit" disabled={saving || !name.trim()}>
 			{saving ? t.common.loading : t.medications.saveButton}
 		</Button>
-	</div>
+	</ButtonRow>
 </form>
 
 <style>
@@ -120,12 +121,5 @@
 
 	.form-options legend {
 		margin-bottom: var(--space-2);
-	}
-
-	.form-actions {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: var(--space-3);
-		padding-top: var(--space-1);
 	}
 </style>

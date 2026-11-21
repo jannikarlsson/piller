@@ -20,9 +20,7 @@
 	</div>
 {/if}
 <header class="page-header" class:page-header--sub={back}>
-	<div class="page-header__text">
-		<h1 class="page-header__title">{title}</h1>
-	</div>
+	<h1 class="text-heading">{title}</h1>
 	{#if actions}
 		<div class="page-header__actions">{@render actions()}</div>
 	{/if}
@@ -45,10 +43,4 @@
 		padding-top: var(--space-1);
 	}
 
-	.page-header__title {
-		font-size: var(--text-xl);
-		font-weight: 600;
-		line-height: var(--leading-tight);
-		letter-spacing: -0.01em;
-	}
 </style>
