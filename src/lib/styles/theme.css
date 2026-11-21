@@ -33,6 +33,18 @@
 	--color-danger-bg: #fbecec;
 	--color-danger-border: #de9a9f;
 
+	/* Status chips: a filled label with an icon square at the start */
+	--tag-ok-bg: var(--color-ok-bg);
+	--tag-ok-text: var(--color-ok);
+	--tag-ok-border: var(--color-ok-border);
+	--tag-ok-icon-bg: var(--color-ok);
+	--tag-ok-icon: var(--color-on-accent);
+	--tag-danger-bg: var(--color-danger-bg);
+	--tag-danger-text: var(--color-danger);
+	--tag-danger-border: var(--color-danger-border);
+	--tag-danger-icon-bg: var(--color-danger);
+	--tag-danger-icon: var(--color-on-accent);
+
 	--shadow-raised: 0 2px 8px rgba(21, 24, 28, 0.12);
 	--backdrop: rgba(21, 24, 28, 0.4);
 }
@@ -40,7 +52,7 @@
 :root[data-theme='dark'] {
 	color-scheme: dark;
 
-	--color-bg: #141516;
+	--color-bg: #0e0f10;
 	--color-surface: #1c1e20;
 	--color-text: #ececea;
 	--color-text-secondary: #c9cac7;
@@ -60,11 +72,23 @@
 	--color-toast-pressed: rgba(0, 0, 0, 0.08);
 
 	--color-ok: #8dbfa6;
-	--color-ok-bg: #1e2a24;
-	--color-ok-border: #3a5446;
+	--color-ok-bg: #22302a;
+	--color-ok-border: #426455;
 	--color-danger: #e49a9a;
-	--color-danger-bg: #2e2021;
-	--color-danger-border: #5e3a3b;
+	--color-danger-bg: #3a2627;
+	--color-danger-border: #79484a;
+
+	/* A bright icon square glares on a dark page, so here it's a soft tint one step lighter than the label */
+	--tag-ok-bg: #2b4337;
+	--tag-ok-text: #9fcbb4;
+	--tag-ok-border: #2b4337;
+	--tag-ok-icon-bg: #3b5a4a;
+	--tag-ok-icon: #b5dcc7;
+	--tag-danger-bg: #4d2e30;
+	--tag-danger-text: #efaaaa;
+	--tag-danger-border: #4d2e30;
+	--tag-danger-icon-bg: #683d40;
+	--tag-danger-icon: #f5c0c0;
 
 	--shadow-raised: 0 2px 8px rgba(0, 0, 0, 0.5);
 	--backdrop: rgba(0, 0, 0, 0.6);

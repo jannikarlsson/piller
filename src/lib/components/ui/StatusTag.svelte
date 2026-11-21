@@ -31,15 +31,15 @@
 	}
 
 	.tag--ok {
-		border-color: var(--color-ok-border);
-		background: var(--color-ok-bg);
-		color: var(--color-ok);
+		border-color: var(--tag-ok-border);
+		background: var(--tag-ok-bg);
+		color: var(--tag-ok-text);
 	}
 
 	.tag--danger {
-		border-color: var(--color-danger-border);
-		background: var(--color-danger-bg);
-		color: var(--color-danger);
+		border-color: var(--tag-danger-border);
+		background: var(--tag-danger-bg);
+		color: var(--tag-danger-text);
 	}
 
 	.tag__icon {
@@ -48,15 +48,16 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--color-on-accent);
 	}
 
 	.tag--ok .tag__icon {
-		background: var(--color-ok);
+		background: var(--tag-ok-icon-bg);
+		color: var(--tag-ok-icon);
 	}
 
 	.tag--danger .tag__icon {
-		background: var(--color-danger);
+		background: var(--tag-danger-icon-bg);
+		color: var(--tag-danger-icon);
 	}
 
 	.tag__label {
