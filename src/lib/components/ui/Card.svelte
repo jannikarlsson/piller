@@ -44,7 +44,7 @@
 
 	/* Doubled class so the divider wins over rows that reset their own border (buttons) */
 	.card.card--list > :global(* + *) {
-		border-top: 1px solid var(--color-divider);
+		border-top: 1px solid var(--color-border-light);
 	}
 
 	.card--padding-md {

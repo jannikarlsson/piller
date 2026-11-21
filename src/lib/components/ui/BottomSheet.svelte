@@ -60,7 +60,7 @@
 	.sheet__handle {
 		width: 36px;
 		height: 4px;
-		background: var(--color-handle);
+		background: var(--color-border);
 		border-radius: 2px;
 		margin: 0 auto;
 		flex-shrink: 0;
