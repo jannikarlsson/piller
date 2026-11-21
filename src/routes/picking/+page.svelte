@@ -7,7 +7,7 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
-	import Checkbox from '$lib/components/ui/Checkbox.svelte';
+	import Checkbox from '$lib/components/inputs/Checkbox.svelte';
 	import MedicationInfo from '$lib/components/medication/MedicationInfo.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 

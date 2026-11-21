@@ -9,7 +9,7 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
-	import RadioGroup from '$lib/components/ui/RadioGroup.svelte';
+	import RadioGroup from '$lib/components/inputs/RadioGroup.svelte';
 
 	interface Props {
 		kind: StatusKind;

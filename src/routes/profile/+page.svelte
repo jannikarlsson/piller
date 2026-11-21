@@ -11,10 +11,10 @@
 	import Card from '$lib/components/ui/Card.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
 	import ListItem from '$lib/components/ui/ListItem.svelte';
-	import SwitchItem from '$lib/components/ui/SwitchItem.svelte';
+	import Switch from '$lib/components/inputs/Switch.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
 	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
-	import RadioGroup from '$lib/components/ui/RadioGroup.svelte';
+	import RadioGroup from '$lib/components/inputs/RadioGroup.svelte';
 
 	const user = $derived($userStore);
 
@@ -143,19 +143,19 @@
 
 	<Section title={t.profile.featuresHeading}>
 		<Card list>
-			<SwitchItem
+			<Switch
 				label={t.profile.featurePrescriptions}
 				info={t.profile.featurePrescriptionsDescription}
 				checked={$settingsStore.showPrescriptions}
 				onchange={(on) => setSetting({ showPrescriptions: on })}
 			/>
-			<SwitchItem
+			<Switch
 				label={t.profile.featurePillOrganizer}
 				info={t.profile.featurePillOrganizerDescription}
 				checked={$settingsStore.showPillOrganizer}
 				onchange={handlePillOrganizerSwitch}
 			/>
-			<SwitchItem
+			<Switch
 				label={t.profile.askToAddToTodo}
 				info={t.profile.askToAddToTodoDescription}
 				checked={$settingsStore.askToAddToTodo}

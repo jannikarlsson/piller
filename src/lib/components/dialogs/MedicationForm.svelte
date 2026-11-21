@@ -3,8 +3,8 @@
 	import { t } from '$lib/i18n';
 	import { DEFAULT_MEDICATION_SETTINGS, type MedicationInput } from '$lib/models';
 	import { settingsStore } from '$lib/stores/settings';
-	import Checkbox from '$lib/components/ui/Checkbox.svelte';
-	import TextField from '$lib/components/ui/TextField.svelte';
+	import Checkbox from '$lib/components/inputs/Checkbox.svelte';
+	import TextField from '$lib/components/inputs/TextField.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 

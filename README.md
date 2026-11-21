@@ -41,6 +41,7 @@ First-time setup (Firebase project, sign-in, allowed users) is described in [SET
 - `src/lib/pages/` – page content shared by several routes (Cabinet and Prescriptions use the same page).
 - `src/lib/components/`
   - `ui/` – generic building blocks (button, card, drawer, list rows, icons, …). Nothing here knows about medications.
+  - `inputs/` – controls that hold a value the user changes: checkbox, switch, radio group, text field
   - `medication/` – pieces that show a medication (its name and details, the tappable status row)
   - `dialogs/` – content shown inside a drawer (confirm, reset, the medication form). The page does the saving.
   - `layout/` – page frame, page header and bottom menu
