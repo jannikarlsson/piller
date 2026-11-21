@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { fade, fly } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 	import { t } from '$lib/i18n';
 	import Icon from './Icon.svelte';
 	import Button from './Button.svelte';
@@ -14,6 +16,12 @@
 
 	const titleId = $props.id();
 
+	const reduceMotion =
+		typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const slideIn = { y: '100%', duration: reduceMotion ? 0 : 260, easing: cubicOut, opacity: 1 };
+	const slideOut = { y: '100%', duration: reduceMotion ? 0 : 180, opacity: 1 };
+	const backdrop = { duration: reduceMotion ? 0 : 200 };
+
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') onclose();
 	}
@@ -21,8 +29,20 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<div class="sheet-backdrop" onclick={onclose} role="presentation"></div>
-<div class="sheet" role="dialog" aria-modal="true" aria-labelledby={titleId}>
+<div
+	class="sheet-backdrop"
+	onclick={onclose}
+	role="presentation"
+	transition:fade|global={backdrop}
+></div>
+<div
+	class="sheet"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby={titleId}
+	in:fly|global={slideIn}
+	out:fly|global={slideOut}
+>
 	<div class="sheet__handle" aria-hidden="true"></div>
 	<div class="sheet__header">
 		<h2 class="text-title" id={titleId}>{title}</h2>

@@ -4,7 +4,7 @@
 	import { medicationsStore } from '$lib/stores/medications';
 	import { showToast, withErrorToast } from '$lib/stores/toast';
 	import { settingsStore, updateSettings } from '$lib/stores/settings';
-	import { resetAllStatuses, signOutUser } from '$lib/firebase';
+	import { resetAllStatuses, resetPicked, signOutUser } from '$lib/firebase';
 	import type { ThemeSetting, UserSettings } from '$lib/models';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
@@ -58,6 +58,12 @@
 	function handleTheme(theme: ThemeSetting) {
 		openDrawer = null;
 		setSetting({ theme });
+	}
+
+	// The ticks only matter while filling the organizer, so switching it off clears them
+	function handlePillOrganizerSwitch(on: boolean) {
+		setSetting({ showPillOrganizer: on });
+		if (!on) withErrorToast(() => resetPicked(), t.errors.resetFailed);
 	}
 
 	async function handleResetAll() {
@@ -122,7 +128,7 @@
 				label={t.profile.featurePillOrganizer}
 				description={t.profile.featurePillOrganizerDescription}
 				checked={$settingsStore.showPillOrganizer}
-				onchange={(on) => setSetting({ showPillOrganizer: on })}
+				onchange={handlePillOrganizerSwitch}
 			/>
 		</Card>
 	</Section>
