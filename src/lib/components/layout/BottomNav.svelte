@@ -74,6 +74,16 @@
 		font-weight: 500;
 	}
 
+	/* The link fills the column; show the focus ring around the visible box instead */
+	.nav-item:focus-visible {
+		outline: none;
+	}
+
+	.nav-item:focus-visible .nav-item__box {
+		outline: var(--focus-outline);
+		outline-offset: 0;
+	}
+
 	.nav-item--active .nav-item__box {
 		background: var(--color-accent-tint);
 		color: var(--color-accent-hover);

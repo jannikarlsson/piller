@@ -71,9 +71,12 @@
 			border-color var(--transition-fast);
 	}
 
-	input:focus-visible + .checkbox__box {
-		outline: 2px solid var(--color-accent);
-		outline-offset: 2px;
+	/* Rows fill a card that clips anything outside it, so the focus ring sits inside the row,
+	   rounded like the card so its corners aren't cut off in the first and last row */
+	.checkbox:has(input:focus-visible) {
+		outline: var(--focus-outline);
+		outline-offset: -2px;
+		border-radius: var(--radius-row-focus);
 	}
 
 	.checkbox--checked .checkbox__box {

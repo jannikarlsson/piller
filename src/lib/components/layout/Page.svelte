@@ -26,7 +26,7 @@
 	}: Props = $props();
 </script>
 
-<div class="page" class:page--floating-button={floatingButton}>
+<main class="page" class:page--floating-button={floatingButton}>
 	<PageHeader {title} {actions} {back} />
 	<div class="page__body">
 		{#if loading}
@@ -35,7 +35,7 @@
 			{@render children()}
 		{/if}
 	</div>
-</div>
+</main>
 
 <style>
 	.page {

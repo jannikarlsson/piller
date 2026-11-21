@@ -22,7 +22,7 @@
 	}
 </script>
 
-<div class="login-page">
+<main class="login-page">
 	<div class="hero">
 		<CabinetIllustration />
 	</div>
@@ -53,7 +53,7 @@
 			</Button>
 		</div>
 	</div>
-</div>
+</main>
 
 <style>
 	.login-page {

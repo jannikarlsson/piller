@@ -76,6 +76,18 @@
 		background: var(--color-accent-soft);
 	}
 
+	/* Rows fill a card that clips anything outside it, so the focus ring sits inside the row,
+	   rounded like the card so its corners aren't cut off in the first and last row */
+	.option:has(input:focus-visible) {
+		outline: var(--focus-outline);
+		outline-offset: -2px;
+		border-radius: var(--radius-row-focus);
+	}
+
+	.option input:focus-visible {
+		outline: none;
+	}
+
 	.option--disabled {
 		cursor: not-allowed;
 		opacity: 0.5;
