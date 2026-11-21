@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
 	import { statusOf, type Medication, type StatusKind } from '$lib/models';
-	import StatusTag from './StatusTag.svelte';
+	import StatusTag from '$lib/components/ui/StatusTag.svelte';
 	import MedicationInfo from './MedicationInfo.svelte';
 
 	interface Props {

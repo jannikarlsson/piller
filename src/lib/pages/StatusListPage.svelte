@@ -15,7 +15,7 @@
 		type StatusKind
 	} from '$lib/models';
 	import Page from '$lib/components/layout/Page.svelte';
-	import MedicationTile from '$lib/components/ui/MedicationTile.svelte';
+	import MedicationTile from '$lib/components/medication/MedicationTile.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';

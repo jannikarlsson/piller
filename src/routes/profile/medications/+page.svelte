@@ -4,11 +4,11 @@
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { addMedication, updateMedication, deleteMedication } from '$lib/firebase';
 	import type { Medication, MedicationInput } from '$lib/models';
-	import MedicationForm from '$lib/components/forms/MedicationForm.svelte';
+	import MedicationForm from '$lib/components/dialogs/MedicationForm.svelte';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
-	import MedicationInfo from '$lib/components/ui/MedicationInfo.svelte';
+	import MedicationInfo from '$lib/components/medication/MedicationInfo.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import Icon from '$lib/components/ui/Icon.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
