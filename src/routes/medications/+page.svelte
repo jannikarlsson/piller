@@ -101,7 +101,7 @@
 			expanded={showSettings}
 			onclick={() => (showSettings = !showSettings)}
 		>
-			<Icon name="settings" size={22} />
+			<Icon name="settings" />
 		</Button>
 	{/snippet}
 
@@ -140,7 +140,7 @@
 						ariaLabel="{t.common.edit} {med.name}"
 						onclick={() => openSheet({ mode: 'edit', med })}
 					>
-						<Icon name="edit" size={20} />
+						<Icon name="edit" />
 					</Button>
 				</li>
 			{/each}
@@ -149,7 +149,7 @@
 
 	<div class="add-btn">
 		<Button floating onclick={() => openSheet({ mode: 'add' })}>
-			<Icon name="plus" size={20} strokeWidth={2} />
+			<Icon name="plus" />
 			{t.common.add}
 		</Button>
 	</div>

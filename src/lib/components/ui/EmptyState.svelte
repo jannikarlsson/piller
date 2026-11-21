@@ -14,7 +14,7 @@
 </script>
 
 <div class="empty">
-	<span class="empty__icon"><Icon name={icon} size={32} /></span>
+	<span class="empty__icon"><Icon name={icon} size="xl" /></span>
 	<p>{message}</p>
 	{#if actionLabel && actionHref}
 		<span class="empty__action">

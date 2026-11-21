@@ -16,21 +16,26 @@
 <script lang="ts">
 	interface Props {
 		name: IconName;
-		size?: number;
-		strokeWidth?: number;
+		/** sm 16px (inside tags and checkboxes), md 20px (in buttons), lg 24px (menu), xl 32px (empty states) */
+		size?: 'sm' | 'md' | 'lg' | 'xl';
+		/** `bold` for small marks like ticks and crosses that need to stay legible */
+		weight?: 'regular' | 'bold';
 	}
 
-	let { name, size = 24, strokeWidth = 1.75 }: Props = $props();
+	let { name, size = 'md', weight = 'regular' }: Props = $props();
+
+	const PIXELS = { sm: 16, md: 20, lg: 24, xl: 32 } as const;
+	const STROKE = { regular: 1.75, bold: 2.25 } as const;
 </script>
 
 <svg
 	aria-hidden="true"
-	width={size}
-	height={size}
+	width={PIXELS[size]}
+	height={PIXELS[size]}
 	viewBox="0 0 24 24"
 	fill="none"
 	stroke="currentColor"
-	stroke-width={strokeWidth}
+	stroke-width={STROKE[weight]}
 	stroke-linecap="round"
 	stroke-linejoin="round"
 >

@@ -91,7 +91,7 @@
 <Page title={t.actions.title} subtitle={t.actions.subtitle} {loading}>
 	{#if allGood}
 		<div class="all-good">
-			<span class="all-good__icon"><Icon name="check" size={28} strokeWidth={2.25} /></span>
+			<span class="all-good__icon"><Icon name="check" size="lg" weight="bold" /></span>
 			<p class="text-title">{t.actions.allGood}</p>
 			<p class="all-good__sub text-meta">{t.actions.allGoodSub}</p>
 		</div>

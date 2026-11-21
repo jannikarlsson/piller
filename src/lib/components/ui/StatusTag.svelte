@@ -11,7 +11,7 @@
 
 <span class="tag tag--{tone}">
 	<span class="tag__icon">
-		<Icon name={tone === 'ok' ? 'check' : 'close'} size={15} strokeWidth={2.5} />
+		<Icon name={tone === 'ok' ? 'check' : 'close'} size="sm" weight="bold" />
 	</span>
 	<span class="tag__label">{label}</span>
 </span>

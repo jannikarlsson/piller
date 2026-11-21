@@ -46,7 +46,7 @@
 				disabled={pickedCount === 0}
 				onclick={handleReset}
 			>
-				<Icon name="reset" size={18} />
+				<Icon name="reset" />
 				{t.picking.resetButton}
 			</Button>
 		{/if}
@@ -70,7 +70,7 @@
 		<div class="checklist">
 			<p class="progress text-label" class:progress--done={allPicked} aria-live="polite">
 				{#if allPicked}
-					<Icon name="check" size={16} strokeWidth={2.25} />
+					<Icon name="check" size="sm" weight="bold" />
 					{t.picking.allDone}
 				{:else}
 					{t.picking.progress(pickedCount, medications.length)}

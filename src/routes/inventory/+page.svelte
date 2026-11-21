@@ -62,7 +62,7 @@
 				disabled={!hasStatuses}
 				onclick={() => (showReset = true)}
 			>
-				<Icon name="reset" size={18} />
+				<Icon name="reset" />
 				{t.inventory.resetButton}
 			</Button>
 		{/if}

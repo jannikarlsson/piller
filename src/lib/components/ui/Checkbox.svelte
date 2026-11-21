@@ -26,7 +26,7 @@
 	/>
 	<span class="checkbox__box" aria-hidden="true">
 		{#if checked}
-			<Icon name="check" size={16} strokeWidth={2.5} />
+			<Icon name="check" size="sm" weight="bold" />
 		{/if}
 	</span>
 	<span class="checkbox__content">

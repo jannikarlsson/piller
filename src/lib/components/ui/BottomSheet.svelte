@@ -27,7 +27,7 @@
 	<div class="sheet__header">
 		<h2 class="text-title" id={titleId}>{title}</h2>
 		<Button variant="quiet" size="icon" ariaLabel={t.common.close} onclick={onclose}>
-			<Icon name="close" size={20} />
+			<Icon name="close" />
 		</Button>
 	</div>
 	{@render children()}

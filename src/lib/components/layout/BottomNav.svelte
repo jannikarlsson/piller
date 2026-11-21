@@ -21,7 +21,7 @@
 			class:nav-item--active={active}
 			aria-current={active ? 'page' : undefined}
 		>
-			<Icon name={link.icon} />
+			<Icon name={link.icon} size="lg" />
 			<span class="nav-item__label">{link.label}</span>
 		</a>
 	{/each}
