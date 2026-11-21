@@ -4,6 +4,5 @@
 		"sourceMap": true,
 		"strict": true
 	},
-	"include": ["src", "test", "*"],
-	"exclude": ["src/service-worker"]
+	"include": ["src", "*"]
 }
