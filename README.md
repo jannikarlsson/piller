@@ -10,6 +10,10 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/jannikarlsson/piller/actions/workflows/ci.yml"><img src="https://github.com/jannikarlsson/piller/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+</p>
+
+<p align="center">
   <img src="docs/screenshots/login.png" alt="The sign-in screen with an illustrated medicine cabinet" width="190">
   <img src="docs/screenshots/cabinet.png" alt="The cabinet list, with medications marked At home or Out" width="190">
   <img src="docs/screenshots/prescriptions.png" alt="The prescriptions list, with medications marked Active or None" width="190">
