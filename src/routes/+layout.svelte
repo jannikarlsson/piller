@@ -7,14 +7,8 @@
 	import { page } from '$app/state';
 	import { initAuth, userStore, authStateStore } from '$lib/stores/auth';
 	import { startMedicationsSync, stopMedicationsSync } from '$lib/stores/medications';
-	import {
-		settingsStore,
-		startSettingsSync,
-		stopSettingsSync,
-		isFeatureOn,
-		FEATURE_ROUTES,
-		type Feature
-	} from '$lib/stores/settings';
+	import { settingsStore, startSettingsSync, stopSettingsSync } from '$lib/stores/settings';
+	import { isPathOff, HOME_PATH } from '$lib/navigation';
 	import BottomNav from '$lib/components/layout/BottomNav.svelte';
 	import Toast from '$lib/components/ui/Toast.svelte';
 	import { toastMessage } from '$lib/stores/toast';
@@ -35,7 +29,7 @@
 		if (state === 'unauthenticated' && path !== '/login') {
 			goto('/login');
 		} else if (state === 'authenticated' && path === '/login') {
-			goto('/inventory');
+			goto(HOME_PATH);
 		}
 	});
 
@@ -65,13 +59,7 @@
 
 	// A switched-off feature's page isn't reachable: go to the cabinet instead
 	$effect(() => {
-		const path = page.url.pathname;
-		const off = (Object.keys(FEATURE_ROUTES) as Feature[]).some(
-			(feature) =>
-				!isFeatureOn($settingsStore, feature) &&
-				(path === FEATURE_ROUTES[feature] || path.startsWith(`${FEATURE_ROUTES[feature]}/`))
-		);
-		if (off) goto('/inventory', { replaceState: true });
+		if (isPathOff(page.url.pathname, $settingsStore)) goto(HOME_PATH, { replaceState: true });
 	});
 
 	// Switch all texts to the chosen language before the page updates

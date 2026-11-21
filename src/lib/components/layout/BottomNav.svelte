@@ -2,29 +2,17 @@
 	import { page } from '$app/state';
 	import { t } from '$lib/i18n';
 	import { userStore } from '$lib/stores/auth';
-	import { settingsStore, isFeatureOn, type Feature } from '$lib/stores/settings';
-	import Icon, { type IconName } from '$lib/components/ui/Icon.svelte';
+	import { settingsStore } from '$lib/stores/settings';
+	import { NAV_LINKS, isLinkVisible, isUnder } from '$lib/navigation';
+	import Icon from '$lib/components/ui/Icon.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
 
-	// `icon: null` shows the user's photo. Labels are keys, looked up when shown so they follow the language.
-	type Link = { href: string; label: keyof typeof t.nav; icon: IconName | null; feature?: Feature };
-	const links: Link[] = [
-		{ href: '/inventory', label: 'inventory', icon: 'cabinet' },
-		{ href: '/prescription', label: 'prescription', icon: 'prescription', feature: 'prescriptions' },
-		{ href: '/picking', label: 'picking', icon: 'organizer', feature: 'pillOrganizer' },
-		{ href: '/actions', label: 'actions', icon: 'checklist' },
-		{ href: '/profile', label: 'profile', icon: null }
-	];
-
-	const visibleLinks = $derived(
-		links.filter((link) => !link.feature || isFeatureOn($settingsStore, link.feature))
-	);
+	const visibleLinks = $derived(NAV_LINKS.filter((link) => isLinkVisible(link, $settingsStore)));
 </script>
 
 <nav class="bottom-nav" aria-label={t.common.mainMenu}>
 	{#each visibleLinks as link (link.href)}
-		{@const active =
-			page.url.pathname === link.href || page.url.pathname.startsWith(`${link.href}/`)}
+		{@const active = isUnder(page.url.pathname, link.href)}
 		<a
 			href={link.href}
 			class="nav-item"

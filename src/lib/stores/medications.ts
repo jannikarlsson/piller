@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { Medication } from '$lib/firebase';
+import type { Medication } from '$lib/models';
 
 export const medicationsStore = writable<Medication[]>([]);
 export const medicationsLoading = writable(true);

@@ -1,40 +1,7 @@
 import { doc, getDocs, updateDoc, writeBatch, serverTimestamp } from 'firebase/firestore';
 import { db } from './app';
-import { medicationsRef, type Medication, type TileState } from './medications';
-
-/** The two kinds of status a medication has: in the cabinet, and its prescription. */
-export type StatusKind = 'inventory' | 'prescription';
-
-const STATUS_FIELDS = {
-	inventory: { state: 'inventoryState', addedToTodo: 'addedToBuyList', remind: 'remindToBuy' },
-	prescription: {
-		state: 'prescriptionState',
-		addedToTodo: 'addedToPrescriptionList',
-		remind: 'remindPrescription'
-	}
-} as const satisfies Record<
-	StatusKind,
-	{ state: keyof Medication; addedToTodo: keyof Medication; remind: keyof Medication }
->;
-
-export function statusOf(med: Medication, kind: StatusKind): TileState {
-	return med[STATUS_FIELDS[kind].state];
-}
-
-export function isAddedToTodo(med: Medication, kind: StatusKind): boolean {
-	return med[STATUS_FIELDS[kind].addedToTodo];
-}
-
-export function remindsAutomatically(med: Medication, kind: StatusKind): boolean {
-	return med[STATUS_FIELDS[kind].remind];
-}
-
-/** Belongs on the to-do list: out, and either reminded automatically or added by hand. */
-export function needsAction(med: Medication, kind: StatusKind): boolean {
-	return (
-		statusOf(med, kind) === 'out' && (remindsAutomatically(med, kind) || isAddedToTodo(med, kind))
-	);
-}
+import { STATUS_FIELDS, type StatusKind, type TileState } from '../models';
+import { medicationsRef } from './medications';
 
 /**
  * Change a status. A manual to-do flag only makes sense while the status is "out",
@@ -124,10 +91,4 @@ export async function resetAllStates(userId: string): Promise<void> {
 		batch.update(d.ref, update);
 	});
 	await batch.commit();
-}
-
-export function nextTileState(current: TileState): TileState {
-	if (current === 'neutral') return 'available';
-	if (current === 'available') return 'out';
-	return 'neutral';
 }

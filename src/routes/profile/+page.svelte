@@ -4,12 +4,8 @@
 	import { medicationsStore } from '$lib/stores/medications';
 	import { showToast, withErrorToast } from '$lib/stores/toast';
 	import { settingsStore, updateSettings } from '$lib/stores/settings';
-	import {
-		resetAllStates,
-		signOutUser,
-		type ThemeSetting,
-		type UserSettings
-	} from '$lib/firebase';
+	import { resetAllStates, signOutUser } from '$lib/firebase';
+	import type { ThemeSetting, UserSettings } from '$lib/models';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
 	import Card from '$lib/components/ui/Card.svelte';

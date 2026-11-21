@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store';
-import { DEFAULT_SETTINGS, type UserSettings } from '$lib/firebase';
+import { DEFAULT_SETTINGS, type UserSettings } from '$lib/models';
 
 /*
  * The user's settings, synced with Firestore. A copy is kept in the browser so that
@@ -60,16 +60,4 @@ export async function updateSettings(changes: Partial<UserSettings>) {
 	if (!userId) return;
 	const { saveSettings } = await import('$lib/firebase');
 	await saveSettings(userId, changes);
-}
-
-export type Feature = 'prescriptions' | 'pillOrganizer';
-
-/** The page that belongs to each optional feature (hidden from the menu when it's off). */
-export const FEATURE_ROUTES: Record<Feature, string> = {
-	prescriptions: '/prescription',
-	pillOrganizer: '/picking'
-};
-
-export function isFeatureOn(settings: UserSettings, feature: Feature): boolean {
-	return feature === 'prescriptions' ? settings.showPrescriptions : settings.showPillOrganizer;
 }

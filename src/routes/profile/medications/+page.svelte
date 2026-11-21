@@ -3,13 +3,8 @@
 	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
-	import {
-		addMedication,
-		updateMedication,
-		deleteMedication,
-		type Medication,
-		type MedicationInput
-	} from '$lib/firebase';
+	import { addMedication, updateMedication, deleteMedication } from '$lib/firebase';
+	import type { Medication, MedicationInput } from '$lib/models';
 	import MedicationForm from '$lib/components/forms/MedicationForm.svelte';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Button from '$lib/components/ui/Button.svelte';

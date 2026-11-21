@@ -4,7 +4,7 @@
 	- inline: name and strength on one line, for checklists; `done` strikes the name through.
 -->
 <script lang="ts">
-	import type { Medication } from '$lib/firebase';
+	import type { Medication } from '$lib/models';
 
 	interface Props {
 		medication: Pick<Medication, 'name' | 'concentration' | 'alternativeNames'>;

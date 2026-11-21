@@ -7,16 +7,14 @@
 	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
+	import { updateTileState, resetStates, setAddedToTodo } from '$lib/firebase';
 	import {
-		updateTileState,
 		nextTileState,
-		resetStates,
-		setAddedToTodo,
 		statusOf,
 		remindsAutomatically,
 		type Medication,
 		type StatusKind
-	} from '$lib/firebase';
+	} from '$lib/models';
 	import Page from '$lib/components/layout/Page.svelte';
 	import MedicationTile from '$lib/components/ui/MedicationTile.svelte';
 	import Button from '$lib/components/ui/Button.svelte';

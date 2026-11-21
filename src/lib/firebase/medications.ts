@@ -9,43 +9,8 @@ import {
 	query,
 	orderBy
 } from 'firebase/firestore';
+import { DEFAULT_MEDICATION_SETTINGS, type Medication, type MedicationInput } from '../models';
 import { db } from './app';
-
-export type TileState = 'neutral' | 'available' | 'out';
-
-export interface MedicationSettings {
-	remindToBuy: boolean;
-	remindPrescription: boolean;
-	inPillOrganizer: boolean;
-}
-
-export const DEFAULT_MEDICATION_SETTINGS: MedicationSettings = {
-	remindToBuy: true,
-	remindPrescription: true,
-	inPillOrganizer: true
-};
-
-export interface Medication extends MedicationSettings {
-	id: string;
-	name: string;
-	concentration: string;
-	alternativeNames: string[];
-	inventoryState: TileState;
-	prescriptionState: TileState;
-	picked: boolean;
-	/** Added to the buy list by hand (for medications without the automatic buy reminder). */
-	addedToBuyList: boolean;
-	/** Added to the prescription list by hand (without the automatic prescription reminder). */
-	addedToPrescriptionList: boolean;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface MedicationInput extends MedicationSettings {
-	name: string;
-	concentration: string;
-	alternativeNames: string[];
-}
 
 export function medicationsRef(userId: string) {
 	return collection(db, 'users', userId, 'medications');

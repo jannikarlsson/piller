@@ -4,14 +4,14 @@
 	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
 	import { settingsStore } from '$lib/stores/settings';
+	import { updateTileState } from '$lib/firebase';
 	import {
-		updateTileState,
 		statusOf,
 		isAddedToTodo,
 		needsAction,
 		type Medication,
 		type StatusKind
-	} from '$lib/firebase';
+	} from '$lib/models';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import MedicationInfo from '$lib/components/ui/MedicationInfo.svelte';

@@ -5,7 +5,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { t } from '$lib/i18n';
-	import { statusOf, type Medication, type StatusKind } from '$lib/firebase';
+	import { statusOf, type Medication, type StatusKind } from '$lib/models';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';

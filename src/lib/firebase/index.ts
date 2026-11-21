@@ -1,16 +1,6 @@
-// Everything the app uses from Firebase. `db` and `medicationsRef` stay inside this folder.
+// Reads and writes. The types and rules they use live in $lib/models.
 export { auth } from './app';
 export * from './auth';
-export {
-	DEFAULT_MEDICATION_SETTINGS,
-	subscribeMedications,
-	addMedication,
-	updateMedication,
-	deleteMedication,
-	type TileState,
-	type MedicationSettings,
-	type Medication,
-	type MedicationInput
-} from './medications';
+export { subscribeMedications, addMedication, updateMedication, deleteMedication } from './medications';
 export * from './statuses';
 export * from './settings';
