@@ -27,14 +27,14 @@ export const sv = {
 		cancel: 'Avbryt',
 		edit: 'Redigera',
 		add: 'Lägg till',
-		mainMenu: 'Huvudmeny'
+		mainMenu: 'Huvudmeny',
+		noMedications: 'Inga läkemedel tillagda än.',
+		addMedication: 'Lägg till läkemedel'
 	},
 
 	inventory: {
 		title: 'Skåpet',
 		subtitle: 'Vad finns hemma?',
-		empty: 'Inga läkemedel tillagda än.',
-		emptyAction: 'Lägg till läkemedel',
 		resetButton: 'Återställ',
 		resetLabel: 'Återställ statusar i skåpet'
 	},
@@ -42,8 +42,6 @@ export const sv = {
 	prescription: {
 		title: 'Recept',
 		subtitle: 'Aktiva recept',
-		empty: 'Inga läkemedel tillagda än.',
-		emptyAction: 'Lägg till läkemedel',
 		resetButton: 'Återställ',
 		resetLabel: 'Återställ receptstatusar'
 	},
@@ -51,8 +49,6 @@ export const sv = {
 	picking: {
 		title: 'Plocka',
 		subtitle: 'Fyll dosetten',
-		empty: 'Inga läkemedel tillagda än.',
-		emptyAction: 'Lägg till läkemedel',
 		progress: (done: number, total: number) => `${done} av ${total} plockade`,
 		emptyNoneInOrganizer: 'Inga läkemedel ingår i dosetten. Du kan ändra det under Läkemedel.',
 		emptyNoneInOrganizerAction: 'Gå till Läkemedel',
@@ -129,7 +125,7 @@ export const sv = {
 		deleteConfirmButton: 'Ta bort'
 	},
 
-	tileStates: {
+	statuses: {
 		inventory: { available: 'Hemma', out: 'Slut' },
 		prescription: { available: 'Aktivt', out: 'Inget recept' }
 	},

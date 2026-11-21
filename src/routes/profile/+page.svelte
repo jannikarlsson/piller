@@ -4,7 +4,7 @@
 	import { medicationsStore } from '$lib/stores/medications';
 	import { showToast, withErrorToast } from '$lib/stores/toast';
 	import { settingsStore, updateSettings } from '$lib/stores/settings';
-	import { resetAllStates, signOutUser } from '$lib/firebase';
+	import { resetAllStatuses, signOutUser } from '$lib/firebase';
 	import type { ThemeSetting, UserSettings } from '$lib/models';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
@@ -62,7 +62,7 @@
 
 	async function handleResetAll() {
 		if (!user) return;
-		await resetAllStates(user.uid);
+		await resetAllStatuses(user.uid);
 		openDrawer = null;
 		showToast(t.profile.resetAllSuccess);
 	}

@@ -7,9 +7,9 @@
 	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
-	import { updateTileState, resetStates, setAddedToTodo } from '$lib/firebase';
+	import { updateStatus, resetStatuses, setAddedToTodo } from '$lib/firebase';
 	import {
-		nextTileState,
+		nextStatus,
 		statusOf,
 		remindsAutomatically,
 		type Medication,
@@ -45,8 +45,8 @@
 		if (!user) return;
 		const med = medications.find((m) => m.id === id);
 		if (!med) return;
-		const next = nextTileState(statusOf(med, kind));
-		const saved = await withErrorToast(() => updateTileState(user.uid, id, kind, next));
+		const next = nextStatus(statusOf(med, kind));
+		const saved = await withErrorToast(() => updateStatus(user.uid, id, kind, next));
 		if (!saved) return;
 		// Without the automatic reminder, offer to add it to the to-do list by hand
 		if (next === 'out' && !remindsAutomatically(med, kind)) todoPromptFor = med;
@@ -55,7 +55,7 @@
 	async function handleReset(onlyOut: boolean) {
 		const user = $userStore;
 		if (!user) return;
-		await resetStates(user.uid, kind, onlyOut);
+		await resetStatuses(user.uid, kind, onlyOut);
 		showReset = false;
 	}
 
@@ -86,8 +86,8 @@
 	{#if medications.length === 0}
 		<EmptyState
 			icon={EMPTY_ICON[kind]}
-			message={text.empty}
-			actionLabel={text.emptyAction}
+			message={t.common.noMedications}
+			actionLabel={t.common.addMedication}
 			actionHref="/profile/medications"
 		/>
 	{:else}

@@ -4,7 +4,7 @@
 	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
 	import { settingsStore } from '$lib/stores/settings';
-	import { updateTileState } from '$lib/firebase';
+	import { updateStatus } from '$lib/firebase';
 	import {
 		statusOf,
 		isAddedToTodo,
@@ -64,8 +64,8 @@
 		done = checked ? [...done, key] : done.filter((k) => k !== key);
 		const saved = await withErrorToast(() =>
 			checked
-				? updateTileState(user.uid, med.id, kind, 'neutral')
-				: updateTileState(user.uid, med.id, kind, 'out', addedByHand.get(key) ?? false)
+				? updateStatus(user.uid, med.id, kind, 'neutral')
+				: updateStatus(user.uid, med.id, kind, 'out', addedByHand.get(key) ?? false)
 		);
 		if (!saved) done = previous;
 	}

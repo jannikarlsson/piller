@@ -1,4 +1,4 @@
-export type TileState = 'neutral' | 'available' | 'out';
+export type Status = 'neutral' | 'available' | 'out';
 
 export interface MedicationSettings {
 	remindToBuy: boolean;
@@ -17,8 +17,8 @@ export interface Medication extends MedicationSettings {
 	name: string;
 	concentration: string;
 	alternativeNames: string[];
-	inventoryState: TileState;
-	prescriptionState: TileState;
+	inventoryState: Status;
+	prescriptionState: Status;
 	picked: boolean;
 	/** Added to the buy list by hand (for medications without the automatic buy reminder). */
 	addedToBuyList: boolean;
@@ -38,19 +38,19 @@ export interface MedicationInput extends MedicationSettings {
 export type StatusKind = 'inventory' | 'prescription';
 
 export const STATUS_FIELDS = {
-	inventory: { state: 'inventoryState', addedToTodo: 'addedToBuyList', remind: 'remindToBuy' },
+	inventory: { status: 'inventoryState', addedToTodo: 'addedToBuyList', remind: 'remindToBuy' },
 	prescription: {
-		state: 'prescriptionState',
+		status: 'prescriptionState',
 		addedToTodo: 'addedToPrescriptionList',
 		remind: 'remindPrescription'
 	}
 } as const satisfies Record<
 	StatusKind,
-	{ state: keyof Medication; addedToTodo: keyof Medication; remind: keyof Medication }
+	{ status: keyof Medication; addedToTodo: keyof Medication; remind: keyof Medication }
 >;
 
-export function statusOf(med: Medication, kind: StatusKind): TileState {
-	return med[STATUS_FIELDS[kind].state];
+export function statusOf(med: Medication, kind: StatusKind): Status {
+	return med[STATUS_FIELDS[kind].status];
 }
 
 export function isAddedToTodo(med: Medication, kind: StatusKind): boolean {
@@ -68,7 +68,7 @@ export function needsAction(med: Medication, kind: StatusKind): boolean {
 	);
 }
 
-export function nextTileState(current: TileState): TileState {
+export function nextStatus(current: Status): Status {
 	if (current === 'neutral') return 'available';
 	if (current === 'available') return 'out';
 	return 'neutral';

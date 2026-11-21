@@ -29,14 +29,14 @@ export const en: Translations = {
 		cancel: 'Cancel',
 		edit: 'Edit',
 		add: 'Add',
-		mainMenu: 'Main menu'
+		mainMenu: 'Main menu',
+		noMedications: 'No medications added yet.',
+		addMedication: 'Add medication'
 	},
 
 	inventory: {
 		title: 'Cabinet',
 		subtitle: 'What do you have at home?',
-		empty: 'No medications added yet.',
-		emptyAction: 'Add medication',
 		resetButton: 'Reset',
 		resetLabel: 'Reset cabinet statuses'
 	},
@@ -44,8 +44,6 @@ export const en: Translations = {
 	prescription: {
 		title: 'Prescriptions',
 		subtitle: 'Active prescriptions',
-		empty: 'No medications added yet.',
-		emptyAction: 'Add medication',
 		resetButton: 'Reset',
 		resetLabel: 'Reset prescription statuses'
 	},
@@ -53,8 +51,6 @@ export const en: Translations = {
 	picking: {
 		title: 'Pill organizer',
 		subtitle: 'Fill your pill organizer',
-		empty: 'No medications added yet.',
-		emptyAction: 'Add medication',
 		progress: (done: number, total: number) => `${done} of ${total} picked`,
 		emptyNoneInOrganizer:
 			'No medications are part of your pill organizer. You can change that under Medications.',
@@ -131,7 +127,7 @@ export const en: Translations = {
 		deleteConfirmButton: 'Delete'
 	},
 
-	tileStates: {
+	statuses: {
 		inventory: { available: 'At home', out: 'Out' },
 		prescription: { available: 'Active', out: 'None' }
 	},

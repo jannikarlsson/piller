@@ -12,13 +12,13 @@
 
 	let { medication, kind, ontap }: Props = $props();
 
-	const state = $derived(statusOf(medication, kind));
+	const status = $derived(statusOf(medication, kind));
 </script>
 
 <button type="button" class="tile" onclick={() => ontap(medication.id)}>
 	<MedicationInfo {medication} />
-	{#if state !== 'neutral'}
-		<StatusTag tone={state === 'available' ? 'ok' : 'danger'} label={t.tileStates[kind][state]} />
+	{#if status !== 'neutral'}
+		<StatusTag tone={status === 'available' ? 'ok' : 'danger'} label={t.statuses[kind][status]} />
 	{/if}
 </button>
 

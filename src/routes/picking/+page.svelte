@@ -49,8 +49,8 @@
 	{#if $medicationsStore.length === 0}
 		<EmptyState
 			icon="organizer"
-			message={t.picking.empty}
-			actionLabel={t.picking.emptyAction}
+			message={t.common.noMedications}
+			actionLabel={t.common.addMedication}
 			actionHref="/profile/medications"
 		/>
 	{:else if medications.length === 0}
