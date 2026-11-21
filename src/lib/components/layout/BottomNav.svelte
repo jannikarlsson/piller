@@ -2,22 +2,29 @@
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n';
 	import { userStore } from '$lib/stores/auth';
+	import { settingsStore, isFeatureOn, type Feature } from '$lib/stores/settings';
 	import Icon, { type IconName } from '$lib/components/ui/Icon.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
 
 	// `icon: null` shows the user's photo instead (the Profil tab).
 	// Labels are looked up when shown, so they follow the current language.
-	const links: { href: string; label: keyof typeof t.nav; icon: IconName | null }[] = [
+	// Tabs with a `feature` are hidden when the user has turned that feature off.
+	type Link = { href: string; label: keyof typeof t.nav; icon: IconName | null; feature?: Feature };
+	const links: Link[] = [
 		{ href: '/inventory', label: 'inventory', icon: 'cabinet' },
-		{ href: '/prescription', label: 'prescription', icon: 'prescription' },
-		{ href: '/picking', label: 'picking', icon: 'organizer' },
+		{ href: '/prescription', label: 'prescription', icon: 'prescription', feature: 'prescriptions' },
+		{ href: '/picking', label: 'picking', icon: 'organizer', feature: 'pillOrganizer' },
 		{ href: '/actions', label: 'actions', icon: 'checklist' },
 		{ href: '/profile', label: 'profile', icon: null }
 	];
+
+	const visibleLinks = $derived(
+		links.filter((link) => !link.feature || isFeatureOn($settingsStore, link.feature))
+	);
 </script>
 
 <nav class="bottom-nav" aria-label={t.common.mainMenu}>
-	{#each links as link}
+	{#each visibleLinks as link (link.href)}
 		<!-- Sub-pages (e.g. /profile/medications) keep their parent tab highlighted -->
 		{@const active =
 			$page.url.pathname === link.href || $page.url.pathname.startsWith(`${link.href}/`)}

@@ -61,3 +61,17 @@ export async function updateSettings(changes: Partial<UserSettings>) {
 	const { saveSettings } = await import('$lib/firebase');
 	await saveSettings(userId, changes);
 }
+
+// ─── Optional features ────────────────────────────────────────────────────────
+
+export type Feature = 'prescriptions' | 'pillOrganizer';
+
+/** The page that belongs to each optional feature (hidden from the menu when it's off). */
+export const FEATURE_ROUTES: Record<Feature, string> = {
+	prescriptions: '/prescription',
+	pillOrganizer: '/picking'
+};
+
+export function isFeatureOn(settings: UserSettings, feature: Feature): boolean {
+	return feature === 'prescriptions' ? settings.showPrescriptions : settings.showPillOrganizer;
+}

@@ -4,12 +4,18 @@
 	import { medicationsStore } from '$lib/stores/medications';
 	import { showToast, withErrorToast } from '$lib/stores/toast';
 	import { settingsStore, updateSettings } from '$lib/stores/settings';
-	import { resetAllStates, signOutUser, type ThemeSetting } from '$lib/firebase';
+	import {
+		resetAllStates,
+		signOutUser,
+		type ThemeSetting,
+		type UserSettings
+	} from '$lib/firebase';
 	import Page from '$lib/components/layout/Page.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
 	import ListItem from '$lib/components/ui/ListItem.svelte';
+	import SwitchItem from '$lib/components/ui/SwitchItem.svelte';
 	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
 	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
 	import ChoiceDialog from '$lib/components/dialogs/ChoiceDialog.svelte';
@@ -47,13 +53,17 @@
 
 	function handleLanguage(language: LanguageSetting) {
 		openDrawer = null;
-		withErrorToast(() => updateSettings({ language }), t.errors.settingsFailed);
+		setSetting({ language });
+	}
+
+	function setSetting(changes: Partial<UserSettings>) {
+		withErrorToast(() => updateSettings(changes), t.errors.settingsFailed);
 	}
 
 	/** The new theme applies immediately; the drawer closes so the user sees it. */
 	function handleTheme(theme: ThemeSetting) {
 		openDrawer = null;
-		withErrorToast(() => updateSettings({ theme }), t.errors.settingsFailed);
+		setSetting({ theme });
 	}
 
 	async function handleResetAll() {
@@ -103,6 +113,23 @@
 				label={t.profile.language}
 				value={languageLabel}
 				onclick={() => (openDrawer = 'language')}
+			/>
+		</Card>
+	</Section>
+
+	<Section title={t.profile.featuresHeading}>
+		<Card list>
+			<SwitchItem
+				label={t.profile.featurePrescriptions}
+				description={t.profile.featurePrescriptionsDescription}
+				checked={$settingsStore.showPrescriptions}
+				onchange={(on) => setSetting({ showPrescriptions: on })}
+			/>
+			<SwitchItem
+				label={t.profile.featurePillOrganizer}
+				description={t.profile.featurePillOrganizerDescription}
+				checked={$settingsStore.showPillOrganizer}
+				onchange={(on) => setSetting({ showPillOrganizer: on })}
 			/>
 		</Card>
 	</Section>

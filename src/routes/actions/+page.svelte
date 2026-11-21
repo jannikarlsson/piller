@@ -3,6 +3,7 @@
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { userStore } from '$lib/stores/auth';
 	import { withErrorToast } from '$lib/stores/toast';
+	import { settingsStore } from '$lib/stores/settings';
 	import {
 		updateTileState,
 		statusOf,
@@ -38,13 +39,17 @@
 	] as const;
 
 	const sections = $derived(
-		SECTIONS.map((section) => {
+		SECTIONS.filter(
+			(section) => section.kind !== 'prescription' || $settingsStore.showPrescriptions
+		)
+			.map((section) => {
 			const items = medications.filter(
 				(m) => needsAction(m, section.kind) || isDone(section.kind, m)
 			);
 			const remaining = items.filter((m) => !isDone(section.kind, m)).length;
 			return { ...section, items, remaining };
-		}).filter((section) => section.items.length > 0)
+			})
+			.filter((section) => section.items.length > 0)
 	);
 	const allGood = $derived(sections.length === 0);
 

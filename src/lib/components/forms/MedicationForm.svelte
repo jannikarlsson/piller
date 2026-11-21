@@ -2,6 +2,7 @@
 	import { untrack } from 'svelte';
 	import { t } from '$lib/i18n';
 	import { DEFAULT_MEDICATION_SETTINGS, type MedicationInput } from '$lib/firebase';
+	import { settingsStore } from '$lib/stores/settings';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
@@ -86,11 +87,20 @@
 	</div>
 
 	<fieldset class="form-options">
-		<legend class="text-label">{t.medications.settingsLegend}</legend>
+		<legend class="text-label">
+			{$settingsStore.showPillOrganizer
+				? t.medications.settingsLegend
+				: t.medications.settingsLegendReminders}
+		</legend>
+		<!-- Options for switched-off features are hidden, but their saved values are kept -->
 		<Card list>
 			<Checkbox label={t.medications.remindToBuyLabel} bind:checked={remindToBuy} />
-			<Checkbox label={t.medications.remindPrescriptionLabel} bind:checked={remindPrescription} />
-			<Checkbox label={t.medications.inPillOrganizerLabel} bind:checked={inPillOrganizer} />
+			{#if $settingsStore.showPrescriptions}
+				<Checkbox label={t.medications.remindPrescriptionLabel} bind:checked={remindPrescription} />
+			{/if}
+			{#if $settingsStore.showPillOrganizer}
+				<Checkbox label={t.medications.inPillOrganizerLabel} bind:checked={inPillOrganizer} />
+			{/if}
 		</Card>
 	</fieldset>
 
