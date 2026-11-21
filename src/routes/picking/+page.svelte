@@ -120,8 +120,6 @@
 		column-gap: var(--space-2);
 	}
 
-
-
 	.item--done .item__name {
 		color: var(--color-text-subtle);
 		text-decoration: line-through;

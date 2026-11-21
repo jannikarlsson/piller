@@ -3,12 +3,21 @@
 	`md` (48px) is for forms and dialogs, `sm` (44px) for inline actions.
 	`ghost` has no background or border, for actions in a page header.
 	`quiet` + size `icon` is a 44px square icon-only button; give it an `ariaLabel`.
+	`danger-outline` and `danger-ghost` are quieter destructive actions than `danger`.
+	`floating` adds a shadow for a button that floats over content (position it from the page).
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
 	interface Props {
-		variant?: 'primary' | 'secondary' | 'danger' | 'ghost' | 'quiet';
+		variant?:
+			| 'primary'
+			| 'secondary'
+			| 'danger'
+			| 'danger-outline'
+			| 'danger-ghost'
+			| 'ghost'
+			| 'quiet';
 		size?: 'md' | 'sm' | 'icon';
 		type?: 'button' | 'submit';
 		href?: string;
@@ -17,6 +26,7 @@
 		ariaLabel?: string;
 		/** For buttons that open something: shown highlighted and announced as expanded. */
 		expanded?: boolean;
+		floating?: boolean;
 		onclick?: () => void;
 		children: Snippet;
 	}
@@ -29,17 +39,26 @@
 		disabled = false,
 		ariaLabel,
 		expanded,
+		floating = false,
 		onclick,
 		children
 	}: Props = $props();
 </script>
 
 {#if href}
-	<a class="btn btn--{variant} btn--{size}" {href} aria-label={ariaLabel}>{@render children()}</a>
+	<a
+		class="btn btn--{variant} btn--{size}"
+		class:btn--floating={floating}
+		{href}
+		aria-label={ariaLabel}
+	>
+		{@render children()}
+	</a>
 {:else}
 	<button
 		class="btn btn--{variant} btn--{size}"
 		class:btn--expanded={expanded}
+		class:btn--floating={floating}
 		{type}
 		{disabled}
 		{onclick}
@@ -112,6 +131,26 @@
 		border: none;
 	}
 
+	.btn--danger-outline {
+		background: var(--color-surface);
+		color: var(--color-danger);
+		border: 1px solid var(--color-danger-border);
+	}
+
+	.btn--danger-outline:not(:disabled):active {
+		background: var(--color-danger-bg);
+	}
+
+	.btn--danger-ghost {
+		background: transparent;
+		color: var(--color-danger);
+		border: none;
+	}
+
+	.btn--danger-ghost:not(:disabled):active {
+		background: var(--color-danger-bg);
+	}
+
 	.btn--ghost {
 		padding: 0 var(--space-3);
 		background: transparent;
@@ -137,5 +176,9 @@
 	.btn--quiet.btn--expanded {
 		background: var(--color-accent-soft);
 		color: var(--color-accent);
+	}
+
+	.btn--floating {
+		box-shadow: var(--shadow-raised);
 	}
 </style>

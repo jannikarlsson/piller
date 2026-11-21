@@ -116,7 +116,6 @@
 		gap: var(--space-2);
 	}
 
-
 	.form-input {
 		font-size: var(--text-md);
 		height: var(--size-control);

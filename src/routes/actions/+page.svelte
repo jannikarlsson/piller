@@ -156,7 +156,6 @@
 		color: var(--color-ok);
 	}
 
-
 	.all-good__sub {
 		line-height: var(--leading-normal);
 	}
@@ -180,15 +179,12 @@
 		padding: 0 var(--space-1);
 	}
 
-
 	.item {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
 		column-gap: var(--space-2);
 	}
-
-
 
 	.item--done .item__name {
 		color: var(--color-text-subtle);

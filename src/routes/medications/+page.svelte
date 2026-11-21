@@ -110,12 +110,12 @@
 			<div class="settings-section">
 				<p class="text-name">{t.settings.resetTitle}</p>
 				<p class="settings-desc text-meta">{t.settings.resetDescription}</p>
-				<button type="button" class="small-btn small-btn--danger" onclick={handleReset}>
+				<Button variant="danger-outline" size="sm" onclick={handleReset}>
 					{t.settings.resetButton}
-				</button>
+				</Button>
 			</div>
 			<div class="settings-divider"></div>
-			<button type="button" class="small-btn" onclick={handleLogout}>{t.settings.logoutButton}</button>
+			<Button variant="secondary" size="sm" onclick={handleLogout}>{t.settings.logoutButton}</Button>
 		</div>
 	{/if}
 
@@ -147,10 +147,12 @@
 		</ListCard>
 	{/if}
 
-	<button type="button" class="add-btn" onclick={() => openSheet({ mode: 'add' })}>
-		<Icon name="plus" size={20} strokeWidth={2} />
-		{t.common.add}
-	</button>
+	<div class="add-btn">
+		<Button floating onclick={() => openSheet({ mode: 'add' })}>
+			<Icon name="plus" size={20} strokeWidth={2} />
+			{t.common.add}
+		</Button>
+	</div>
 </Page>
 
 {#if sheet}
@@ -171,9 +173,11 @@
 				{saving}
 			/>
 			{#if sheet.mode === 'edit'}
-				<button type="button" class="delete-btn" onclick={() => (confirmingDelete = true)}>
-					{t.medications.deleteButton}
-				</button>
+				<div class="delete-row">
+					<Button variant="danger-ghost" size="sm" onclick={() => (confirmingDelete = true)}>
+						{t.medications.deleteButton}
+					</Button>
+				</div>
 			{/if}
 		</div>
 
@@ -197,10 +201,12 @@
 
 <style>
 	/* Settings */
+	/* Buttons in the panel keep their natural width */
 	.settings-panel {
 		padding: var(--space-4);
 		display: flex;
 		flex-direction: column;
+		align-items: flex-start;
 		gap: var(--space-3);
 		background: var(--color-surface);
 		border: 1px solid var(--color-border-light);
@@ -210,9 +216,9 @@
 	.settings-section {
 		display: flex;
 		flex-direction: column;
+		align-items: flex-start;
 		gap: var(--space-1);
 	}
-
 
 	.settings-desc {
 		margin-bottom: var(--space-2);
@@ -220,25 +226,9 @@
 	}
 
 	.settings-divider {
+		align-self: stretch;
 		height: 1px;
 		background: var(--color-border-light);
-	}
-
-	.small-btn {
-		width: fit-content;
-		height: 40px;
-		padding: 0 var(--space-4);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-control);
-		font-size: var(--text-sm);
-		font-weight: 500;
-		color: var(--color-text);
-	}
-
-	.small-btn--danger {
-		border-color: var(--color-danger-border);
-		color: var(--color-danger);
 	}
 
 	/* List */
@@ -258,8 +248,6 @@
 		min-width: 0;
 	}
 
-
-
 	.med-row__alt {
 		white-space: nowrap;
 		overflow: hidden;
@@ -270,23 +258,7 @@
 		position: fixed;
 		right: var(--space-4);
 		bottom: calc(var(--nav-height) + var(--space-5) + env(safe-area-inset-bottom, 0px));
-		height: var(--size-floating-button);
-		padding: 0 var(--space-4) 0 var(--space-3);
-		display: flex;
-		align-items: center;
-		gap: var(--space-2);
-		background: var(--color-accent);
-		color: var(--color-on-accent);
-		border: none;
-		border-radius: var(--radius-card);
-		font-size: var(--text-md);
-		font-weight: 500;
-		box-shadow: var(--shadow-raised);
 		z-index: var(--z-floating);
-	}
-
-	.add-btn:active {
-		background: var(--color-accent-hover);
 	}
 
 	.sheet-view {
@@ -299,14 +271,8 @@
 		display: none;
 	}
 
-	.delete-btn {
-		align-self: center;
-		height: var(--size-tap);
-		padding: 0 var(--space-4);
-		background: transparent;
-		border: none;
-		font-size: var(--text-md);
-		font-weight: 500;
-		color: var(--color-danger);
+	.delete-row {
+		display: flex;
+		justify-content: center;
 	}
 </style>
