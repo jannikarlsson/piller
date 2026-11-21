@@ -71,6 +71,17 @@ export const t = {
 		allGoodSub: 'Ingenting behöver köpas eller förnyas just nu.'
 	},
 
+	todoPrompt: {
+		buyTitle: 'Lägg på inköpslistan?',
+		prescriptionTitle: 'Påminn om recept?',
+		buyText: (name: string) =>
+			`${name} är slut. Vill du lägga till den under Köp i Att göra?`,
+		prescriptionText: (name: string) =>
+			`${name} saknar recept. Vill du lägga till den under Skaffa recept i Att göra?`,
+		confirm: 'Lägg till',
+		decline: 'Nej tack'
+	},
+
 	reset: {
 		inventoryTitle: 'Återställ skåpet',
 		prescriptionTitle: 'Återställ recept',

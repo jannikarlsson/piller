@@ -2,7 +2,7 @@
 	import { t } from '$lib/i18n/sv';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
 	import { userStore } from '$lib/stores/auth';
-	import { updateTileState, type Medication } from '$lib/firebase';
+	import { updateTileState, ADDED_TO_TODO_FIELD, type Medication } from '$lib/firebase';
 	import Toast from '$lib/components/Toast.svelte';
 	import PageHeader from '$lib/components/PageHeader.svelte';
 	import ListCard from '$lib/components/ListCard.svelte';
@@ -26,16 +26,23 @@
 	const isDone = (section: SectionId, med: Medication) =>
 		done.includes(`${section}:${med.id}`) && med[FIELD[section]] !== 'out';
 
+	// On the list when out and either reminded automatically or added by hand
 	const needsBuy = $derived(
 		medications.filter(
-			(m) => m.remindToBuy && (m.inventoryState === 'out' || isDone('buy', m))
+			(m) =>
+				isDone('buy', m) || (m.inventoryState === 'out' && (m.remindToBuy || m.addedToBuyList))
 		)
 	);
 	const needsPrescription = $derived(
 		medications.filter(
-			(m) => m.remindPrescription && (m.prescriptionState === 'out' || isDone('rx', m))
+			(m) =>
+				isDone('rx', m) ||
+				(m.prescriptionState === 'out' && (m.remindPrescription || m.addedToPrescriptionList))
 		)
 	);
+
+	// Whether a ticked item had been added by hand, so unticking can restore that
+	const addedByHand = new Map<string, boolean>();
 	const allGood = $derived(needsBuy.length === 0 && needsPrescription.length === 0);
 
 	const sections = $derived(
@@ -63,10 +70,16 @@
 		const user = $userStore;
 		if (!user) return;
 		const key = `${section}:${med.id}`;
+		const field = FIELD[section];
 		const previous = done;
+		if (checked) addedByHand.set(key, med[ADDED_TO_TODO_FIELD[field]]);
 		done = checked ? [...done, key] : done.filter((k) => k !== key);
 		try {
-			await updateTileState(user.uid, med.id, FIELD[section], checked ? 'neutral' : 'out');
+			if (checked) {
+				await updateTileState(user.uid, med.id, field, 'neutral');
+			} else {
+				await updateTileState(user.uid, med.id, field, 'out', addedByHand.get(key) ?? false);
+			}
 		} catch {
 			done = previous;
 			showError();

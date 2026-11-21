@@ -85,6 +85,10 @@ export interface Medication extends MedicationSettings {
 	prescriptionState: TileState;
 	/** Checked off on the "Plocka" checklist while filling the pill organizer. */
 	picked: boolean;
+	/** Added to the buy list by hand (for medications without the automatic buy reminder). */
+	addedToBuyList: boolean;
+	/** Added to the prescription list by hand (without the automatic prescription reminder). */
+	addedToPrescriptionList: boolean;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -115,6 +119,8 @@ export function subscribeMedications(
 				inventoryState: data.inventoryState ?? 'neutral',
 				prescriptionState: data.prescriptionState ?? 'neutral',
 				picked: data.picked ?? false,
+				addedToBuyList: data.addedToBuyList ?? false,
+				addedToPrescriptionList: data.addedToPrescriptionList ?? false,
 				// Medications saved before these settings existed get the defaults
 				remindToBuy: data.remindToBuy ?? DEFAULT_MEDICATION_SETTINGS.remindToBuy,
 				remindPrescription:
@@ -135,6 +141,8 @@ export async function addMedication(userId: string, input: MedicationInput): Pro
 		inventoryState: 'neutral',
 		prescriptionState: 'neutral',
 		picked: false,
+		addedToBuyList: false,
+		addedToPrescriptionList: false,
 		createdAt: serverTimestamp(),
 		updatedAt: serverTimestamp()
 	});
@@ -155,14 +163,41 @@ export async function deleteMedication(userId: string, id: string): Promise<void
 	await deleteDoc(doc(medicationsRef(userId), id));
 }
 
+export type StateField = 'inventoryState' | 'prescriptionState';
+
+/** The "added to the to-do list by hand" flag that belongs to each status field. */
+export const ADDED_TO_TODO_FIELD = {
+	inventoryState: 'addedToBuyList',
+	prescriptionState: 'addedToPrescriptionList'
+} as const satisfies Record<StateField, keyof Medication>;
+
+/**
+ * Change a status. A manual to-do flag only makes sense while the status is "out",
+ * so any other status clears it. Pass `addedToTodo` to set the flag in the same write
+ * (used when undoing a ticked to-do item).
+ */
 export async function updateTileState(
 	userId: string,
 	id: string,
-	field: 'inventoryState' | 'prescriptionState',
-	state: TileState
+	field: StateField,
+	state: TileState,
+	addedToTodo?: boolean
+): Promise<void> {
+	const update: Record<string, unknown> = { [field]: state, updatedAt: serverTimestamp() };
+	if (state !== 'out') update[ADDED_TO_TODO_FIELD[field]] = false;
+	else if (addedToTodo !== undefined) update[ADDED_TO_TODO_FIELD[field]] = addedToTodo;
+	await updateDoc(doc(medicationsRef(userId), id), update);
+}
+
+/** Add a medication to (or remove it from) the to-do list by hand. */
+export async function setAddedToTodo(
+	userId: string,
+	id: string,
+	field: StateField,
+	added: boolean
 ): Promise<void> {
 	await updateDoc(doc(medicationsRef(userId), id), {
-		[field]: state,
+		[ADDED_TO_TODO_FIELD[field]]: added,
 		updatedAt: serverTimestamp()
 	});
 }
@@ -192,7 +227,7 @@ export async function resetPicked(userId: string): Promise<void> {
  */
 export async function resetStates(
 	userId: string,
-	field: 'inventoryState' | 'prescriptionState',
+	field: StateField,
 	onlyOut = false
 ): Promise<void> {
 	const snap = await getDocs(medicationsRef(userId));
@@ -200,7 +235,11 @@ export async function resetStates(
 	snap.docs
 		.filter((d) => (onlyOut ? d.data()[field] === 'out' : d.data()[field] !== 'neutral'))
 		.forEach((d) => {
-			batch.update(d.ref, { [field]: 'neutral', updatedAt: serverTimestamp() });
+			batch.update(d.ref, {
+				[field]: 'neutral',
+				[ADDED_TO_TODO_FIELD[field]]: false,
+				updatedAt: serverTimestamp()
+			});
 		});
 	await batch.commit();
 }
@@ -212,6 +251,8 @@ export async function resetAllStates(userId: string): Promise<void> {
 		batch.update(d.ref, {
 			inventoryState: 'neutral',
 			prescriptionState: 'neutral',
+			addedToBuyList: false,
+			addedToPrescriptionList: false,
 			updatedAt: serverTimestamp()
 		});
 	});

@@ -2,25 +2,31 @@
 	import { t } from '$lib/i18n/sv';
 	import { userStore } from '$lib/stores/auth';
 	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
-	import { updateTileState, nextTileState } from '$lib/firebase';
+	import { updateTileState, nextTileState, type Medication } from '$lib/firebase';
 	import MedicationTile from '$lib/components/MedicationTile.svelte';
 	import PageHeader from '$lib/components/PageHeader.svelte';
 	import ListCard from '$lib/components/ListCard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import ResetSheet from '$lib/components/ResetSheet.svelte';
 	import ResetButton from '$lib/components/ResetButton.svelte';
+	import AddToTodoSheet from '$lib/components/AddToTodoSheet.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
 	const hasStatuses = $derived(medications.some((m) => m.inventoryState !== 'neutral'));
 	let showReset = $state(false);
+	/** Medication just marked out that is not added to the to-do list automatically. */
+	let todoPromptFor = $state<Medication | null>(null);
 
 	async function handleTap(id: string) {
 		const user = $userStore;
 		if (!user) return;
 		const med = medications.find((m) => m.id === id);
 		if (!med) return;
-		await updateTileState(user.uid, id, 'inventoryState', nextTileState(med.inventoryState));
+		const next = nextTileState(med.inventoryState);
+		await updateTileState(user.uid, id, 'inventoryState', next);
+		// Without the automatic reminder, offer to add it to the to-do list by hand
+		if (next === 'out' && !med.remindToBuy) todoPromptFor = med;
 	}
 </script>
 
@@ -56,6 +62,10 @@
 		</div>
 	{/if}
 </div>
+
+{#if todoPromptFor}
+	<AddToTodoSheet mode="inventory" medication={todoPromptFor} onclose={() => (todoPromptFor = null)} />
+{/if}
 
 {#if showReset}
 	<ResetSheet mode="inventory" {medications} onclose={() => (showReset = false)} />
