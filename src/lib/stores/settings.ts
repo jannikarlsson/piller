@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store';
-import { DEFAULT_SETTINGS, type UserSettings } from '$lib/models';
+import { DEFAULT_SETTINGS, type UserSettings } from '#lib/models/index.ts';
 
 /*
  * The user's settings, synced with Firestore. A copy is kept in the browser so that
@@ -34,7 +34,7 @@ let userId: string | null = null;
 export function startSettingsSync(uid: string) {
 	stopSettingsSync();
 	userId = uid;
-	import('$lib/firebase').then(({ subscribeSettings }) => {
+	import('#lib/firebase/index.ts').then(({ subscribeSettings }) => {
 		unsubscribe = subscribeSettings(uid, (settings) => {
 			settingsStore.set(settings);
 			writeLocal(settings);
@@ -58,6 +58,6 @@ export async function updateSettings(changes: Partial<UserSettings>) {
 	settingsStore.set(next);
 	writeLocal(next);
 	if (!userId) return;
-	const { saveSettings } = await import('$lib/firebase');
+	const { saveSettings } = await import('#lib/firebase/index.ts');
 	await saveSettings(userId, changes);
 }

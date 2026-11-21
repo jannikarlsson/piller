@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_SETTINGS } from '$lib/models';
+import { DEFAULT_SETTINGS } from '#lib/models/index.ts';
 import { NAV_LINKS, isLinkVisible, isPathOff, isUnder } from './navigation';
 
 describe('isUnder', () => {

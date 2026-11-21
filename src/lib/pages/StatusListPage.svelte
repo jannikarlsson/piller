@@ -3,27 +3,27 @@
 	is changed by tapping. Like routes, files in lib/pages may load and save data.
 -->
 <script lang="ts">
-	import { t } from '$lib/i18n';
-	import { withErrorToast } from '$lib/stores/toast';
-	import { settingsStore } from '$lib/stores/settings';
-	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
-	import { updateStatus, resetStatuses, setAddedToTodo } from '$lib/firebase';
+	import { t } from '#lib/i18n/index.ts';
+	import { withErrorToast } from '#lib/stores/toast.ts';
+	import { settingsStore } from '#lib/stores/settings.ts';
+	import { medicationsStore, medicationsLoading } from '#lib/stores/medications.ts';
+	import { updateStatus, resetStatuses, setAddedToTodo } from '#lib/firebase/index.ts';
 	import {
 		nextStatus,
 		statusOf,
 		remindsAutomatically,
 		type Medication,
 		type StatusKind
-	} from '$lib/models';
-	import Page from '$lib/components/layout/Page.svelte';
-	import MedicationTile from '$lib/components/medication/MedicationTile.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import Icon from '$lib/components/ui/Icon.svelte';
-	import EmptyState from '$lib/components/ui/EmptyState.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
-	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
-	import ResetDialog from '$lib/components/dialogs/ResetDialog.svelte';
-	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
+	} from '#lib/models/index.ts';
+	import Page from '#lib/components/layout/Page.svelte';
+	import MedicationTile from '#lib/components/medication/MedicationTile.svelte';
+	import Button from '#lib/components/ui/Button.svelte';
+	import Icon from '#lib/components/ui/Icon.svelte';
+	import EmptyState from '#lib/components/ui/EmptyState.svelte';
+	import Card from '#lib/components/ui/Card.svelte';
+	import BottomSheet from '#lib/components/ui/BottomSheet.svelte';
+	import ResetDialog from '#lib/components/dialogs/ResetDialog.svelte';
+	import ConfirmDialog from '#lib/components/dialogs/ConfirmDialog.svelte';
 
 	interface Props {
 		kind: StatusKind;

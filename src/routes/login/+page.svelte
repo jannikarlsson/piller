@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
-	import { signInWithGoogle } from '$lib/firebase';
-	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import StartScreen from '$lib/components/layout/StartScreen.svelte';
+	import { t } from '#lib/i18n/index.ts';
+	import { signInWithGoogle } from '#lib/firebase/index.ts';
+	import ErrorMessage from '#lib/components/ui/ErrorMessage.svelte';
+	import Button from '#lib/components/ui/Button.svelte';
+	import StartScreen from '#lib/components/layout/StartScreen.svelte';
 
 	let loading = $state(false);
 	// A key, not the message, so the message follows the language

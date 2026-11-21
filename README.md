@@ -16,6 +16,8 @@ A small home-medicine-cabinet app, installable on a phone as a PWA. Built with S
 
 Settings are saved per user in Firestore and also kept in the browser, so the theme and language apply before the page renders.
 
+The app can be installed on a phone and opens without a connection. A service worker (set up with `@vite-pwa/sveltekit` in `vite.config.ts`) keeps the app's files, and Firestore keeps the last known lists. Changes made offline are sent when the connection is back. After a new deploy, the app updates itself on the next visit and reloads once.
+
 ## Development
 
 ```sh
@@ -26,6 +28,8 @@ npm test         # run the unit tests (Vitest)
 npm run lint     # check formatting (Prettier) and code (ESLint)
 npm run format   # format all files with Prettier
 ```
+
+The service worker is only registered in production builds. `npm run preview` can't test it, because it doesn't serve `index.html` the way Firebase Hosting does (the worker fails to install). To try offline mode, serve the `build/` folder from a server that behaves like Firebase Hosting, or deploy.
 
 ## Deploy
 
@@ -50,7 +54,7 @@ First-time setup (Firebase project, sign-in, allowed users) is described in [SET
   - `layout/` – page frame, page header and bottom menu
 - `src/lib/models/` – the types (medication, settings) and the rules about them, e.g. when a medication belongs on the to-do list. No Firebase here, so any component can use it.
 - `src/lib/navigation.ts` – the bottom menu's links, which feature each belongs to, and the start page
-- `src/lib/firebase/` – sign-in and all Firestore reads and writes, split into `auth`, `medications`, `statuses` and `settings`. Import everything from `$lib/firebase`.
+- `src/lib/firebase/` – sign-in and all Firestore reads and writes, split into `auth`, `medications`, `statuses` and `settings`. Import everything from `#lib/firebase/index.ts`.
 - `src/lib/stores/` – shared state: user, medications, settings, toast messages
 - `src/lib/i18n/` – UI text. `sv.ts` defines the texts, `en.ts` must have the same shape.
 - `src/lib/styles/`

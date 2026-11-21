@@ -3,7 +3,7 @@
 	Screen readers hear "Laddar…" once instead of the grey shapes.
 -->
 <script lang="ts">
-	import { t } from '$lib/i18n';
+	import { t } from '#lib/i18n/index.ts';
 	import Card from './Card.svelte';
 
 	// Varied widths so it reads as a list of different names, not a grid

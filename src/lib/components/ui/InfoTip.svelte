@@ -4,7 +4,7 @@
 	The bubble is a popover, so it sits above everything and isn't clipped by rounded cards.
 -->
 <script lang="ts">
-	import { t } from '$lib/i18n';
+	import { t } from '#lib/i18n/index.ts';
 	import Icon from './Icon.svelte';
 
 	interface Props {

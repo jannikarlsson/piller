@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { t } from '$lib/i18n';
-	import { DEFAULT_MEDICATION_SETTINGS, type MedicationInput } from '$lib/models';
-	import { settingsStore } from '$lib/stores/settings';
-	import Checkbox from '$lib/components/inputs/Checkbox.svelte';
-	import TextField from '$lib/components/inputs/TextField.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import ButtonRow from '$lib/components/ui/ButtonRow.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
+	import { t } from '#lib/i18n/index.ts';
+	import { DEFAULT_MEDICATION_SETTINGS, type MedicationInput } from '#lib/models/index.ts';
+	import { settingsStore } from '#lib/stores/settings.ts';
+	import Checkbox from '#lib/components/inputs/Checkbox.svelte';
+	import TextField from '#lib/components/inputs/TextField.svelte';
+	import Button from '#lib/components/ui/Button.svelte';
+	import ButtonRow from '#lib/components/ui/ButtonRow.svelte';
+	import Card from '#lib/components/ui/Card.svelte';
 
 	interface Props {
 		initial?: Partial<MedicationInput>;

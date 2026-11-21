@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { t } from '$lib/i18n';
+import { t } from '#lib/i18n/index.ts';
 
 /** The one toast message shown above the bottom menu (rendered in the root layout). */
 export const toastMessage = writable<string | null>(null);

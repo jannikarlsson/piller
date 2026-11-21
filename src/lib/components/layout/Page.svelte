@@ -5,7 +5,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import PageHeader from './PageHeader.svelte';
-	import ListSkeleton from '$lib/components/ui/ListSkeleton.svelte';
+	import ListSkeleton from '#lib/components/ui/ListSkeleton.svelte';
 
 	interface Props {
 		title: string;

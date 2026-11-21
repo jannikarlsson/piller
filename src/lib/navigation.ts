@@ -1,6 +1,6 @@
-import type { Translations } from '$lib/i18n';
-import type { IconName } from '$lib/components/ui/Icon.svelte';
-import { isFeatureOn, type Feature, type UserSettings } from '$lib/models';
+import type { Translations } from '#lib/i18n/index.ts';
+import type { IconName } from '#lib/components/ui/Icon.svelte';
+import { isFeatureOn, type Feature, type UserSettings } from '#lib/models/index.ts';
 
 export interface NavLink {
 	href: string;

@@ -5,7 +5,7 @@
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import Icon from '$lib/components/ui/Icon.svelte';
+	import Icon from '#lib/components/ui/Icon.svelte';
 
 	interface Props {
 		checked: boolean;

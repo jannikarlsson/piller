@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
-	import { withErrorToast } from '$lib/stores/toast';
-	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
-	import { setPicked, resetPicked } from '$lib/firebase';
-	import Page from '$lib/components/layout/Page.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import EmptyState from '$lib/components/ui/EmptyState.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
-	import Checkbox from '$lib/components/inputs/Checkbox.svelte';
-	import MedicationInfo from '$lib/components/medication/MedicationInfo.svelte';
-	import Icon from '$lib/components/ui/Icon.svelte';
+	import { t } from '#lib/i18n/index.ts';
+	import { withErrorToast } from '#lib/stores/toast.ts';
+	import { medicationsStore, medicationsLoading } from '#lib/stores/medications.ts';
+	import { setPicked, resetPicked } from '#lib/firebase/index.ts';
+	import Page from '#lib/components/layout/Page.svelte';
+	import Button from '#lib/components/ui/Button.svelte';
+	import EmptyState from '#lib/components/ui/EmptyState.svelte';
+	import Card from '#lib/components/ui/Card.svelte';
+	import Checkbox from '#lib/components/inputs/Checkbox.svelte';
+	import MedicationInfo from '#lib/components/medication/MedicationInfo.svelte';
+	import Icon from '#lib/components/ui/Icon.svelte';
 
 	const medications = $derived($medicationsStore.filter((m) => m.inPillOrganizer));
 	const loading = $derived($medicationsLoading);

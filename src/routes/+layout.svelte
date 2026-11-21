@@ -1,24 +1,37 @@
 <script lang="ts">
-	import '$lib/styles/tokens.css';
-	import '$lib/styles/theme.css';
-	import '$lib/styles/base.css';
+	import '#lib/styles/tokens.css';
+	import '#lib/styles/theme.css';
+	import '#lib/styles/base.css';
 	import { onMount } from 'svelte';
+	import { dev } from '$app/env';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import { initAuth, userStore, authStateStore } from '$lib/stores/auth';
-	import { startMedicationsSync, stopMedicationsSync } from '$lib/stores/medications';
-	import { settingsStore, startSettingsSync, stopSettingsSync } from '$lib/stores/settings';
-	import { isPathOff, HOME_PATH } from '$lib/navigation';
-	import BottomNav from '$lib/components/layout/BottomNav.svelte';
-	import StartScreen from '$lib/components/layout/StartScreen.svelte';
-	import Toast from '$lib/components/ui/Toast.svelte';
-	import { toastMessage } from '$lib/stores/toast';
-	import { t, setLanguage, resolveLanguage, getLanguage } from '$lib/i18n';
+	import { initAuth, userStore, authStateStore } from '#lib/stores/auth.ts';
+	import { startMedicationsSync, stopMedicationsSync } from '#lib/stores/medications.ts';
+	import { settingsStore, startSettingsSync, stopSettingsSync } from '#lib/stores/settings.ts';
+	import { isPathOff, HOME_PATH } from '#lib/navigation.ts';
+	import BottomNav from '#lib/components/layout/BottomNav.svelte';
+	import StartScreen from '#lib/components/layout/StartScreen.svelte';
+	import Toast from '#lib/components/ui/Toast.svelte';
+	import { toastMessage } from '#lib/stores/toast.ts';
+	import { t, setLanguage, resolveLanguage, getLanguage } from '#lib/i18n/index.ts';
 
 	let { children } = $props();
 
 	onMount(() => {
 		initAuth();
+
+		// The service worker that lets the app open offline. Not in development, where cached
+		// files would get in the way of seeing changes. A new version replaces the old one at
+		// the next visit and the page reloads once to use it (registerType 'autoUpdate').
+		if (!dev) {
+			import('virtual:pwa-register').then(({ registerSW }) =>
+				registerSW({
+					immediate: true,
+					onRegisterError: (error) => console.error('Could not set up offline support', error)
+				})
+			);
+		}
 	});
 
 	$effect(() => {

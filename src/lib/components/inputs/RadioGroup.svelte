@@ -5,7 +5,7 @@
 	(e.g. a count) and be `disabled`.
 -->
 <script lang="ts" generics="T extends string">
-	import Card from '$lib/components/ui/Card.svelte';
+	import Card from '#lib/components/ui/Card.svelte';
 
 	interface Option {
 		value: T;

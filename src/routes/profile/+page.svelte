@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { t, LANGUAGE_NAMES, type LanguageSetting } from '$lib/i18n';
-	import { userStore } from '$lib/stores/auth';
-	import { medicationsStore } from '$lib/stores/medications';
-	import { showToast, withErrorToast } from '$lib/stores/toast';
-	import { settingsStore, updateSettings } from '$lib/stores/settings';
-	import { resetAllStatuses, resetPicked, signOutUser } from '$lib/firebase';
-	import type { ResetMode, ThemeSetting, UserSettings } from '$lib/models';
-	import Page from '$lib/components/layout/Page.svelte';
-	import Avatar from '$lib/components/ui/Avatar.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
-	import Section from '$lib/components/ui/Section.svelte';
-	import ListItem from '$lib/components/ui/ListItem.svelte';
-	import Switch from '$lib/components/inputs/Switch.svelte';
-	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
-	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
-	import RadioGroup from '$lib/components/inputs/RadioGroup.svelte';
+	import { t, LANGUAGE_NAMES, type LanguageSetting } from '#lib/i18n/index.ts';
+	import { userStore } from '#lib/stores/auth.ts';
+	import { medicationsStore } from '#lib/stores/medications.ts';
+	import { showToast, withErrorToast } from '#lib/stores/toast.ts';
+	import { settingsStore, updateSettings } from '#lib/stores/settings.ts';
+	import { resetAllStatuses, resetPicked, signOutUser } from '#lib/firebase/index.ts';
+	import type { ResetMode, ThemeSetting, UserSettings } from '#lib/models/index.ts';
+	import Page from '#lib/components/layout/Page.svelte';
+	import Avatar from '#lib/components/ui/Avatar.svelte';
+	import Card from '#lib/components/ui/Card.svelte';
+	import Section from '#lib/components/ui/Section.svelte';
+	import ListItem from '#lib/components/ui/ListItem.svelte';
+	import Switch from '#lib/components/inputs/Switch.svelte';
+	import BottomSheet from '#lib/components/ui/BottomSheet.svelte';
+	import ConfirmDialog from '#lib/components/dialogs/ConfirmDialog.svelte';
+	import RadioGroup from '#lib/components/inputs/RadioGroup.svelte';
 
 	const user = $derived($userStore);
 

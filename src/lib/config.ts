@@ -5,7 +5,7 @@ import {
 	PUBLIC_FIREBASE_STORAGE_BUCKET,
 	PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 	PUBLIC_FIREBASE_APP_ID
-} from '$env/static/public';
+} from '$app/env/public';
 
 /*
  * Firebase web config, read from .env (see .env.example and SETUP.md). These values are built

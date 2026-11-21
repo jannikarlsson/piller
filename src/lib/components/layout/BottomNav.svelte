@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { t } from '$lib/i18n';
-	import { userStore } from '$lib/stores/auth';
-	import { settingsStore } from '$lib/stores/settings';
-	import { NAV_LINKS, isLinkVisible, isUnder } from '$lib/navigation';
-	import Icon from '$lib/components/ui/Icon.svelte';
-	import Avatar from '$lib/components/ui/Avatar.svelte';
+	import { t } from '#lib/i18n/index.ts';
+	import { userStore } from '#lib/stores/auth.ts';
+	import { settingsStore } from '#lib/stores/settings.ts';
+	import { NAV_LINKS, isLinkVisible, isUnder } from '#lib/navigation.ts';
+	import Icon from '#lib/components/ui/Icon.svelte';
+	import Avatar from '#lib/components/ui/Avatar.svelte';
 
 	const visibleLinks = $derived(NAV_LINKS.filter((link) => isLinkVisible(link, $settingsStore)));
 </script>

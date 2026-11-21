@@ -4,10 +4,10 @@
 	and the dialog stays open.
 -->
 <script lang="ts">
-	import { t } from '$lib/i18n';
-	import Button from '$lib/components/ui/Button.svelte';
-	import ButtonRow from '$lib/components/ui/ButtonRow.svelte';
-	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
+	import { t } from '#lib/i18n/index.ts';
+	import Button from '#lib/components/ui/Button.svelte';
+	import ButtonRow from '#lib/components/ui/ButtonRow.svelte';
+	import ErrorMessage from '#lib/components/ui/ErrorMessage.svelte';
 
 	interface Props {
 		message: string;

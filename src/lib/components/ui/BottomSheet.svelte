@@ -7,7 +7,7 @@
 	import { onMount, type Snippet } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import { t } from '$lib/i18n';
+	import { t } from '#lib/i18n/index.ts';
 	import Icon from './Icon.svelte';
 	import Button from './Button.svelte';
 

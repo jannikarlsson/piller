@@ -1,4 +1,4 @@
-// Reads and writes. The types and rules they use live in $lib/models.
+// Reads and writes. The types and rules they use live in #lib/models.
 export { auth } from './app';
 export * from './auth';
 export {

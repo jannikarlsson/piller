@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { Medication } from '$lib/models';
+import type { Medication } from '#lib/models/index.ts';
 
 export const medicationsStore = writable<Medication[]>([]);
 export const medicationsLoading = writable(true);
@@ -10,7 +10,7 @@ export function startMedicationsSync(userId: string) {
 	stopMedicationsSync();
 	medicationsLoading.set(true);
 
-	import('$lib/firebase')
+	import('#lib/firebase/index.ts')
 		.then(({ subscribeMedications }) => {
 			unsubscribe = subscribeMedications(userId, (meds) => {
 				medicationsStore.set(meds);

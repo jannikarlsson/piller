@@ -4,12 +4,12 @@
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { t } from '$lib/i18n';
-	import { statusOf, type Medication, type StatusKind } from '$lib/models';
-	import Button from '$lib/components/ui/Button.svelte';
-	import ButtonRow from '$lib/components/ui/ButtonRow.svelte';
-	import ErrorMessage from '$lib/components/ui/ErrorMessage.svelte';
-	import RadioGroup from '$lib/components/inputs/RadioGroup.svelte';
+	import { t } from '#lib/i18n/index.ts';
+	import { statusOf, type Medication, type StatusKind } from '#lib/models/index.ts';
+	import Button from '#lib/components/ui/Button.svelte';
+	import ButtonRow from '#lib/components/ui/ButtonRow.svelte';
+	import ErrorMessage from '#lib/components/ui/ErrorMessage.svelte';
+	import RadioGroup from '#lib/components/inputs/RadioGroup.svelte';
 
 	interface Props {
 		kind: StatusKind;

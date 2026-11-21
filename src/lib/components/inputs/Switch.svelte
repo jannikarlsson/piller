@@ -2,7 +2,7 @@
 	An on/off row. `info` adds a circled "i" after the label that explains the setting.
 -->
 <script lang="ts">
-	import InfoTip from '$lib/components/ui/InfoTip.svelte';
+	import InfoTip from '#lib/components/ui/InfoTip.svelte';
 
 	interface Props {
 		label: string;

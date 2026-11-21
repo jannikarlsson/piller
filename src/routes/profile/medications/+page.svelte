@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
-	import { withErrorToast } from '$lib/stores/toast';
-	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
-	import { addMedication, updateMedication, deleteMedication } from '$lib/firebase';
-	import type { Medication, MedicationInput } from '$lib/models';
-	import MedicationForm from '$lib/components/dialogs/MedicationForm.svelte';
-	import Page from '$lib/components/layout/Page.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import EmptyState from '$lib/components/ui/EmptyState.svelte';
-	import MedicationInfo from '$lib/components/medication/MedicationInfo.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
-	import Icon from '$lib/components/ui/Icon.svelte';
-	import BottomSheet from '$lib/components/ui/BottomSheet.svelte';
-	import ConfirmDialog from '$lib/components/dialogs/ConfirmDialog.svelte';
+	import { t } from '#lib/i18n/index.ts';
+	import { withErrorToast } from '#lib/stores/toast.ts';
+	import { medicationsStore, medicationsLoading } from '#lib/stores/medications.ts';
+	import { addMedication, updateMedication, deleteMedication } from '#lib/firebase/index.ts';
+	import type { Medication, MedicationInput } from '#lib/models/index.ts';
+	import MedicationForm from '#lib/components/dialogs/MedicationForm.svelte';
+	import Page from '#lib/components/layout/Page.svelte';
+	import Button from '#lib/components/ui/Button.svelte';
+	import EmptyState from '#lib/components/ui/EmptyState.svelte';
+	import MedicationInfo from '#lib/components/medication/MedicationInfo.svelte';
+	import Card from '#lib/components/ui/Card.svelte';
+	import Icon from '#lib/components/ui/Icon.svelte';
+	import BottomSheet from '#lib/components/ui/BottomSheet.svelte';
+	import ConfirmDialog from '#lib/components/dialogs/ConfirmDialog.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);

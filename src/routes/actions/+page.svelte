@@ -1,22 +1,22 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
-	import { medicationsStore, medicationsLoading } from '$lib/stores/medications';
-	import { withErrorToast } from '$lib/stores/toast';
-	import { settingsStore } from '$lib/stores/settings';
-	import { updateStatus } from '$lib/firebase';
+	import { t } from '#lib/i18n/index.ts';
+	import { medicationsStore, medicationsLoading } from '#lib/stores/medications.ts';
+	import { withErrorToast } from '#lib/stores/toast.ts';
+	import { settingsStore } from '#lib/stores/settings.ts';
+	import { updateStatus } from '#lib/firebase/index.ts';
 	import {
 		statusOf,
 		isAddedToTodo,
 		needsAction,
 		type Medication,
 		type StatusKind
-	} from '$lib/models';
-	import Page from '$lib/components/layout/Page.svelte';
-	import Checkbox from '$lib/components/inputs/Checkbox.svelte';
-	import MedicationInfo from '$lib/components/medication/MedicationInfo.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
-	import Section from '$lib/components/ui/Section.svelte';
-	import EmptyState from '$lib/components/ui/EmptyState.svelte';
+	} from '#lib/models/index.ts';
+	import Page from '#lib/components/layout/Page.svelte';
+	import Checkbox from '#lib/components/inputs/Checkbox.svelte';
+	import MedicationInfo from '#lib/components/medication/MedicationInfo.svelte';
+	import Card from '#lib/components/ui/Card.svelte';
+	import Section from '#lib/components/ui/Section.svelte';
+	import EmptyState from '#lib/components/ui/EmptyState.svelte';
 
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);

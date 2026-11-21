@@ -6,7 +6,7 @@
 	  `alternatives` adds the alternative names on a line below.
 -->
 <script lang="ts">
-	import type { Medication } from '$lib/models';
+	import type { Medication } from '#lib/models/index.ts';
 
 	interface Props {
 		medication: Pick<Medication, 'name' | 'concentration' | 'alternativeNames' | 'description'>;
