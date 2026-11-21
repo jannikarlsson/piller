@@ -24,6 +24,19 @@
 	type Sheet = { mode: 'add' } | { mode: 'edit'; med: Medication } | null;
 	let sheet = $state<Sheet>(null);
 	let saving = $state(false);
+	/** In the edit sheet: showing the "are you sure?" view instead of the form. */
+	let confirmingDelete = $state(false);
+	let deleting = $state(false);
+
+	function openSheet(next: Exclude<Sheet, null>) {
+		confirmingDelete = false;
+		sheet = next;
+	}
+
+	function closeSheet() {
+		sheet = null;
+		confirmingDelete = false;
+	}
 	let showSettings = $state(false);
 	let toastMessage = $state<string | null>(null);
 
@@ -42,7 +55,7 @@
 			} else {
 				await addMedication(user.uid, data);
 			}
-			sheet = null;
+			closeSheet();
 		} catch {
 			showToast(t.errors.saveFailed);
 		} finally {
@@ -53,12 +66,14 @@
 	async function handleDelete(id: string) {
 		const user = $userStore;
 		if (!user) return;
-		if (!confirm(t.medications.deleteConfirm)) return;
+		deleting = true;
 		try {
 			await deleteMedication(user.uid, id);
-			sheet = null;
+			closeSheet();
 		} catch {
 			showToast(t.errors.deleteFailed);
+		} finally {
+			deleting = false;
 		}
 	}
 
@@ -135,7 +150,7 @@
 						<button
 							type="button"
 							class="icon-btn"
-							onclick={() => (sheet = { mode: 'edit', med })}
+							onclick={() => openSheet({ mode: 'edit', med })}
 							aria-label="{t.common.edit} {med.name}"
 						>
 							<Icon name="edit" size={20} />
@@ -146,7 +161,7 @@
 		</div>
 	{/if}
 
-	<button type="button" class="add-btn" onclick={() => (sheet = { mode: 'add' })}>
+	<button type="button" class="add-btn" onclick={() => openSheet({ mode: 'add' })}>
 		<Icon name="plus" size={20} strokeWidth={2} />
 		{t.common.add}
 	</button>
@@ -154,23 +169,51 @@
 
 {#if sheet}
 	<BottomSheet
-		title={sheet.mode === 'add' ? t.medications.addTitle : t.medications.editTitle}
-		onclose={() => (sheet = null)}
+		title={confirmingDelete
+			? t.medications.deleteTitle
+			: sheet.mode === 'add'
+				? t.medications.addTitle
+				: t.medications.editTitle}
+		onclose={closeSheet}
 	>
-		<MedicationForm
-			initial={sheet.mode === 'edit' ? sheet.med : {}}
-			onSave={handleSave}
-			onCancel={() => (sheet = null)}
-			{saving}
-		/>
-		{#if sheet.mode === 'edit'}
-			<button
-				type="button"
-				class="delete-btn"
-				onclick={() => sheet?.mode === 'edit' && handleDelete(sheet.med.id)}
-			>
-				{t.medications.deleteButton}
-			</button>
+		<!-- The form stays mounted while confirming, so going back keeps any unsaved edits -->
+		<div class="sheet-view" hidden={confirmingDelete}>
+			<MedicationForm
+				initial={sheet.mode === 'edit' ? sheet.med : {}}
+				onSave={handleSave}
+				onCancel={closeSheet}
+				{saving}
+			/>
+			{#if sheet.mode === 'edit'}
+				<button type="button" class="delete-btn" onclick={() => (confirmingDelete = true)}>
+					{t.medications.deleteButton}
+				</button>
+			{/if}
+		</div>
+
+		{#if confirmingDelete && sheet.mode === 'edit'}
+			{@const med = sheet.med}
+			<div class="sheet-view">
+				<p class="confirm-text">{t.medications.deleteConfirm(med.name)}</p>
+				<div class="confirm-actions">
+					<button
+						type="button"
+						class="btn btn--secondary"
+						onclick={() => (confirmingDelete = false)}
+						disabled={deleting}
+					>
+						{t.medications.deleteBack}
+					</button>
+					<button
+						type="button"
+						class="btn btn--danger"
+						onclick={() => handleDelete(med.id)}
+						disabled={deleting}
+					>
+						{deleting ? t.common.loading : t.medications.deleteConfirmButton}
+					</button>
+				</div>
+			</div>
 		{/if}
 	</BottomSheet>
 {/if}
@@ -341,6 +384,52 @@
 
 	.add-btn:active {
 		background: var(--color-accent-hover);
+	}
+
+	.sheet-view {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.sheet-view[hidden] {
+		display: none;
+	}
+
+	.confirm-text {
+		font-size: 16px;
+		line-height: 1.5;
+		color: var(--color-text-secondary);
+	}
+
+	.confirm-actions {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
+	}
+
+	.btn {
+		font-size: 16px;
+		font-weight: 500;
+		height: 48px;
+		border-radius: var(--radius-control);
+	}
+
+	.btn:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	.btn--secondary {
+		background: var(--color-surface);
+		color: var(--color-text);
+		border: 1px solid var(--color-border);
+	}
+
+	.btn--danger {
+		background: var(--color-danger);
+		color: #ffffff;
+		border: none;
 	}
 
 	.delete-btn {

@@ -105,7 +105,11 @@ export const t = {
 		saveButton: 'Spara',
 		cancelButton: 'Avbryt',
 		deleteButton: 'Ta bort läkemedel',
-		deleteConfirm: 'Är du säker på att du vill ta bort detta läkemedel?'
+		deleteTitle: 'Ta bort läkemedel?',
+		deleteConfirm: (name: string) =>
+			`${name} tas bort från alla listor. Det går inte att ångra.`,
+		deleteConfirmButton: 'Ta bort',
+		deleteBack: 'Avbryt'
 	},
 
 	tileStates: {
