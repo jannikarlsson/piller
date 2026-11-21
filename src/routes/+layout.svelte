@@ -81,8 +81,10 @@
 		--color-danger-bg: #fbecec;
 		--color-danger-border: #de9a9f;
 
-		--radius-card: 12px;
-		--radius-control: 10px;
+		--radius-sm: 6px; /* tags, checkboxes, small buttons */
+		--radius-control: 10px; /* inputs, buttons */
+		--radius-card: 12px; /* cards, panels */
+		--radius-lg: 16px; /* top corners of the drawer */
 		--shadow-raised: 0 2px 8px rgba(21, 24, 28, 0.12);
 		--backdrop: rgba(21, 24, 28, 0.4);
 		--nav-height: 76px;
@@ -111,7 +113,20 @@
 		--space-8: 32px;
 		--space-10: 40px;
 
+		/* Sizes */
+		--size-tap: 44px; /* minimum touch target */
+		--size-control: 48px; /* inputs and standard buttons */
 		--size-floating-button: 48px;
+
+		/* Stacking order, back to front */
+		--z-floating: 50; /* floating "Lägg till" button */
+		--z-nav: 100;
+		--z-backdrop: 200;
+		--z-sheet: 201;
+		--z-toast: 300;
+
+		/* Motion */
+		--transition-fast: 0.12s ease;
 	}
 
 	:global(*, *::before, *::after) {
@@ -146,6 +161,15 @@
 	:global(:focus-visible) {
 		outline: 2px solid var(--color-accent);
 		outline-offset: 2px;
+	}
+
+	/* Respect the phone's "reduce motion" setting */
+	@media (prefers-reduced-motion: reduce) {
+		:global(*, *::before, *::after) {
+			transition-duration: 0.01ms !important;
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+		}
 	}
 
 	/* Text roles that repeat across the app. Components add their own layout around them. */

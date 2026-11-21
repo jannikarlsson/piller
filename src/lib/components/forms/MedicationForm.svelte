@@ -119,7 +119,7 @@
 
 	.form-input {
 		font-size: var(--text-md);
-		height: 48px;
+		height: var(--size-control);
 		padding: 0 var(--space-4);
 		background: var(--color-surface);
 		border: 1px solid var(--color-border);
@@ -127,8 +127,8 @@
 		color: var(--color-text);
 		outline: none;
 		transition:
-			border-color 0.15s ease,
-			box-shadow 0.15s ease;
+			border-color var(--transition-fast),
+			box-shadow var(--transition-fast);
 	}
 
 	.form-input::placeholder {

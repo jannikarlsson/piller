@@ -23,7 +23,7 @@
 		right: var(--space-4);
 		max-width: 480px;
 		margin: 0 auto;
-		min-height: 48px;
+		min-height: var(--size-control);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -35,7 +35,7 @@
 		font-weight: 500;
 		border-radius: var(--radius-control);
 		box-shadow: var(--shadow-raised);
-		z-index: 300;
+		z-index: var(--z-toast);
 	}
 
 	.toast__message {
@@ -49,7 +49,7 @@
 		padding: 0 var(--space-3);
 		background: transparent;
 		border: none;
-		border-radius: 8px;
+		border-radius: var(--radius-sm);
 		color: var(--color-accent-tint);
 		font-size: var(--text-sm);
 		font-weight: 600;

@@ -59,25 +59,25 @@
 		font-weight: 500;
 		border-radius: var(--radius-control);
 		text-decoration: none;
-		transition: background-color 0.12s ease;
+		transition: background-color var(--transition-fast);
 	}
 
 	.btn--md {
-		height: 48px;
+		height: var(--size-control);
 		padding: 0 var(--space-5);
 		font-size: var(--text-md);
 	}
 
 	.btn--sm {
-		height: 44px;
+		height: var(--size-tap);
 		padding: 0 var(--space-4);
 		font-size: var(--text-md);
 	}
 
 	.btn--icon {
 		flex-shrink: 0;
-		width: 44px;
-		height: 44px;
+		width: var(--size-tap);
+		height: var(--size-tap);
 		padding: 0;
 	}
 

@@ -37,12 +37,12 @@
 		padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
 		background: var(--color-surface);
 		border-top: 1px solid var(--color-border-light);
-		z-index: 100;
+		z-index: var(--z-nav);
 	}
 
 	.nav-item {
 		flex: 1;
-		min-height: 48px;
+		min-height: var(--size-control);
 		display: flex;
 		flex-direction: column;
 		align-items: center;

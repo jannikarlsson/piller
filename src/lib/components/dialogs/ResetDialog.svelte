@@ -120,8 +120,8 @@
 		border-radius: var(--radius-control);
 		cursor: pointer;
 		transition:
-			border-color 0.15s ease,
-			box-shadow 0.15s ease;
+			border-color var(--transition-fast),
+			box-shadow var(--transition-fast);
 	}
 
 	.option:has(input:checked) {

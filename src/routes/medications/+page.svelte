@@ -270,7 +270,7 @@
 		position: fixed;
 		right: var(--space-4);
 		bottom: calc(var(--nav-height) + var(--space-5) + env(safe-area-inset-bottom, 0px));
-		height: 48px;
+		height: var(--size-floating-button);
 		padding: 0 var(--space-4) 0 var(--space-3);
 		display: flex;
 		align-items: center;
@@ -282,7 +282,7 @@
 		font-size: var(--text-md);
 		font-weight: 500;
 		box-shadow: var(--shadow-raised);
-		z-index: 50;
+		z-index: var(--z-floating);
 	}
 
 	.add-btn:active {
@@ -301,7 +301,7 @@
 
 	.delete-btn {
 		align-self: center;
-		height: 44px;
+		height: var(--size-tap);
 		padding: 0 var(--space-4);
 		background: transparent;
 		border: none;

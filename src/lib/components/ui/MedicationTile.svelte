@@ -52,7 +52,7 @@
 		background: transparent;
 		border: none;
 		text-align: left;
-		transition: background-color 0.12s ease;
+		transition: background-color var(--transition-fast);
 	}
 
 	.tile:active {

@@ -38,7 +38,7 @@
 		position: fixed;
 		inset: 0;
 		background: var(--backdrop);
-		z-index: 200;
+		z-index: var(--z-backdrop);
 	}
 
 	.sheet {
@@ -46,11 +46,11 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		z-index: 201;
+		z-index: var(--z-sheet);
 		max-height: 90dvh;
 		overflow-y: auto;
 		background: var(--color-surface);
-		border-radius: 16px 16px 0 0;
+		border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 		padding: var(--space-2) var(--space-5) calc(var(--space-8) + env(safe-area-inset-bottom, 0px));
 		display: flex;
 		flex-direction: column;

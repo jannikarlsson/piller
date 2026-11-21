@@ -26,7 +26,7 @@
 		line-height: 26px;
 		font-weight: 500;
 		border: 1px solid;
-		border-radius: 5px;
+		border-radius: var(--radius-sm);
 		overflow: hidden;
 	}
 

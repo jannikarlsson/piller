@@ -117,7 +117,7 @@
 		justify-content: center;
 		gap: var(--space-3);
 		width: 100%;
-		height: 48px;
+		height: var(--size-control);
 		padding: 0 var(--space-5);
 		background: var(--color-surface);
 		border: 1px solid var(--color-border);
@@ -125,7 +125,7 @@
 		font-size: var(--text-md);
 		font-weight: 500;
 		color: var(--color-text);
-		transition: background-color 0.12s ease;
+		transition: background-color var(--transition-fast);
 	}
 
 	.google-btn:active:not(:disabled) {

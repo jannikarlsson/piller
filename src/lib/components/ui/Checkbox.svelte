@@ -48,7 +48,7 @@
 		padding: var(--space-2) var(--space-4);
 		cursor: pointer;
 		-webkit-tap-highlight-color: transparent;
-		transition: background-color 0.12s ease;
+		transition: background-color var(--transition-fast);
 	}
 
 	.checkbox:active {
@@ -63,12 +63,12 @@
 		align-items: center;
 		justify-content: center;
 		border: 1.5px solid var(--color-checkbox);
-		border-radius: 6px;
+		border-radius: var(--radius-sm);
 		background: var(--color-surface);
 		color: var(--color-on-accent);
 		transition:
-			background-color 0.12s ease,
-			border-color 0.12s ease;
+			background-color var(--transition-fast),
+			border-color var(--transition-fast);
 	}
 
 	input:focus-visible + .checkbox__box {
