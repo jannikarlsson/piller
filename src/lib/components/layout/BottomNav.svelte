@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { t } from '$lib/i18n';
 	import { userStore } from '$lib/stores/auth';
 	import { settingsStore, isFeatureOn, type Feature } from '$lib/stores/settings';
@@ -24,7 +24,7 @@
 <nav class="bottom-nav" aria-label={t.common.mainMenu}>
 	{#each visibleLinks as link (link.href)}
 		{@const active =
-			$page.url.pathname === link.href || $page.url.pathname.startsWith(`${link.href}/`)}
+			page.url.pathname === link.href || page.url.pathname.startsWith(`${link.href}/`)}
 		<a
 			href={link.href}
 			class="nav-item"

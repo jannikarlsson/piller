@@ -4,7 +4,7 @@
 	import '$lib/styles/base.css';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { initAuth, userStore, authStateStore } from '$lib/stores/auth';
 	import { startMedicationsSync, stopMedicationsSync } from '$lib/stores/medications';
 	import {
@@ -28,7 +28,7 @@
 
 	$effect(() => {
 		const state = $authStateStore;
-		const path = $page.url.pathname;
+		const path = page.url.pathname;
 
 		if (state === 'loading') return;
 
@@ -65,7 +65,7 @@
 
 	// A switched-off feature's page isn't reachable: go to the cabinet instead
 	$effect(() => {
-		const path = $page.url.pathname;
+		const path = page.url.pathname;
 		const off = (Object.keys(FEATURE_ROUTES) as Feature[]).some(
 			(feature) =>
 				!isFeatureOn($settingsStore, feature) &&
@@ -93,7 +93,7 @@
 	});
 
 	const showNav = $derived(
-		$authStateStore === 'authenticated' && $page.url.pathname !== '/login'
+		$authStateStore === 'authenticated' && page.url.pathname !== '/login'
 	);
 </script>
 

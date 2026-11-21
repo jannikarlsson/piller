@@ -28,11 +28,11 @@ import type { LanguageSetting } from './i18n';
 
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+const db = getFirestore(app);
 
 setPersistence(auth, browserLocalPersistence).catch(console.error);
 
-export function isEmailAllowed(email: string | null): boolean {
+function isEmailAllowed(email: string | null): boolean {
 	if (!email) return false;
 	return ALLOWED_EMAILS.includes(email.toLowerCase());
 }
