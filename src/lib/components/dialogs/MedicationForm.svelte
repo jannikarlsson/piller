@@ -84,7 +84,6 @@
 				? t.medications.settingsLegend
 				: t.medications.settingsLegendReminders}
 		</legend>
-		<!-- Options for switched-off features are hidden, but their saved values are kept -->
 		<Card list>
 			<Checkbox label={t.medications.remindToBuyLabel} bind:checked={remindToBuy} />
 			{#if $settingsStore.showPrescriptions}

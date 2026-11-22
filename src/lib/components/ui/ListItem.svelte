@@ -1,8 +1,3 @@
-<!--
-	A full-width row inside a `<Card list>`: a link to another page (with ›) when `href`
-	is given, otherwise an action button. `value` shows on the right, e.g. a count or the
-	current choice. `danger` colours the label red, for actions like logging out.
--->
 <script lang="ts">
 	import Icon from './Icon.svelte';
 

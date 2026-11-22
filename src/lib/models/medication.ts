@@ -17,14 +17,11 @@ export interface Medication extends MedicationSettings {
 	name: string;
 	concentration: string;
 	alternativeNames: string[];
-	/** Free text, e.g. what it's for or how to take it. */
 	description: string;
 	inventoryState: Status;
 	prescriptionState: Status;
 	picked: boolean;
-	/** Added to the buy list by hand (for medications without the automatic buy reminder). */
 	addedToBuyList: boolean;
-	/** Added to the prescription list by hand (without the automatic prescription reminder). */
 	addedToPrescriptionList: boolean;
 	createdAt: Date;
 	updatedAt: Date;
@@ -37,7 +34,6 @@ export interface MedicationInput extends MedicationSettings {
 	description: string;
 }
 
-/** The two kinds of status a medication has: in the cabinet, and its prescription. */
 export type StatusKind = 'inventory' | 'prescription';
 
 export const STATUS_FIELDS = {
@@ -64,7 +60,6 @@ export function remindsAutomatically(med: Medication, kind: StatusKind): boolean
 	return med[STATUS_FIELDS[kind].remind];
 }
 
-/** Belongs on the to-do list: out, and either reminded automatically or added by hand. */
 export function needsAction(med: Medication, kind: StatusKind): boolean {
 	return (
 		statusOf(med, kind) === 'out' && (remindsAutomatically(med, kind) || isAddedToTodo(med, kind))
@@ -77,15 +72,8 @@ export function nextStatus(current: Status): Status {
 	return 'neutral';
 }
 
-// Swedish rules: å, ä and ö come after z. Upper and lower case count the same, and numbers sort
-// as numbers ("Ipren 2" before "Ipren 10"). The names are Swedish products, so this doesn't
-// follow the language chosen for the app.
 const nameCollator = new Intl.Collator('sv', { sensitivity: 'base', numeric: true });
 
-/**
- * A to Z by name. Medications with the same name are told apart by strength, and then the
- * one added first comes first, so the order never jumps around.
- */
 export function sortByName<T extends Pick<Medication, 'name' | 'concentration' | 'createdAt'>>(
 	medications: T[]
 ): T[] {

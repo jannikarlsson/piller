@@ -73,7 +73,6 @@
 		font-weight: 500;
 	}
 
-	/* The link fills the column; show the focus ring around the visible box instead */
 	.nav-item:focus-visible {
 		outline: none;
 	}

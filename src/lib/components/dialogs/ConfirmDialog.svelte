@@ -1,8 +1,3 @@
-<!--
-	A question with a cancel and a confirm button, shown inside a BottomSheet.
-	The page does the actual work in `onconfirm`; if it throws, `errorMessage` is shown
-	and the dialog stays open.
--->
 <script lang="ts">
 	import { t } from '#lib/i18n/index.ts';
 	import Button from '#lib/components/ui/Button.svelte';

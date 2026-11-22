@@ -32,19 +32,14 @@
 
 	onMount(() => {
 		dialog.showModal();
-		// Start on the drawer itself (it announces the title), not on the first button,
-		// and without opening the keyboard on phones for drawers with text fields
 		panel.focus();
 	});
 
-	// Escape (or the phone's back gesture): let the parent close it, so the slide-out plays.
-	// If the browser insists on closing it right away, it still sends this event first.
 	function handleCancel(e: Event) {
 		e.preventDefault();
 		onclose();
 	}
 
-	// After the slide-out: close the dialog, which hands focus back to the opener
 	function handleOutroEnd() {
 		if (dialog.open) dialog.close();
 	}
@@ -77,7 +72,6 @@
 </dialog>
 
 <style>
-	/* A transparent full-screen frame; our own backdrop and panel inside it do the animating */
 	.sheet-dialog {
 		position: fixed;
 		inset: 0;
@@ -117,7 +111,6 @@
 		gap: var(--space-5);
 	}
 
-	/* Focused on open so screen readers start at the title; no outline needed for that */
 	.sheet:focus {
 		outline: none;
 	}
@@ -135,7 +128,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		/* Lets the close icon line up with the content edge */
 		margin-right: calc(-1 * var(--space-3));
 	}
 </style>

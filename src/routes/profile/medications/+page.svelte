@@ -43,7 +43,6 @@
 		if (saved) closeSheet();
 	}
 
-	/** Called from the confirm view; errors are shown inside the dialog. */
 	async function handleDelete(id: string) {
 		await deleteMedication(id);
 		closeSheet();
@@ -93,7 +92,6 @@
 				: t.medications.editTitle}
 		onclose={closeSheet}
 	>
-		<!-- The form stays mounted while confirming, so going back keeps any unsaved edits -->
 		<div class="sheet-view" hidden={confirmingDelete}>
 			<MedicationForm
 				initial={sheet.mode === 'edit' ? sheet.med : {}}
@@ -131,7 +129,6 @@
 		justify-content: space-between;
 		gap: var(--space-3);
 		min-height: var(--row-height-tall);
-		/* Less on the right: the edit button's own tap area supplies the rest */
 		padding: var(--row-padding-y) var(--space-1) var(--row-padding-y) var(--row-padding-x);
 	}
 

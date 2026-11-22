@@ -9,7 +9,6 @@
 	let { photoUrl, size = 'sm' }: Props = $props();
 
 	let failed = $state(false);
-	// Try again if the photo changes (e.g. after signing in)
 	$effect(() => {
 		void photoUrl;
 		failed = false;

@@ -1,7 +1,3 @@
-<!--
-	Choose which cabinet or prescription statuses to reset, shown inside a BottomSheet.
-	The page does the reset in `onconfirm`; if it throws, an error is shown and the dialog stays open.
--->
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { t } from '#lib/i18n/index.ts';

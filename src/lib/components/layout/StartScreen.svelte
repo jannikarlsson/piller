@@ -1,10 +1,6 @@
-<!--
-	The green screen with the cabinet illustration. The login page puts its text and button
-	underneath; at start-up, while sign-in is being checked, it's shown without them. The text
-	area keeps the same height either way, so the illustration doesn't move between the two.
--->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { t } from '#lib/i18n/index.ts';
 	import CabinetIllustration from './CabinetIllustration.svelte';
 
 	interface Props {
@@ -22,7 +18,9 @@
 		{#if children}
 			{@render children()}
 		{:else}
-			<span class="start__spinner" aria-hidden="true"></span>
+			<span class="start__spinner" role="status">
+				<span class="visually-hidden">{t.common.loading}</span>
+			</span>
 		{/if}
 	</div>
 </div>
@@ -46,14 +44,12 @@
 		padding: calc(var(--space-8) + env(safe-area-inset-top, 0px)) var(--space-6) 0;
 	}
 
-	/* As tall as the space allows, up to a limit; narrow screens limit it by width instead */
 	.start__art :global(svg) {
 		height: 100%;
 		max-height: 560px;
 		max-width: 100%;
 	}
 
-	/* Fades in only if checking sign-in takes a while, so a quick start shows no flash */
 	.start--waiting .start__art,
 	.start--waiting .start__content {
 		animation: art-in 0.4s ease-out 0.3s both;
@@ -69,7 +65,6 @@
 		display: flex;
 		flex-direction: column;
 		flex: 0 0 auto;
-		/* Room for the login text and button, also when empty, so the illustration stays put */
 		min-height: 15rem;
 		width: 100%;
 		max-width: 480px;

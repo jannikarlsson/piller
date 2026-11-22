@@ -21,9 +21,6 @@
 	onMount(() => {
 		initAuth();
 
-		// The service worker that lets the app open offline. Not in development, where cached
-		// files would get in the way of seeing changes. A new version replaces the old one at
-		// the next visit and the page reloads once to use it (registerType 'autoUpdate').
 		if (!dev) {
 			import('virtual:pwa-register').then(({ registerSW }) =>
 				registerSW({
@@ -79,7 +76,6 @@
 		if (isPathOff(page.url.pathname, $settingsStore)) goto(HOME_PATH, { replaceState: true });
 	});
 
-	// Switch all texts to the chosen language before the page updates
 	$effect.pre(() => {
 		setLanguage(resolveLanguage($settingsStore.language));
 	});
@@ -88,8 +84,6 @@
 		document.documentElement.lang = getLanguage();
 	});
 
-	// Also matches the phone's status bar to the background: green on the start screen
-	// (login and start-up), the normal page colour inside the app
 	$effect(() => {
 		document.documentElement.dataset.theme = theme;
 		const token = showNav ? '--color-bg' : '--color-accent-soft';
@@ -97,11 +91,6 @@
 		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', background);
 	});
 
-	/*
-	 * Only show a page once sign-in is known and it's the right page for it: the login page
-	 * when signed out, every other page when signed in. Otherwise show nothing (just the
-	 * background) while Firebase checks or a redirect is on its way, so no page flashes.
-	 */
 	const isLoginPage = $derived(page.url.pathname === '/login');
 	const showPage = $derived(
 		isLoginPage
@@ -110,7 +99,6 @@
 	);
 	const showNav = $derived(showPage && !isLoginPage);
 
-	// Each route's +page.ts names its title; it follows the chosen language
 	const pageTitle = $derived(
 		page.data.titleKey ? `${t[page.data.titleKey].title} – ${t.app.name}` : t.app.name
 	);
@@ -125,9 +113,7 @@
 	{#if showPage}
 		{@render children()}
 	{:else if $authStateStore === 'loading'}
-		<!-- The login page's green screen without text, so a slow start flows into it -->
-		<div class="splash" role="status">
-			<span class="visually-hidden">{t.common.loading}</span>
+		<div class="splash">
 			<StartScreen />
 		</div>
 	{/if}

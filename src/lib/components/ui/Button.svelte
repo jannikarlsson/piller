@@ -1,11 +1,3 @@
-<!--
-	The app's button. Renders a link instead when `href` is given.
-	`md` (48px) is for forms and dialogs, `sm` (44px) for inline actions.
-	`ghost` has no background or border, for actions in a page header.
-	`quiet` + size `icon` is a 44px square icon-only button; give it an `ariaLabel`.
-	`danger-ghost` is a quieter destructive action than `danger`.
-	`floating` adds a shadow for a button that floats over content (position it from the page).
--->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 

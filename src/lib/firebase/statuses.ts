@@ -3,11 +3,6 @@ import { db, save } from './app';
 import { STATUS_FIELDS, type StatusKind, type Status } from '../models';
 import { medicationsRef } from './medications';
 
-/**
- * Change a status. A manual to-do flag only makes sense while the status is "out",
- * so any other status clears it. Pass `addedToTodo` to set the flag in the same write
- * (used when undoing a ticked to-do item).
- */
 export async function updateStatus(
 	id: string,
 	kind: StatusKind,

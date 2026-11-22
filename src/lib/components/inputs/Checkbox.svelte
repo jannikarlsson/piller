@@ -1,8 +1,3 @@
-<!--
-	A full-width checkbox row. Pass `label` for plain text, or children for richer content
-	(the parent can style that content based on `checked`).
-	Use `bind:checked` in forms, or `checked` + `onchange` when the value is saved elsewhere.
--->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import Icon from '#lib/components/ui/Icon.svelte';

@@ -19,7 +19,7 @@
 		</Button>
 	</div>
 {/if}
-<header class="page-header" class:page-header--sub={back}>
+<header class="page-header" class:page-header--with-back={back}>
 	<h1 class="text-heading">{title}</h1>
 	{#if actions}
 		<div class="page-header__actions">{@render actions()}</div>
@@ -40,7 +40,7 @@
 		padding: calc(var(--space-3) + env(safe-area-inset-top, 0px)) var(--space-3) 0;
 	}
 
-	.page-header--sub {
+	.page-header--with-back {
 		padding-top: var(--space-1);
 	}
 </style>

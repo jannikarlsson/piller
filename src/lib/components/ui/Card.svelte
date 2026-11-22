@@ -1,9 +1,3 @@
-<!--
-	A white, rounded box with a thin border.
-	- list: for a list of rows. Adds a divider between each child and no padding (the rows
-	  bring their own). Use `as="ul"` when the children are <li>.
-	- padding: inner space for non-list content.
--->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 

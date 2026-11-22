@@ -1,6 +1,3 @@
-<!--
-	Two equal-width buttons side by side, at the bottom of a dialog: cancel first, then the main action.
--->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 

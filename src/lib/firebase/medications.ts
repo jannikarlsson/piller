@@ -35,7 +35,6 @@ export function subscribeMedications(
 				picked: data.picked ?? false,
 				addedToBuyList: data.addedToBuyList ?? false,
 				addedToPrescriptionList: data.addedToPrescriptionList ?? false,
-				// Medications saved before these settings existed get the defaults
 				remindToBuy: data.remindToBuy ?? DEFAULT_MEDICATION_SETTINGS.remindToBuy,
 				remindPrescription:
 					data.remindPrescription ?? DEFAULT_MEDICATION_SETTINGS.remindPrescription,

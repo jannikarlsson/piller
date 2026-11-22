@@ -1,7 +1,6 @@
 import { writable } from 'svelte/store';
 import { sortByName, type Medication } from '#lib/models/index.ts';
 
-/** The user's medications, A to Z. Every list in the app reads them from here. */
 export const medicationsStore = writable<Medication[]>([]);
 export const medicationsLoading = writable(true);
 

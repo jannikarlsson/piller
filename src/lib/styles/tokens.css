@@ -42,7 +42,6 @@
 	--focus-ring: 0 0 0 3px var(--color-accent-ring);
 	--focus-outline: 2px solid var(--color-accent);
 
-	/* Stacking order, back to front */
 	--z-floating: 50;
 	--z-nav: 100;
 	--z-toast: 300;

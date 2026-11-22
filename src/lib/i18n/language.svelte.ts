@@ -12,14 +12,11 @@ const dictionaries = { sv, en } satisfies Record<string, Translations>;
 export type Language = keyof typeof dictionaries;
 export type LanguageSetting = Language | 'system';
 
-/** Each language's name in itself, so people can find their own in the list. */
 export const LANGUAGE_NAMES: Record<Language, string> = {
 	sv: 'Svenska',
 	en: 'English'
 };
 
-// Start in the saved (or phone) language, so the first screen is already right.
-// Same browser copy of the settings as src/lib/stores/settings.ts.
 function initialLanguage(): Language {
 	try {
 		const saved = JSON.parse(localStorage.getItem('piller.settings') ?? '{}').language;
@@ -46,7 +43,6 @@ export function resolveLanguage(setting: LanguageSetting): Language {
 	return preferred.toLowerCase().startsWith('sv') ? 'sv' : 'en';
 }
 
-// Every top-level read (t.profile, t.nav, …) goes through the current language
 export const t = new Proxy({} as Translations, {
 	get(_, section: string) {
 		return dictionaries[current][section as keyof Translations];

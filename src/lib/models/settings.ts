@@ -18,7 +18,6 @@ export interface UserSettings {
 	askToAddToTodo: boolean;
 }
 
-/** Used for anything not saved yet, so new settings need no migration. */
 export const DEFAULT_SETTINGS: UserSettings = {
 	theme: 'system',
 	language: 'system',

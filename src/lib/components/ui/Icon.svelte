@@ -19,7 +19,6 @@
 <script lang="ts">
 	interface Props {
 		name: IconName;
-		/** sm 16px (inside tags and checkboxes), md 20px (in buttons), lg 24px (menu), xl 32px (empty states) */
 		size?: 'sm' | 'md' | 'lg' | 'xl';
 		weight?: 'regular' | 'bold';
 	}

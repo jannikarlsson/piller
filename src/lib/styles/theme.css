@@ -33,7 +33,6 @@
 	--color-danger-bg: #fbecec;
 	--color-danger-border: #de9a9f;
 
-	/* Status chips: a filled label with an icon square at the start */
 	--tag-ok-bg: var(--color-ok-bg);
 	--tag-ok-text: var(--color-ok);
 	--tag-ok-border: var(--color-ok-border);
@@ -78,7 +77,6 @@
 	--color-danger-bg: #3a2627;
 	--color-danger-border: #79484a;
 
-	/* A bright icon square glares on a dark page, so here it's a soft tint one step lighter than the label */
 	--tag-ok-bg: #2b4337;
 	--tag-ok-text: #9fcbb4;
 	--tag-ok-border: #2b4337;

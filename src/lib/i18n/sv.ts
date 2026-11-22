@@ -1,4 +1,3 @@
-/** Swedish. This file defines which texts exist; other languages must match its shape. */
 export const sv = {
 	app: {
 		name: 'Piller'
@@ -63,7 +62,6 @@ export const sv = {
 		allGoodSub: 'Ingenting behöver köpas eller förnyas just nu.'
 	},
 
-	// Text that differs between the cabinet and prescriptions is grouped by status kind
 	todoPrompt: {
 		title: {
 			inventory: 'Lägg på inköpslistan?',
@@ -185,7 +183,6 @@ export const sv = {
 	}
 } as const;
 
-/** Same shape as `sv`, but any wording: strings become `string`, functions keep their parameters. */
 type Widen<T> = T extends string
 	? string
 	: T extends (...args: infer A) => infer R

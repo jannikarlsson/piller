@@ -1,15 +1,9 @@
-<!--
-	A small circled "i" that shows a short explanation in a bubble: on hover with a mouse,
-	or on tap. Tapping elsewhere, Escape or scrolling closes it.
-	The bubble is a popover, so it sits above everything and isn't clipped by rounded cards.
--->
 <script lang="ts">
 	import { t } from '#lib/i18n/index.ts';
 	import Icon from './Icon.svelte';
 
 	interface Props {
 		text: string;
-		/** Id for the text, so a nearby control can use it as its description (aria-describedby). */
 		id?: string;
 	}
 
@@ -17,20 +11,17 @@
 	let { text, id = generatedId }: Props = $props();
 	let button: HTMLButtonElement;
 	let bubble: HTMLElement;
-	// Opened by hovering: closes again when the mouse leaves, unless clicked to keep it open
 	let openedByHover = false;
 	let closeTimer: ReturnType<typeof setTimeout> | undefined;
 
 	const GAP = 6;
 	const EDGE = 8;
-	// Time to move the mouse from the icon onto the bubble without it closing (WCAG 1.4.13)
 	const CLOSE_DELAY = 300;
 
 	function isOpen() {
 		return bubble.matches(':popover-open');
 	}
 
-	// Below the icon, or above it when there's no room, and kept inside the screen sideways
 	function place() {
 		const icon = button.getBoundingClientRect();
 		const width = bubble.offsetWidth;
@@ -53,7 +44,6 @@
 		}
 	}
 
-	// Hovering the icon or the bubble keeps it open; leaving both closes it after a moment
 	function handlePointerEnter(e: PointerEvent) {
 		if (e.pointerType !== 'mouse') return;
 		clearTimeout(closeTimer);
@@ -71,7 +61,6 @@
 	}
 
 	function handleClick(e: MouseEvent) {
-		// Already showing from hover: keep it open instead of toggling it closed
 		if (openedByHover) {
 			e.preventDefault();
 			openedByHover = false;
@@ -79,7 +68,6 @@
 		}
 	}
 
-	// It's fixed to the screen, so it would drift away from the icon when the page scrolls
 	function handleScroll() {
 		if (bubble && isOpen()) bubble.hidePopover();
 	}
@@ -125,7 +113,6 @@
 		justify-content: center;
 		width: 28px;
 		height: 28px;
-		/* A bigger tap area without pushing the text around */
 		margin: -6px;
 		padding: 0;
 		border: none;

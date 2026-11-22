@@ -1,6 +1,3 @@
-<!--
-	An on/off row. `info` adds a circled "i" after the label that explains the setting.
--->
 <script lang="ts">
 	import InfoTip from '#lib/components/ui/InfoTip.svelte';
 
@@ -13,7 +10,6 @@
 
 	let { label, info, checked, onchange }: Props = $props();
 
-	// Named explicitly: otherwise the label would control the first button inside it, the info icon
 	const id = $props.id();
 	const labelId = `${id}-label`;
 	const infoId = `${id}-info`;

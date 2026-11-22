@@ -1,7 +1,3 @@
-<!--
-	A labelled text input. Use `bind:value`.
-	`multiline` gives a two-line text box that can be dragged taller, for longer notes.
--->
 <script lang="ts">
 	interface Props {
 		label: string;

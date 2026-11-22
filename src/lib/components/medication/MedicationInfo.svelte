@@ -1,10 +1,3 @@
-<!--
-	A medication's name and details, as shown in list rows.
-	- stacked: name, strength, alternative names and description on separate lines (cabinet,
-	  prescriptions, list).
-	- inline: name and strength on one line, for checklists; `done` strikes the name through.
-	  `alternatives` adds the alternative names on a line below.
--->
 <script lang="ts">
 	import type { Medication } from '#lib/models/index.ts';
 
@@ -61,7 +54,6 @@
 		margin-top: var(--space-1);
 	}
 
-	/* Long lists of alternative names are cut off rather than making the row taller */
 	.info__alternatives {
 		white-space: nowrap;
 		overflow: hidden;

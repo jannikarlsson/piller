@@ -1,8 +1,3 @@
-<!--
-	A centred box for when a page has nothing to list.
-	- tone `ok`: a green tick in a circle, for "all done" rather than "nothing here yet".
-	- title: an optional heading above the message.
--->
 <script lang="ts">
 	import Icon, { type IconName } from './Icon.svelte';
 	import Button from './Button.svelte';

@@ -6,7 +6,6 @@
 	import StartScreen from '#lib/components/layout/StartScreen.svelte';
 
 	let loading = $state(false);
-	// A key, not the message, so the message follows the language
 	let error = $state<'errorNotAllowed' | 'errorGeneral' | null>(null);
 
 	async function handleLogin() {
@@ -26,8 +25,8 @@
 	<StartScreen>
 		<div class="login-content">
 			<div class="intro">
-				<h1 class="intro__title text-heading">{t.app.name}</h1>
-				<p class="intro__text text-body">{t.login.subtitle}.</p>
+				<h1 class="text-heading">{t.app.name}</h1>
+				<p class="text-body">{t.login.subtitle}.</p>
 			</div>
 
 			<div class="login-actions">
@@ -39,6 +38,7 @@
 					{#if loading}
 						{t.login.loading}
 					{:else}
+						<!-- Google logo -->
 						<svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
 							<path
 								fill="#4285F4"
@@ -82,14 +82,14 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-2);
-	}
 
-	.intro__title {
-		font-size: var(--text-2xl);
-	}
+		h1 {
+			font-size: var(--text-2xl);
+		}
 
-	.intro__text {
-		color: var(--color-text-muted);
+		p {
+			color: var(--color-text-muted);
+		}
 	}
 
 	.login-actions {

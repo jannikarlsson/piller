@@ -1,7 +1,3 @@
-<!--
-	The Skåpet and Recept pages: a list of medications whose status (cabinet or prescription)
-	is changed by tapping. Like routes, files in lib/pages may load and save data.
--->
 <script lang="ts">
 	import { t } from '#lib/i18n/index.ts';
 	import { withErrorToast } from '#lib/stores/toast.ts';
@@ -37,7 +33,6 @@
 	const medications = $derived($medicationsStore);
 	const loading = $derived($medicationsLoading);
 	const resetMode = $derived($settingsStore.resetMode);
-	// Nothing to reset: no status set, or (when resetting only "out" straight away) none out
 	const canReset = $derived(
 		medications.some((m) =>
 			resetMode === 'out' ? statusOf(m, kind) === 'out' : statusOf(m, kind) !== 'neutral'
@@ -52,7 +47,6 @@
 		const next = nextStatus(statusOf(med, kind));
 		const saved = await withErrorToast(() => updateStatus(id, kind, next));
 		if (!saved) return;
-		// Without the automatic reminder, offer to add it to the to-do list by hand (unless switched off)
 		if (next === 'out' && !remindsAutomatically(med, kind) && $settingsStore.askToAddToTodo) {
 			todoPromptFor = med;
 		}

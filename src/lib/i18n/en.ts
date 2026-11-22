@@ -1,6 +1,5 @@
 import type { Translations } from './sv';
 
-/** English. Must have exactly the same texts as sv.ts (TypeScript checks this). */
 export const en: Translations = {
 	app: {
 		name: 'Piller'

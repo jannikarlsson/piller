@@ -83,7 +83,6 @@
 		setSetting({ theme });
 	}
 
-	// The ticks only matter while filling the organizer, so switching it off clears them
 	function handlePillOrganizerSwitch(on: boolean) {
 		setSetting({ showPillOrganizer: on });
 		if (!on) withErrorToast(() => resetPicked(), t.errors.resetFailed);

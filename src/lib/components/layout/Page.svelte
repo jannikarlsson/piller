@@ -1,7 +1,3 @@
-<!--
-	Frame for every page with the bottom menu: a scrolling area with the page header,
-	side padding for the content, room for the menu, and placeholder rows while data loads.
--->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import PageHeader from './PageHeader.svelte';
@@ -34,13 +30,13 @@
 	.page {
 		flex: 1;
 		overflow-y: auto;
-		padding-bottom: calc(var(--nav-height) + var(--space-4) + env(safe-area-inset-bottom, 0px));
+		padding-bottom: calc(
+			var(--nav-height) + var(--bottom-space, var(--space-4)) + env(safe-area-inset-bottom, 0px)
+		);
 	}
 
 	.page--floating-button {
-		padding-bottom: calc(
-			var(--nav-height) + var(--size-control) + var(--space-8) + env(safe-area-inset-bottom, 0px)
-		);
+		--bottom-space: calc(var(--size-control) + var(--space-8));
 	}
 
 	.page__body {

@@ -1,9 +1,3 @@
-<!--
-	Pick one option from a list: radio rows in a `<Card list>`, the selected row tinted.
-	`onselect` is called as soon as an option is picked; add a confirm button around it if needed.
-	Each option can have a `description` under its label, a short `detail` on the right
-	(e.g. a count) and be `disabled`.
--->
 <script lang="ts" generics="T extends string">
 	import Card from '#lib/components/ui/Card.svelte';
 
@@ -16,7 +10,6 @@
 	}
 
 	interface Props {
-		/** Read by screen readers only; the drawer title says it visually. */
 		legend: string;
 		options: Option[];
 		selected: T;
